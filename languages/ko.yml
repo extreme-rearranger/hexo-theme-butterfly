@@ -1,0 +1,121 @@
+footer:
+  framework: Framework
+  theme: Theme
+
+copy:
+  success: 복사 성공!
+  error: 복사 에러ㅜㅜ
+  noSupport: 이 브라우저는 해당 기능을 지원하지 않습니다
+
+page:
+  articles: 게시물 목록
+  tag: 태그 목록
+  category: 카테고리 목록
+  archives: 아카이브
+
+card_post_count: comments
+
+sticky: 상단 고정
+no_title: 제목 없음
+
+post:
+  created: 게시일
+  updated: 업데이트
+  wordcount: 단어수
+  min2read: 독해시간
+  min2read_unit: 분
+  page_pv: 조회수
+  comments: 댓글수
+  copyright:
+    author: 작성자
+    link: 링크
+    copyright_notice: 저작권 안내
+    copyright_content: "이 블로그의 모든 게시물들은 기본적으로 <a href='%s'>%s</a> 라이센스를 따릅니다. 즉, 원저작자 표기를 굳이 할 필요는 없고, 저작물을 2차 가공하여 공유할 때에만 동일한 라이센스를 적용하시면 됩니다."
+  recommend: 관련 게시물
+  edit: 편집
+
+search:
+  title: Search
+  load_data: 로딩 중...
+  algolia_search:
+    input_placeholder: 검색 문장
+    hits_empty: "'${query}'에 대한 검색 결과를 찾을 수 없습니다."
+    hits_stats: '${time} ms 동안 총 ${hits}건의 결과를 찾았습니다.'
+
+  local_search:
+    label: Local search
+    input_placeholder: 검색 문장
+    hits_empty: "'${query}'에 대한 검색 결과를 찾을 수 없습니다."
+
+pagination:
+  prev: 이전 게시물
+  next: 다음 게시물
+
+comment: 댓글
+
+aside:
+  articles: 게시물
+  tags: 태그
+  categories: 카테고리
+  card_announcement: 공지사항
+  card_categories: 카테고리
+  card_tags: 태그
+  card_archives: 아카이브
+  card_recent_post: 최근 게시물
+  card_webinfo:
+    headline: 블로그 정보
+    article_name: 전체 게시물 수
+    runtime:
+      name: 블로그 운영 기간
+      unit: 일
+    last_push_date:
+      name: 마지막 업데이트
+    site_wordcount: 전체 단어 수
+    site_uv_name: 전체 방문자 수
+    site_pv_name: 전체 조회 수
+  more_button: 더보기
+  card_newest_comments:
+    headline: 최근 댓글
+    loading_text: 로딩 중 ...
+    error: 데이터를 가져올 수 없습니다. 설정이 올바른지 확인하십시오.
+    zero: 댓글 없음
+    image: 이미지
+    link: 링크
+    code: 코드
+  card_toc: 목차
+
+date_suffix:
+  just: 방금 전
+  min: 분 전
+  hour: 시간 전
+  day: 일 전
+  month: 개월 전
+
+donate: Donate
+share: Share
+
+rightside:
+  readmode_title: 읽기 모드
+  translate_title: 번체 / 간체
+  night_mode_title: 라이트 모드 / 다크 모드
+  back_to_top: 맨위로
+  toc: 목차
+  scroll_to_comment: 댓글 창으로 이동
+  setting: 화면 설정 (다크 모드 등)
+  aside: 1단 / 2단 전환
+
+copy_copyright:
+  author: 저자
+  link: 링크
+  source: 출처
+  info: 저작자표시-동일조건변경허락 (https://creativecommons.org/licenses/by-sa/4.0/deed.ko)
+
+Snackbar:
+  chs_to_cht: 중국어(번체)로 전환됨
+  cht_to_chs: 중국어(간체)로 전환됨
+  day_to_night: 다크 모드로 전환됨
+  night_to_day: 라이트 모드로 전환됨
+
+loading: 로딩 중...
+
+error404: 페이지를 표시할 수 없습니다
