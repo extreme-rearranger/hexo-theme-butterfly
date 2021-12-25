@@ -123,7 +123,8 @@ const btf = {
 
   scrollToDest: (pos, time = 500) => {
     const currentPos = window.pageYOffset
-    if (currentPos > pos) pos = pos - 70
+    if (currentPos > pos) pos = pos - 65
+    else pos = pos - 65 // for navigation bar
 
     if ('scrollBehavior' in document.documentElement.style) {
       window.scrollTo({

@@ -8,7 +8,7 @@ copy:
   noSupport: 이 브라우저는 해당 기능을 지원하지 않습니다
 
 page:
-  articles: 게시물 목록
+  articles: 공지사항
   tag: 태그 목록
   category: 카테고리 목록
   archives: 아카이브
@@ -61,7 +61,7 @@ aside:
   card_categories: 카테고리
   card_tags: 태그
   card_archives: 아카이브
-  card_recent_post: 최근 게시물
+  card_recent_post: 최근 공지사항
   card_webinfo:
     headline: 블로그 정보
     article_name: 전체 게시물 수

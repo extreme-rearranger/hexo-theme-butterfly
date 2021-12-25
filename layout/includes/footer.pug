@@ -6,6 +6,8 @@
       .copyright!= `&copy;${theme.footer.owner.since} - ${nowYear} By ${config.author}`
     else
       .copyright!= `&copy;${nowYear} By ${config.author}`
+  if theme.footer.custom_text
+    .footer_custom_text!=`${theme.footer.custom_text}`
   if theme.footer.copyright
     .framework-info
       span= _p('footer.framework') + ' '
@@ -13,5 +15,3 @@
       span.footer-separator |
       span= _p('footer.theme') + ' '
       a(href='https://github.com/jerryc127/hexo-theme-butterfly')= 'Butterfly'
-  if theme.footer.custom_text
-    .footer_custom_text!=`${theme.footer.custom_text}`

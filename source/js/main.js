@@ -280,23 +280,15 @@ document.addEventListener('DOMContentLoaded', function () {
       return btf.throttle(function (e) {
         const currentTop = window.scrollY || document.documentElement.scrollTop
         const isDown = scrollDirection(currentTop)
-        if (currentTop > window.innerHeight - 20) {
-          // if (isDown) {
-          //   // if ($header.classList.contains('nav-visible')) $header.classList.remove('nav-visible')
-          //   if (isChatBtnShow && isChatShow === true) {
-          //     chatBtnHide()
-          //     isChatShow = false
-          //   }
-          // } else {
-            if (!$header.classList.contains('nav-visible')) $header.classList.add('nav-visible')
-            if (isChatBtnHide && isChatShow === false) {
-              chatBtnShow()
-              isChatShow = true
-            }
-          // }
+        if (currentTop > $header.clientHeight - 40) {
+          $header.classList.add('nav-visible')
           $header.classList.add('nav-fixed')
+          if (isChatBtnHide && isChatShow === false) {
+            chatBtnShow()
+            isChatShow = true
+          }
           if (window.getComputedStyle($rightside).getPropertyValue('opacity') === '0') {
-            $rightside.style.cssText = 'opacity: 0.7; transform: translateX(-58px)'
+            $rightside.style.cssText = 'opacity: 0.7; transform: translateX(-38px)'
           }
         } else {
           // if (currentTop === 0) {
@@ -306,7 +298,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         if (document.body.scrollHeight <= innerHeight) {
-          $rightside.style.cssText = 'opacity: 0.7; transform: translateX(-58px)'
+          $rightside.style.cssText = 'opacity: 0.7; transform: translateX(-38px)'
         }
       }, 200)()
     }

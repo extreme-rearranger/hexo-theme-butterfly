@@ -13,10 +13,10 @@ case source
               sub.unshift(data.text)
               window.typed = new Typed('#subtitle', {
                 strings: sub,
-                startDelay: 300,
-                typeSpeed: 150,
+                startDelay: 200,
+                typeSpeed: 80,
                 loop: !{loop},
-                backSpeed: 50,
+                backSpeed: 25,
               })
             } else {
               document.getElementById('subtitle').innerHTML = data.text
