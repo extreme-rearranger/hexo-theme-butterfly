@@ -280,28 +280,28 @@ document.addEventListener('DOMContentLoaded', function () {
       return btf.throttle(function (e) {
         const currentTop = window.scrollY || document.documentElement.scrollTop
         const isDown = scrollDirection(currentTop)
-        if (currentTop > 56) {
-          if (isDown) {
-            if ($header.classList.contains('nav-visible')) $header.classList.remove('nav-visible')
-            if (isChatBtnShow && isChatShow === true) {
-              chatBtnHide()
-              isChatShow = false
-            }
-          } else {
+        if (currentTop > window.innerHeight - 20) {
+          // if (isDown) {
+          //   // if ($header.classList.contains('nav-visible')) $header.classList.remove('nav-visible')
+          //   if (isChatBtnShow && isChatShow === true) {
+          //     chatBtnHide()
+          //     isChatShow = false
+          //   }
+          // } else {
             if (!$header.classList.contains('nav-visible')) $header.classList.add('nav-visible')
             if (isChatBtnHide && isChatShow === false) {
               chatBtnShow()
               isChatShow = true
             }
-          }
+          // }
           $header.classList.add('nav-fixed')
           if (window.getComputedStyle($rightside).getPropertyValue('opacity') === '0') {
             $rightside.style.cssText = 'opacity: 0.7; transform: translateX(-58px)'
           }
         } else {
-          if (currentTop === 0) {
+          // if (currentTop === 0) {
             $header.classList.remove('nav-fixed', 'nav-visible')
-          }
+          // }
           $rightside.style.cssText = "opacity: ''; transform: ''"
         }
 
