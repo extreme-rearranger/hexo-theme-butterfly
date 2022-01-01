@@ -25,7 +25,8 @@
         include ./card_post_toc.pug
       if page.type != 'map'
         !=partial('includes/widget/card_top_self', {}, {cache: true})
-      !=partial('includes/widget/card_recent_post', {}, {cache: true})
+      if !is_home()
+        !=partial('includes/widget/card_recent_post', {}, {cache: true})
       !=partial('includes/widget/card_ad', {}, {cache: true})
       !=partial('includes/widget/card_newest_comment', {}, {cache: true})
       !=partial('includes/widget/card_categories', {}, {cache: true})
