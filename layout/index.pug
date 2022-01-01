@@ -3,13 +3,53 @@ extends includes/layout.pug
 block content
   include ./includes/mixins/post-ui.pug
   #recent-posts.recent-posts
-    .recent-post-item(style='height:200px;width:100%;padding:0px;')
+    .recent-post-item(style="height:200px;width:100%;padding:0px;")
       a#panoramaView(href="/gallery/" style="height:200px;")
 
-    #intro-post.recent-post-item(style='height:800px;width:100%;padding:0px;')
-      div.is-center(style="margin:auto;font-weight:700;word-spacing:10px;")="작 성 예 정"
+    #intro-post.recent-post-item
+      h1.is-center(style="word-spacing:10px;")="제 목"
 
-    #announcement.recent-post-item(style='height:fit-content;width:100%;padding:0px;background:var(--btn-bg)')
+      -
+        const imgList = [
+          ["/img/사진_014.jpg", "전경","사진 확대하기"],
+          ["/img/사진_029.jpg", "정문", "사진 확대하기"],
+          ["/img/이동식도크.jpg", "화물차 입고", "사진 확대하기"],
+          ["/img/이동식도크.jpg", "컨테이너 입고", "사진 확대하기"],
+          ["/img/지게차2.5톤_2.jpg", "지게차 하역", "사진 확대하기"],
+          ["/img/지게차2.5톤_2.jpg", "컨테이너 하역", "사진 확대하기"],
+          ["/img/출하대2.jpg", "창고 보관", "사진 확대하기"],
+          ["/img/출하대2.jpg", "창고 보관", "사진 확대하기"],
+          ["/img/적재모습 복사본.jpeg", "수출", "사진 확대하기"],
+          ["/img/적재모습 복사본.jpeg", "수출", "사진 확대하기"],
+          ["/img/사진_030 복사본.jpeg", "탱크로리 계량", "사진 확대하기"],
+          ["/img/옥내저장소493.5m2.jpg", "탱크(BUK) 드럼 작업", "사진 확대하기"],
+          // ["/img/KakaoTalk_Photo_2021-12-26-04-07-07-4.jpeg", "-", "사진 확대하기"],
+          // ["/img/KakaoTalk_Photo_2021-12-26-04-07-07-5.jpeg", "-", "사진 확대하기"],
+          // ["/img/KakaoTalk_Photo_2021-12-26-09-12-02.jpeg", "-", "사진 확대하기"],
+        ]
+
+      figure.gallery-group
+        img.gallery-group-img(src="/img/사진_014.jpg" data-lazy-src="/img/사진_014.jpg" alt="-")
+        figcaption
+          div.gallery-group-name="title"
+          p="갤러리 페이지 열기"
+          a(href="/gallery/")
+
+      - let altTxt;
+      each val in imgList
+        - imgUrl = val[0];
+        - altTxt = val[1];
+        - subTxt = val[2];
+        figure.gallery-group
+          a(href=imgUrl data-fancybox="gallery" data-caption=altTxt data-thumb=imgUrl)
+            img.gallery-group-img(src=imgUrl data-lazy-src=imgUrl alt=altTxt)
+            figcaption
+              div.gallery-group-name= altTxt
+              p= subTxt
+
+
+
+    #announcement.recent-post-item(style="height:fit-content;width:100%;padding:0px;background:var(--btn-bg)")
       div.is-center(style="margin:auto;color:#ffffff;font-weight:700;word-spacing:10px;")="공 지 사 항"
 
     +postUI
