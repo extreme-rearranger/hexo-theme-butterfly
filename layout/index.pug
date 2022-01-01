@@ -3,8 +3,9 @@ extends includes/layout.pug
 block content
   include ./includes/mixins/post-ui.pug
   #recent-posts.recent-posts
-    .recent-post-item(style="height:200px;width:100%;padding:0px;")
-      a#panoramaView(href="/gallery/" style="height:200px;")
+
+    //.recent-post-item(style="height:200px;width:100%;padding:0px;")
+    //  a#panoramaView(href="/gallery/" style="height:200px;")
 
     #intro-post.recent-post-item
       h1.is-center(style="word-spacing:10px;")="제 목"
@@ -46,8 +47,6 @@ block content
             figcaption
               div.gallery-group-name= altTxt
               p= subTxt
-
-
 
     #announcement.recent-post-item(style="height:fit-content;width:100%;padding:0px;background:var(--btn-bg)")
       div.is-center(style="font-size:1.2em;margin:auto;color:#ffffff;font-weight:700;word-spacing:10px;")
