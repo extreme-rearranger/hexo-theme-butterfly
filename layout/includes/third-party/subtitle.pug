@@ -13,10 +13,10 @@ case source
               sub.unshift(data.text)
               window.typed = new Typed('#subtitle', {
                 strings: sub,
-                startDelay: 200,
-                typeSpeed: 80,
+                startDelay: 300,
+                typeSpeed: 150,
                 loop: !{loop},
-                backSpeed: 25,
+                backSpeed: 50,
               })
             } else {
               document.getElementById('subtitle').innerHTML = data.text
@@ -140,9 +140,10 @@ case source
           window.typed = new Typed("#subtitle", {
             strings: !{JSON.stringify(subContent)},
             startDelay: 300,
-            typeSpeed: 150,
+            typeSpeed: 100,
             loop: !{loop},
-            backSpeed: 50
+            backSpeed: 50,
+            backDelay: 2000,
           })
         } else {
           document.getElementById("subtitle").innerHTML = '!{subContent[0]}'

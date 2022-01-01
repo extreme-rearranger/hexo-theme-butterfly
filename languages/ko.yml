@@ -30,7 +30,7 @@ post:
     author: 작성자
     link: 링크
     copyright_notice: 저작권 안내
-    copyright_content: "이 블로그의 모든 게시물들은 기본적으로 <a href='%s'>%s</a> 라이센스를 따릅니다. 즉, 원저작자 표기를 굳이 할 필요는 없고, 저작물을 2차 가공하여 공유할 때에만 동일한 라이센스를 적용하시면 됩니다."
+    copyright_content: "이 사이트의 모든 자료는 특별한 언급이 없는 한 <a href='%s'>%s</a> 라이센스를 따릅니다."
   recommend: 관련 게시물
   edit: 편집
 
@@ -108,7 +108,7 @@ copy_copyright:
   author: 저자
   link: 링크
   source: 출처
-  info: 저작자표시-동일조건변경허락 (https://creativecommons.org/licenses/by-sa/4.0/deed.ko)
+  info: 저작자표시-비영리-동일조건변경허락 (https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ko)
 
 Snackbar:
   chs_to_cht: 중국어(번체)로 전환됨

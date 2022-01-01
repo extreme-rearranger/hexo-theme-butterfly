@@ -3,5 +3,14 @@ extends includes/layout.pug
 block content
   include ./includes/mixins/post-ui.pug
   #recent-posts.recent-posts
+    .recent-post-item(style='height:200px;width:100%;padding:0px;')
+      a#panoramaView(href="/gallery/" style="height:200px;")
+
+    #intro-post.recent-post-item(style='height:800px;width:100%;padding:0px;')
+      div.is-center(style="margin:auto;font-weight:700;word-spacing:10px;")="작 성 예 정"
+
+    #announcement.recent-post-item(style='height:fit-content;width:100%;padding:0px;background:var(--btn-bg)')
+      div.is-center(style="margin:auto;color:#ffffff;font-weight:700;word-spacing:10px;")="공 지 사 항"
+
     +postUI
     include includes/pagination.pug
