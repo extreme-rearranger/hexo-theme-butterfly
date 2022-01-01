@@ -257,11 +257,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const $rightside = document.getElementById('rightside')
     const innerHeight = window.innerHeight + 56
 
-    setTimeout(function() {
-      if ((window.scrollY || document.documentElement.scrollTop) <= window.innerHeight + 65) {
-        btf.scrollToDest(window.innerHeight + 65, 1000)
-      }
-    }, 22000);
+    if (GLOBAL_CONFIG_SITE.isHome){
+      setTimeout(function() {
+        if ((window.scrollY || document.documentElement.scrollTop) <= window.innerHeight + 65) {
+          btf.scrollToDest(window.innerHeight + 65, 1000)
+        }
+      }, 22000);
+    }
 
     // 當滾動條小于 56 的時候
     if (document.body.scrollHeight <= innerHeight) {
