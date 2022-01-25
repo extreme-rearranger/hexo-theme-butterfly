@@ -7,11 +7,19 @@
   transition: all .5s
 
   #rightside-config-hide
+    height: 0
+    opacity: 0
     transition: transform .4s
-    transform: translate(48px, 0)
+    transform: translate(45px, 0)
 
     &.show
-      transform: translate(0, 0) !important
+      height: auto
+      opacity: 1
+      transform: translate(0, 0)
+
+    &.status
+      height: auto
+      opacity: 1
 
   & > div
     & > button,

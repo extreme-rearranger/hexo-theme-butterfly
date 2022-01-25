@@ -9,9 +9,12 @@ function timeLineFn (args, content) {
   const tlBlock = /<!--\s*timeline (.*?)\s*-->\n([\w\W\s\S]*?)<!--\s*endtimeline\s*-->/g
 
   let result = ''
+  let color = ''
   if (args.length) {
-    args = hexo.render.renderSync({ text: args.join(' '), engine: 'markdown' })
-    result += `<div class='timeline-item headline'><div class='timeline-item-title'><div class='item-circle'>${args}</div></div></div>`
+    args = args.join(' ').split(',')
+    color = args[1]
+    const mdContent = hexo.render.renderSync({ text: args[0], engine: 'markdown' })
+    result += `<div class='timeline-item headline'><div class='timeline-item-title'><div class='item-circle'>${mdContent}</div></div></div>`
   }
 
   const matches = []
@@ -21,8 +24,6 @@ function timeLineFn (args, content) {
     matches.push(match[1])
     matches.push(match[2])
   }
-
-  console.log(matches)
 
   for (let i = 0; i < matches.length; i += 2) {
     const tlChildTitle = hexo.render.renderSync({ text: matches[i], engine: 'markdown' })
@@ -34,7 +35,7 @@ function timeLineFn (args, content) {
     result += `<div class='timeline-item'>${tlTitleHtml + tlContentHtml}</div>`
   }
 
-  return `<div class="timeline">${result}</div>`
+  return `<div class="timeline ${color}">${result}</div>`
 }
 
 hexo.extend.tag.register('timeline', timeLineFn, { ends: true })
