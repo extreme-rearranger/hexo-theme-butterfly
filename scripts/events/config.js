@@ -1,12 +1,18 @@
 /**
  * Butterfly
- * CDN
+ * 1. Merge CDN
+ * 2. Capitalize the first letter of comment name
  */
 
 'use strict'
 
 hexo.extend.filter.register('before_generate', () => {
   const themeConfig = hexo.theme.config
+
+  /**
+   * Merge CDN
+   */
+
   const defaultCDN = {
     main_css: '/css/index.css',
     main: '/js/main.js',
@@ -18,12 +24,14 @@ hexo.extend.filter.register('before_generate', () => {
     // comments
     gitalk: 'https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js',
     gitalk_css: 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css',
+    blueimp_md5: 'https://cdn.jsdelivr.net/npm/blueimp-md5/js/md5.min.js',
     valine: 'https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js',
     disqusjs: 'https://cdn.jsdelivr.net/npm/disqusjs@1/dist/disqus.js',
     disqusjs_css: 'https://cdn.jsdelivr.net/npm/disqusjs@1/dist/disqusjs.css',
     utterances: 'https://utteranc.es/client.js',
     twikoo: 'https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js',
     waline: 'https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js',
+    giscus: 'https://giscus.app/client.js',
 
     // share
     addtoany: 'https://static.addtoany.com/menu/page.js',
@@ -101,4 +109,20 @@ hexo.extend.filter.register('before_generate', () => {
   }
 
   themeConfig.CDN = Object.assign(defaultCDN, deleteNullValue(themeConfig.CDN))
+
+  /**
+   * Capitalize the first letter of comment name
+   */
+
+  let { use } = themeConfig.comments
+
+  if (!use) return
+
+  if (typeof use === 'string') {
+    use = use.split(',')
+  }
+
+  const newArray = use.map(item => item.toLowerCase().replace(/^\S/, s => s.toUpperCase()))
+
+  themeConfig.comments.use = newArray
 })
