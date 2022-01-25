@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const scrollDownInIndex = () => {
     const $scrollDownEle = document.getElementById('scroll-down')
     $scrollDownEle && $scrollDownEle.addEventListener('click', function () {
-      btf.scrollToDest(document.getElementById('content-inner').offsetTop, 300)
+      btf.scrollToDest(document.getElementById('content-inner').offsetTop + 65, 300)
     })
   }
 
@@ -257,6 +257,14 @@ document.addEventListener('DOMContentLoaded', function () {
   const scrollFn = function () {
     const $rightside = document.getElementById('rightside')
     const innerHeight = window.innerHeight + 56
+
+    if (GLOBAL_CONFIG_SITE.isHome){
+      setTimeout(function() {
+        if ((window.scrollY || document.documentElement.scrollTop) <= window.innerHeight + 65) {
+          btf.scrollToDest(window.innerHeight + 65, 1000)
+        }
+      }, 22000);
+    }
 
     // 當滾動條小于 56 的時候
     if (document.body.scrollHeight <= innerHeight) {
