@@ -41,23 +41,22 @@ block content
         | (주) 중 부 탱 크 터 미 널 &ensp; 사 업 현 황
 
     #intro-post.recent-post-item
-      //h1.is-center(style="line-height:1.5;")="사업 현황"
-      //br
 
       -
         const imgList = [
-          ["/img/사진_014.jpg", "전경","사진 확대하기"],
-          ["/img/사진_029.jpg", "정문", "사진 확대하기"],
-          ["/img/이동식도크.jpg", "화물차 입고", "사진 확대하기"],
-          ["/img/이동식도크.jpg", "컨테이너 입고", "사진 확대하기"],
-          ["/img/지게차2.5톤_2.jpg", "지게차 하역", "사진 확대하기"],
-          ["/img/지게차2.5톤_2.jpg", "컨테이너 하역", "사진 확대하기"],
-          ["/img/출하대2.jpg", "창고 보관", "사진 확대하기"],
-          ["/img/출하대2.jpg", "창고 보관", "사진 확대하기"],
-          ["/img/적재모습 복사본.jpeg", "수출", "사진 확대하기"],
-          ["/img/적재모습 복사본.jpeg", "수출", "사진 확대하기"],
-          ["/img/사진_030 복사본.jpeg", "탱크로리 계량", "사진 확대하기"],
-          ["/img/옥내저장소493.5m2.jpg", "탱크(BUK) 드럼 작업", "사진 확대하기"],
+          ["/img/front-1.jpeg", "전경", "사진 확대하기", "중부탱크터미널 전경"],
+          ["/img/front-2.jpeg", "정문", "사진 확대하기", "중부탱크터미널 정문"],
+          ["/img/chemical-warehouse.jpeg", "출하대", "사진 확대하기", "출하대"],
+          ["/img/mobile-dock.jpeg", "화물차 입고", "사진 확대하기", "화물차 입고"],
+          ["/img/container-storage.jpeg", "컨테이너 입고", "사진 확대하기", "컨테이너 입고"],
+          ["/img/tanklorry-storage.jpeg", "탱크로리 입고", "사진 확대하기", "탱크로리 입고"],
+          ["/img/forklift-unloading.jpeg", "지게차 하역", "사진 확대하기", "지게차 하역"],
+          ["/img/container-unloading.jpeg", "컨테이너 하역", "사진 확대하기", "컨테이너 하역"],
+          ["/img/export-cargo-loading.jpeg", "수출 컨테이너 상차", "사진 확대하기", "수출 컨테이너 상차"],
+          ["/img/export-cargo-shipment.jpeg", "수출 출하", "사진 확대하기", "수출 출하"],
+          ["/img/truckscale.jpeg", "탱크로리 계량", "사진 확대하기", "50톤 트럭스케일 계근대"],
+          ["/img/interior-tank-storage-1.jpeg", "탱크(BUK) 드럼 작업", "사진 확대하기", "탱크(BUK) 드럼 작업"],
+          ["/img/interior-tank-storage-2.jpeg", "창고 보관", "사진 확대하기", "옥내저장소 적재 모습"],
           // ["/img/KakaoTalk_Photo_2021-12-26-04-07-07-4.jpeg", "-", "사진 확대하기"],
           // ["/img/KakaoTalk_Photo_2021-12-26-04-07-07-5.jpeg", "-", "사진 확대하기"],
           // ["/img/KakaoTalk_Photo_2021-12-26-09-12-02.jpeg", "-", "사진 확대하기"],
@@ -67,13 +66,14 @@ block content
         - let altTxt;
         each val in imgList
           - imgUrl = val[0];
-          - altTxt = val[1];
+          - titleTxt = val[1];
           - subTxt = val[2];
+          - altTxt = val[3];
           figure.gallery-group
             a(href=imgUrl data-fancybox="gallery" data-caption=altTxt data-thumb=imgUrl)
               img.gallery-group-img(src=imgUrl data-lazy-src=imgUrl alt=altTxt)
               figcaption
-                div.gallery-group-name= altTxt
+                div.gallery-group-name= titleTxt
                 p= subTxt
 
         figure.gallery-group
