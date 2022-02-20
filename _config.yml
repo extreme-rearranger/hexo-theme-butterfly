@@ -913,7 +913,7 @@ CDN:
   # Prism.js
   prismjs_js:
   prismjs_lineNumber_js:
-  prismjs_autoloader:  prismjs_autoloader:
+  prismjs_autoloader:
   # The CDN provider of internal scripts (主題內部 js 的 cdn 配置)
   # option: local/jsdelivr
   # Dev version cannot choose jsdelivr (dev版的主題不能設置為 jsdelivr)
@@ -921,7 +921,9 @@ CDN:
   # The CDN provider of third party scripts (第三方 js 的 cdn 配置)
   # option: local/jsdelivr
   # when set it to local, you need to install hexo-butterfly-extjs
+  third_party_provider: jsdelivr
   option:
+    # main_css:
     # main:
     # utils:
     # translate:

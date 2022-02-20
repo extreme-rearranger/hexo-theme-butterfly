@@ -103,6 +103,7 @@ rightside:
   scroll_to_comment: Scroll To Comments
   setting: Display Settings
   aside: Single-column / Double-column
+  chat: Chat
 
 copy_copyright:
   author: Author
