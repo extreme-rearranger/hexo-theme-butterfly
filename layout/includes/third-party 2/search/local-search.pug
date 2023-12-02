@@ -1,7 +1,7 @@
 #local-search
   .search-dialog
     nav.search-nav
-      span.search-dialog-title=_p("search.local_search.label")
+      span.search-dialog-title= _p('search.title')
       span#loading-status
       button.search-close-button
         i.fas.fa-times
@@ -16,5 +16,7 @@
           input(placeholder=_p("search.local_search.input_placeholder") type="text").local-search-box--input
       hr
       #local-search-results
-
+      #local-search-stats-wrap
   #search-mask
+
+  script(src=url_for(theme.asset.local_search))
