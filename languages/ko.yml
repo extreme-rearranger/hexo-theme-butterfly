@@ -15,7 +15,6 @@ page:
 
 card_post_count: comments
 
-sticky: 상단 고정
 no_title: 제목 없음
 
 post:
@@ -83,6 +82,7 @@ aside:
     link: 링크
     code: 코드
   card_toc: 목차
+  card_post_series: 시리즈
 
 date_suffix:
   just: 방금 전
@@ -91,8 +91,8 @@ date_suffix:
   day: 일 전
   month: 개월 전
 
-donate: Donate
-share: Share
+donate: 후원하기
+share: 공유하기
 
 rightside:
   readmode_title: 읽기 모드
@@ -117,5 +117,6 @@ Snackbar:
   night_to_day: 라이트 모드로 전환됨
 
 loading: 로딩 중...
+load_more: 더보기
 
 error404: 페이지를 표시할 수 없습니다
