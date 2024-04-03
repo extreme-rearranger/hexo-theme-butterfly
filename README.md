@@ -1,8 +1,5 @@
-<div align="right">
-<a title="Chinese" href="/README_CN.md">中文</a>
-</div>
 
-# hexo-theme-butterfly
+# Personal Change from hexo-theme-butterfly v4.11.x
 
 ![master version](https://img.shields.io/github/package-json/v/jerryc127/hexo-theme-butterfly/master?color=%231ab1ad&label=master)
 ![master version](https://img.shields.io/github/package-json/v/jerryc127/hexo-theme-butterfly/dev?label=dev)
@@ -10,53 +7,8 @@
 ![hexo version](https://img.shields.io/badge/hexo-5.3.0+-0e83c)
 ![license](https://img.shields.io/github/license/jerryc127/hexo-theme-butterfly?color=FF5531)
 
-![](https://cdn.jsdelivr.net/gh/jerryc127/CDN@m2/img/theme-butterfly-readme.png)
 
-📢 Demo: [Butterfly](https://butterfly.js.org/) || [CrazyWong](https://blog.crazywong.com/)
-
-📖 Docs: [English](https://butterfly.js.org/en/posts/butterfly-docs-en-get-started/) || [Chinese](https://butterfly.js.org/posts/21cfbf15/)
-
-Based on [hexo-theme-melody](https://github.com/Molunerfinn/hexo-theme-melody) theme.
-
-## 💻 Installation
-
-### GIT
-
-> If you are in Mainland China, you can download in [Gitee](https://gitee.com/immyw/hexo-theme-butterfly.git)
-
-Stable branch [recommend]:
-
-```
-git clone -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/butterfly
-```
-
-Dev branch:
-
-```
-git clone -b dev https://github.com/jerryc127/hexo-theme-butterfly.git themes/butterfly
-```
-
-### NPM
-
-> It supports Hexo 5.0.0 or later
-
-In Hexo site root directory 
-
-```powershell
-npm i hexo-theme-butterfly
-```
-
-## ⚙ Configuration
-
- Set theme in the hexo work folder's root config file `_config.yml`: 
-
-> theme: butterfly
-
- If you don't have pug & stylus renderer, try this: 
-
-> npm install hexo-renderer-pug hexo-renderer-stylus
-
-## 🎉 Features
+## 🎉 Original Features
 
 - [x] Card UI Design
 - [X] Support sub-menu
@@ -95,17 +47,18 @@ npm i hexo-theme-butterfly
 - [x] Lazyload images
 - [x] Instantpage/Pangu/Snackbar notification toast/PWA......
 
-## ✨ Contributors
+## ✨ Original Contributors
 
 <a href="https://github.com/jerryc127/hexo-theme-butterfly/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=jerryc127/hexo-theme-butterfly" />
 </a>
 
-## 📷 Screenshots
+<br><br><br>
 
-![](https://cdn.jsdelivr.net/gh/jerryc127/CDN@m2/img/butterfly-readme-screenshots-1.jpg)
-![](https://cdn.jsdelivr.net/gh/jerryc127/CDN@m2/img/butterfly-readme-screenshots-2.jpg)
-![](https://cdn.jsdelivr.net/gh/jerryc127/CDN@m2/img/butterfly-readme-screenshots-3.jpg)
-![](https://cdn.jsdelivr.net/gh/jerryc127/CDN@m2/img/butterfly-readme-screenshots-4.jpg)
-![](https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/theme-butterfly-readme-homepage-1.png)
-![](https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/theme-butterfly-readme-homepage-2.png)
+
+## 🦋 Personal Changes
+
+- [x] Add korean
+- [x] Add progress bar
+- [x] Change into multi-categories
+- [x] etc... (can't remember all)
