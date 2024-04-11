@@ -1,26 +1,34 @@
 each name in theme.comments.use
   case name
     when 'Valine'
-      !=partial('includes/third-party/comments/valine', {}, {cache: true})
+      //- changed to cache false since the content should be different among language settings
+      !=partial('includes/third-party/comments/valine', {}, {cache: false})
     when 'Disqus'
       include ./disqus.pug
     when 'Disqusjs'
       include ./disqusjs.pug
     when 'Livere'
-      !=partial('includes/third-party/comments/livere', {}, {cache: true})
+      //- changed to cache false since the content should be different among language settings
+      !=partial('includes/third-party/comments/livere', {}, {cache: false})
     when 'Gitalk'
       include ./gitalk.pug
     when 'Utterances'
-      !=partial('includes/third-party/comments/utterances', {}, {cache: true})
+      //- changed to cache false since the content should be different among language settings
+      !=partial('includes/third-party/comments/utterances', {}, {cache: false})
     when 'Twikoo'
-      !=partial('includes/third-party/comments/twikoo', {}, {cache: true})
+      //- changed to cache false since the content should be different among language settings
+      !=partial('includes/third-party/comments/twikoo', {}, {cache: false})
     when 'Waline'
-      !=partial('includes/third-party/comments/waline', {}, {cache: true})
+      //- changed to cache false since the content should be different among language settings
+      !=partial('includes/third-party/comments/waline', {}, {cache: false})
     when 'Giscus'
-      !=partial('includes/third-party/comments/giscus', {}, {cache: true})
+      //- changed to cache false since the content should be different among language settings
+      !=partial('includes/third-party/comments/giscus', {}, {cache: false})
     when 'Facebook Comments'
       include ./facebook_comments.pug
     when 'Remark42'
-      !=partial('includes/third-party/comments/remark42', {}, {cache: true})
+      //- changed to cache false since the content should be different among language settings
+      !=partial('includes/third-party/comments/remark42', {}, {cache: false})
     when 'Artalk'
-      !=partial('includes/third-party/comments/artalk', {}, {cache: true})
+      //- changed to cache false since the content should be different among language settings
+      !=partial('includes/third-party/comments/artalk', {}, {cache: false})

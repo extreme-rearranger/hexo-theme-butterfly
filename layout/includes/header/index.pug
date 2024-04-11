@@ -31,7 +31,8 @@ else
 - const isFixedClass = theme.nav.fixed ? ' fixed' : ''
 
 header#page-header(class=`${isHomeClass+isFixedClass}` style=bg_img)
-  !=partial('includes/header/nav', {}, {cache: true})
+  //- changed to cache false since the content should be different among language settings
+  !=partial('includes/header/nav', {}, {cache: false})  
   if top_img !== false
     if is_post()
       include ./post-info.pug
@@ -44,7 +45,8 @@ header#page-header(class=`${isHomeClass+isFixedClass}` style=bg_img)
             span#subtitle
         if(theme.social)
           #site_social_icons
-            !=partial('includes/header/social', {}, {cache: true})
+            //- changed to cache false since the content should be different among language settings
+            !=partial('includes/header/social', {}, {cache: false})
       #scroll-down
         i.fas.fa-angle-down.scroll-down-effects
     else

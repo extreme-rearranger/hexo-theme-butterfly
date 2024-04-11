@@ -15,4 +15,5 @@
         .length-num= site.categories.length
 
     hr.custom-hr
-    !=partial('includes/header/menu_item', {}, {cache: true})
+    //- changed to cache false since the content should be different among language settings
+    !=partial('includes/header/menu_item', {}, {cache: false})

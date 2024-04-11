@@ -12,7 +12,8 @@ nav#nav
         span.site-page.social-icon.search
           i.fas.fa-search.fa-fw
           span=' '+_p('search.title')
-    !=partial('includes/header/menu_item', {}, {cache: true})
+    //- changed to cache false since the content should be different among language settings
+    !=partial('includes/header/menu_item', {}, {cache: false})
 
     #toggle-menu
       span.site-page

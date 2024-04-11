@@ -9,12 +9,14 @@ html(lang=config.language data-theme=theme.display_mode class=htmlClassHideAside
     include ./head.pug
   body
     if theme.preloader.enable
-      !=partial('includes/loading/index', {}, {cache: true})
+      //- changed to cache false since the content should be different among language settings
+      !=partial('includes/loading/index', {}, {cache: false})
 
     if theme.background
       #web_bg
       
-    !=partial('includes/sidebar', {}, {cache: true})
+    //- changed to cache false since the content should be different among language settings
+    !=partial('includes/sidebar', {}, {cache: false})
 
     if page.type !== '404'
       #body-wrap(class=pageType)
@@ -38,7 +40,8 @@ html(lang=config.language data-theme=theme.display_mode class=htmlClassHideAside
           - var footer_bg = ''
 
         footer#footer(style=footer_bg)
-          !=partial('includes/footer', {}, {cache: true})
+          //- changed to cache false since the content should be different among language settings
+          !=partial('includes/footer', {}, {cache: false})
 
     else
       include ./404.pug

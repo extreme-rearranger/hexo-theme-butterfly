@@ -2,4 +2,5 @@
   if theme.sharejs.enable
     include ./share-js.pug
   else if theme.addtoany.enable
-    !=partial('includes/third-party/share/addtoany', {}, {cache: true})
+    //- changed to cache false since the content should be different among language settings
+    !=partial('includes/third-party/share/addtoany', {}, {cache: false})

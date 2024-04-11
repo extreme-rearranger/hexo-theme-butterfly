@@ -29,14 +29,17 @@ include ./head/Open_Graph.pug
 link(rel="canonical" href=urlNoIndex(null,config.pretty_urls.trailing_index,config.pretty_urls.trailing_html))
 
 //- 預解析
-!=partial('includes/head/preconnect', {}, {cache: true})
+//- changed to cache false since the content should be different among language settings
+!=partial('includes/head/preconnect', {}, {cache: false})
 
 //- 網站驗證
-!=partial('includes/head/site_verification', {}, {cache: true})
+//- changed to cache false since the content should be different among language settings
+!=partial('includes/head/site_verification', {}, {cache: false})
 
 //- PWA
 if (theme.pwa && theme.pwa.enable)
-  !=partial('includes/head/pwa', {}, {cache: true})
+  //- changed to cache false since the content should be different among language settings
+  !=partial('includes/head/pwa', {}, {cache: false})
 
 //- main css
 link(rel='stylesheet', href=url_for(theme.asset.main_css))
@@ -51,17 +54,20 @@ if theme.fancybox
 !=fragment_cache('injectHeadJs', function(){return inject_head_js()})
 
 //- google_adsense
-!=partial('includes/head/google_adsense', {}, {cache: true})
+//- changed to cache false since the content should be different among language settings
+!=partial('includes/head/google_adsense', {}, {cache: false})
 
 //- analytics
-!=partial('includes/head/analytics', {}, {cache: true})
+//- changed to cache false since the content should be different among language settings
+!=partial('includes/head/analytics', {}, {cache: false})
 
 //- font
 if theme.blog_title_font && theme.blog_title_font.font_link
   link(rel='stylesheet' href=url_for(theme.blog_title_font.font_link) media="print" onload="this.media='all'")
 
 //- global config
-!=partial('includes/head/config', {}, {cache: true})
+//- changed to cache false since the content should be different among language settings
+!=partial('includes/head/config', {}, {cache: false})
 
 include ./head/config_site.pug
 

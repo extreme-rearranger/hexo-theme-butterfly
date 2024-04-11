@@ -24,4 +24,5 @@ if theme.aside.card_author.enable
   
     if(theme.social)
         .card-info-social-icons.is-center
-          !=partial('includes/header/social', {}, {cache: true})
+          //- changed to cache false since the content should be different among language settings
+          !=partial('includes/header/social', {}, {cache: false})

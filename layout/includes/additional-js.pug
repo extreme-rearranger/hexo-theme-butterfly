@@ -20,11 +20,13 @@ div
     script(src=url_for(theme.asset.snackbar))
 
   if theme.pangu.enable
-    != partial("includes/third-party/pangu.pug", {}, { cache: true })
+    //- changed to cache false since the content should be different among language settings
+    != partial("includes/third-party/pangu.pug", {}, { cache: false })
 
   .js-pjax
     if needLoadCountJs
-      != partial("includes/third-party/card-post-count/index", {}, { cache: true })
+      //- changed to cache false since the content should be different among language settings
+      != partial("includes/third-party/card-post-count/index", {}, { cache: false })
 
     if loadSubJs
       include ./third-party/subtitle.pug
@@ -36,19 +38,24 @@ div
     if commentsJsLoad
       include ./third-party/comments/js.pug
 
-  != partial("includes/third-party/prismjs", {}, { cache: true })
+  //- changed to cache false since the content should be different among language settings
+  != partial("includes/third-party/prismjs", {}, { cache: false })
 
   if theme.aside.enable && theme.newest_comments.enable
     if theme.pjax.enable
-      != partial("includes/third-party/newest-comments/index", {}, { cache: true })
+      //- changed to cache false since the content should be different among language settings
+      != partial("includes/third-party/newest-comments/index", {}, { cache: false })
     else if (!is_post() && page.aside !== false)
-      != partial("includes/third-party/newest-comments/index", {}, { cache: true })
+      //- changed to cache false since the content should be different among language settings
+      != partial("includes/third-party/newest-comments/index", {}, { cache: false })
 
   != fragment_cache('injectBottom', function(){return injectHtml(theme.inject.bottom)})
 
-  != partial("includes/third-party/effect", {}, { cache: true })
+  //- changed to cache false since the content should be different among language settings
+  != partial("includes/third-party/effect", {}, { cache: false })
 
-  != partial("includes/third-party/chat/index", {}, { cache: true })
+  //- changed to cache false since the content should be different among language settings
+  != partial("includes/third-party/chat/index", {}, { cache: false })
 
   if theme.aplayerInject && theme.aplayerInject.enable
     if theme.pjax.enable || theme.aplayerInject.per_page
@@ -57,9 +64,11 @@ div
       include ./third-party/aplayer.pug
 
   if theme.pjax.enable
-    != partial("includes/third-party/pjax", {}, { cache: true })
+    //- changed to cache false since the content should be different among language settings
+    != partial("includes/third-party/pjax", {}, { cache: false })
 
   if theme.busuanzi.site_uv || theme.busuanzi.site_pv || theme.busuanzi.page_pv
     script(async data-pjax src= theme.asset.busuanzi || '//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js')
 
-  !=partial('includes/third-party/search/index', {}, {cache: true})
+  //- changed to cache false since the content should be different among language settings
+  !=partial('includes/third-party/search/index', {}, {cache: false})
