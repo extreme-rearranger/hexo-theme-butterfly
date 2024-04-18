@@ -29,11 +29,11 @@ mixin postUI(posts)
               if (theme.post_meta.page.date_type === 'both')
                 i.far.fa-calendar-alt
                 span.article-meta-label=_p('post.created')
-                time.post-meta-date-created(datetime=date_xml(article.date) title=_p('post.created') + ' ' + full_date(article.date))=date(article.date, config.date_format)
+                time.post-meta-date-created(datetime=date_xml(article.date) title=_p('post.created') + ' ' + full_date(article.date, format=config.full_date_format))=date(article.date, config.date_format)
                 span.article-meta-separator |
                 i.fas.fa-history
                 span.article-meta-label=_p('post.updated')
-                time.post-meta-date-updated(datetime=date_xml(article.updated) title=_p('post.updated') + ' ' + full_date(article.updated))=date(article.updated, config.date_format)
+                time.post-meta-date-updated(datetime=date_xml(article.updated) title=_p('post.updated') + ' ' + full_date(article.updated, format=config.full_date_format))=date(article.updated, config.date_format)
               else
                 - let data_type_updated = theme.post_meta.page.date_type === 'updated'
                 - let date_type = data_type_updated ? 'updated' : 'date'
@@ -41,7 +41,7 @@ mixin postUI(posts)
                 - let date_title = data_type_updated ? _p('post.updated') : _p('post.created')
                 i(class=date_icon)
                 span.article-meta-label=date_title
-                time(datetime=date_xml(article[date_type]) title=date_title + ' ' + full_date(article[date_type]))=date(article[date_type], config.date_format)
+                time(datetime=date_xml(article[date_type]) title=date_title + ' ' + full_date(article[date_type], format=config.full_date_format))=date(article[date_type], config.date_format)
           if (theme.post_meta.page.categories && article.categories.data.length > 0)
             span.article-meta
               span.article-meta-separator |

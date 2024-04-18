@@ -18,4 +18,4 @@ if theme.aside.card_post_series.enable
                 div(style=`background: ${cover}`)
           .content
             a.title(href=link title=title)= title
-            time(datetime=date_xml(dateA) title=_p('post.created') + ' ' + full_date(dateA)) #[=date(dateA, config.date_format)]
+            time(datetime=date_xml(dateA) title=_p('post.created') + ' ' + full_date(dateA, format=config.full_date_format)) #[=date(dateA, config.date_format)]

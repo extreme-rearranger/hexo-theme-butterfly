@@ -16,6 +16,7 @@ if theme.aside.card_recent_post.enable
             a.thumbnail(href=url_for(link) title=title)
               if article.cover_type === 'img'
                 img(src=url_for(post_cover) onerror=`this.onerror=null;this.src='${url_for(theme.error_img.post_page)}'` alt=title)
+              time(datetime=date_xml(article.updated) title=_p('post.updated') + ' ' + full_date(article.updated, format=config.full_date_format)) #[=date(article.updated, config.date_format)]
               else
                 div(style=`background: ${post_cover}`)
           .content
@@ -23,5 +24,4 @@ if theme.aside.card_recent_post.enable
             if theme.aside.card_recent_post.sort === 'updated'
               time(datetime=date_xml(article.updated) title=_p('post.updated') + ' ' + full_date(article.updated)) #[=date(article.updated, config.date_format)]
             else
-              time(datetime=date_xml(article.date) title=_p('post.created') + ' ' + full_date(article.date)) #[=date(article.date, config.date_format)]
-      - })
+      - })              time(datetime=date_xml(article.date) title=_p('post.created') + ' ' + full_date(article.date, format=config.full_date_format)) #[=date(article.date, config.date_format)]
