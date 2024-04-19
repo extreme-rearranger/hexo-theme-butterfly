@@ -1,4 +1,4 @@
 if theme.preloader.source === 1
-  include ./fullpage-loading.pug
+  !=partial('includes/loading/fullpage-loading', {langPrefices: langPrefices}, {cache: false})
 else
-  include ./pace.pug
+  !=partial('includes/loading/pace', {}, {cache: false})

@@ -1,6 +1,6 @@
 nav#nav
   span#blog-info
-    a(href=url_for('/') title=config.title)
+    a(href=url_for_lang('/') title=config.title lang-type='relative')
       if theme.nav.logo
         img.site-icon(src=url_for(theme.nav.logo) alt='Logo')
       if theme.nav.display_title
@@ -11,7 +11,8 @@ nav#nav
       #search-button
         span.site-page.social-icon.search
           i.fas.fa-search.fa-fw
-          span=' '+_p('search.title')
+          each langPrefix, lang in langPrefices
+            span(lang-type='relative' language=lang)=' '+_p(langPrefix+'search.title')
     //- changed to cache false since the content should be different among language settings
     !=partial('includes/header/menu_item', {}, {cache: false})
 

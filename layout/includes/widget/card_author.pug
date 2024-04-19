@@ -3,19 +3,20 @@ if theme.aside.card_author.enable
     .is-center
       .avatar-img
         img(src=url_for(theme.avatar.img) onerror=`this.onerror=null;this.src='` + url_for(theme.error_img.flink) + `'` alt="avatar")
-      .author-info__name= config.author
+      //- .author-info__name= config.author  //- removed since it's not necessary in my own case
       .author-info__description!= theme.aside.card_author.description || config.description
 
-    .card-info-data.site-data.is-center
-      a(href=url_for(config.archive_dir) + '/')
-        .headline= _p('aside.articles')
-        .length-num= site.posts.length
-      a(href=url_for(config.tag_dir) + '/')
-        .headline= _p('aside.tags')
-        .length-num= site.tags.length
-      a(href=url_for(config.category_dir) + '/')
-        .headline= _p('aside.categories') 
-        .length-num= site.categories.length
+    each langPrefix, lang in langPrefices
+      .card-info-data.site-data.is-center(lang-type='relative' language=lang)
+        a(href=url_for(`${lang}/${config.archive_dir}/`))
+          .headline= _p(langPrefix+'aside.articles')
+          .length-num= site.posts.length
+        a(href=url_for(`${lang}/${config.tag_dir}/`))
+          .headline= _p(langPrefix+'aside.tags')
+          .length-num= site.tags.length
+        a(href=url_for(`${lang}/${config.category_dir}/`))
+          .headline= _p(langPrefix+'aside.categories') 
+          .length-num= site.categories.length
 
     if theme.aside.card_author.button.enable
       a#card-info-btn(href=theme.aside.card_author.button.link)

@@ -1,3 +1,9 @@
+- let langPrefices
+if is_default_language(page.lang)
+  - langPrefices = Object.fromEntries(display_languages().map((lang) => [lang,`${lang}.`]))
+else
+  - langPrefices = Object.fromEntries([[page.lang, '']])
+
 #aside-content.aside-content
   //- post
   if is_post()
@@ -5,36 +11,36 @@
     - const tocStyleVal = tocStyle === true || tocStyle === false ? tocStyle : theme.toc.style_simple
     if showToc && tocStyleVal
       .sticky_layout
-        include ./card_post_toc.pug
+        !=partial('includes/widget/card_post_toc', {langPrefices:langPrefices}, {cache: false})
     else
       //- changed to cache false since the content should be different among language settings
-      !=partial('includes/widget/card_author', {}, {cache: false})
-      !=partial('includes/widget/card_announcement', {}, {cache: false})
+      !=partial('includes/widget/card_author', {langPrefices:langPrefices}, {cache: false})
+      !=partial('includes/widget/card_announcement', {langPrefices:langPrefices}, {cache: false})
       !=partial('includes/widget/card_top_self', {}, {cache: false})
       .sticky_layout
         if showToc
-          include ./card_post_toc.pug
+          !=partial('includes/widget/card_post_toc', {langPrefices:langPrefices}, {cache: false})
         if page.series
-          include ./card_post_series.pug
+          !=partial('includes/widget/card_post_series', {langPrefices:langPrefices}, {cache: false})
         //- changed to cache false since the content should be different among language settings
-        !=partial('includes/widget/card_recent_post', {}, {cache: false})
+        !=partial('includes/widget/card_recent_post', {langPrefices:langPrefices}, {cache: false})
         !=partial('includes/widget/card_ad', {}, {cache: false})
   else
     //- page
     //- changed to cache false since the content should be different among language settings
-    !=partial('includes/widget/card_author', {}, {cache: false})
-    !=partial('includes/widget/card_announcement', {}, {cache: false})
+    !=partial('includes/widget/card_author', {langPrefices:langPrefices}, {cache: false})
+    !=partial('includes/widget/card_announcement', {langPrefices:langPrefices}, {cache: false})
     !=partial('includes/widget/card_top_self', {}, {cache: false})
 
     .sticky_layout
       if showToc
-        include ./card_post_toc.pug
+        !=partial('includes/widget/card_post_toc', {langPrefices:langPrefices}, {cache: false})
       //- changed to cache false since the content should be different among language settings
-      !=partial('includes/widget/card_recent_post', {}, {cache: false})
+      !=partial('includes/widget/card_recent_post', {langPrefices:langPrefices}, {cache: false})
       !=partial('includes/widget/card_ad', {}, {cache: false})
-      !=partial('includes/widget/card_newest_comment', {}, {cache: false})
-      !=partial('includes/widget/card_categories', {}, {cache: false})
-      !=partial('includes/widget/card_tags', {}, {cache: false})
-      !=partial('includes/widget/card_archives', {}, {cache: false})
-      !=partial('includes/widget/card_webinfo', {}, {cache: false})
+      !=partial('includes/widget/card_newest_comment', {langPrefices:langPrefices}, {cache: false})
+      !=partial('includes/widget/card_categories', {langPrefices:langPrefices}, {cache: false})
+      !=partial('includes/widget/card_tags', {langPrefices:langPrefices}, {cache: false})
+      !=partial('includes/widget/card_archives', {langPrefices:langPrefices}, {cache: false})
+      !=partial('includes/widget/card_webinfo', {langPrefices:langPrefices}, {cache: false})
       !=partial('includes/widget/card_bottom_self', {}, {cache: false})

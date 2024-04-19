@@ -6,7 +6,8 @@
       .configure-core
     .configure-border-2
       .configure-core
-    .loading-word= _p('loading')
+    each langPrefix, lang in langPrefices
+      .loading-word(lang-type='relative' language=lang)= _p(langPrefix+'loading')
 
 script.
   (()=>{

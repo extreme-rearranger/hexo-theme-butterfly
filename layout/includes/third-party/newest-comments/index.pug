@@ -1,30 +1,35 @@
 - let { use } = theme.comments
+- let langPrefix
+if is_default_language(page.lang)
+  - langPrefix = `${display_languages()[0]}.`
+else
+  - langPrefix = ''
 
 if use
   - let forum,apiKey,userRepo
   case use[0]
     when 'Valine'
-      include ./valine.pug
+      != partial("includes/third-party/newest-comments/valine", {langPrefix: langPrefix}, { cache: false })
     when 'Waline'
-      include ./waline.pug
+      != partial("includes/third-party/newest-comments/waline", {langPrefix: langPrefix}, { cache: false })
     when 'Twikoo'
-      include ./twikoo-comment.pug
+      != partial("includes/third-party/newest-comments/twikoo-comment", {langPrefix: langPrefix}, { cache: false })
     when 'Disqus'
       - forum = theme.disqus.shortname
       - apiKey = theme.disqus.apikey
-      include ./disqus-comment.pug
+      != partial("includes/third-party/newest-comments/disqus-comment", {langPrefix: langPrefix}, { cache: false })
     when 'Disqusjs'
       - forum = theme.disqusjs.shortname
       - apiKey = theme.disqusjs.apikey
-      include ./disqus-comment.pug
+      != partial("includes/third-party/newest-comments/disqus-comment", {langPrefix: langPrefix}, { cache: false })
     when 'Gitalk'
       - let { repo,owner } = theme.gitalk
       - userRepo = owner + '/' + repo
-      include ./github-issues.pug
+      != partial("includes/third-party/newest-comments/github-issues", {langPrefix: langPrefix}, { cache: false })
     when 'Utterances'
       - userRepo = theme.utterances.repo
-      include ./github-issues.pug
+      != partial("includes/third-party/newest-comments/github-issues", {langPrefix: langPrefix}, { cache: false })
     when 'Remark42'
-      include ./remark42.pug
+      != partial("includes/third-party/newest-comments/remark42", {langPrefix: langPrefix}, { cache: false })
     when 'Artalk'
-      include ./artalk.pug
+      != partial("includes/third-party/newest-comments/artalk", {langPrefix: langPrefix}, { cache: false })

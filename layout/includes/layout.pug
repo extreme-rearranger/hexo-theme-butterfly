@@ -2,21 +2,28 @@
 - page.aside = is_archive() ? theme.aside.display.archive: is_category() ? theme.aside.display.category : is_tag() ? theme.aside.display.tag : page.aside
 - var hideAside = !theme.aside.enable || page.aside === false ? 'hide-aside' : ''
 - var pageType = is_post() ? 'post' : 'page'
+- var lang = is_default_language(page_language()) ? 'default' : page_language()
+
+- let langPrefices
+if is_default_language(page.lang)
+  - langPrefices = Object.fromEntries(display_languages().map((lang) => [lang,`${lang}.`]))
+else
+  - langPrefices = Object.fromEntries([[page.lang, '']])
 
 doctype html
-html(lang=config.language data-theme=theme.display_mode class=htmlClassHideAside)
+html(lang=display_languages() page-lang=lang data-theme=theme.display_mode class=htmlClassHideAside)
   head
     include ./head.pug
   body
     if theme.preloader.enable
       //- changed to cache false since the content should be different among language settings
-      !=partial('includes/loading/index', {}, {cache: false})
+      !=partial('includes/loading/index', {langPrefices: langPrefices}, {cache: false})
 
     if theme.background
       #web_bg
       
     //- changed to cache false since the content should be different among language settings
-    !=partial('includes/sidebar', {}, {cache: false})
+    !=partial('includes/sidebar', {langPrefices: langPrefices}, {cache: false})
 
     if page.type !== '404'
       #body-wrap(class=pageType)
@@ -41,10 +48,10 @@ html(lang=config.language data-theme=theme.display_mode class=htmlClassHideAside
 
         footer#footer(style=footer_bg)
           //- changed to cache false since the content should be different among language settings
-          !=partial('includes/footer', {}, {cache: false})
+          !=partial('includes/footer', {langPrefices: langPrefices}, {cache: false})
 
     else
-      include ./404.pug
+      !=partial('includes/404', {langPrefices: langPrefices}, {cache: false})
 
     include ./rightside.pug
     include ./additional-js.pug

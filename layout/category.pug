@@ -7,8 +7,13 @@ block content
       +postUI
       include includes/pagination.pug
   else
+    - let langPrefix
+    if is_default_language(page.lang)
+      - langPrefix = `${display_languages()[0]}.`
+    else
+      - langPrefix = ''
     include ./includes/mixins/article-sort.pug
     #category
-      .article-sort-title= _p('page.category') + ' - ' + page.category
+      .article-sort-title= _p(langPrefix+'page.category') + ' - ' + page.category
       +articleSort(page.posts)
       include includes/pagination.pug

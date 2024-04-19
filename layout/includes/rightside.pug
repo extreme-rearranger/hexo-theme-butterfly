@@ -1,33 +1,39 @@
+- let langPrefix
+if is_default_language(page.lang)
+  - langPrefix = `${display_languages()[0]}.`
+else
+  - langPrefix = ''
+
 - const { readmode, translate, darkmode, aside, chat_btn } = theme
 mixin rightsideItem(array)
   each item in array
     case item
       when 'readmode'
         if is_post() && readmode
-          button#readmode(type="button" title=_p('rightside.readmode_title'))
+          button#readmode(type="button" title=_p(langPrefix+'rightside.readmode_title'))
             i.fas.fa-book-open
       when 'translate'
         if translate.enable
-          button#translateLink(type="button" title=_p('rightside.translate_title'))= translate.default
+          button#translateLink(type="button" title=_p(langPrefix+'rightside.translate_title'))= translate.default
       when 'darkmode'
         if darkmode.enable && darkmode.button
-          button#darkmode(type="button" title=_p('rightside.night_mode_title'))
+          button#darkmode(type="button" title=_p(langPrefix+'rightside.night_mode_title'))
             i.fas.fa-adjust
       when 'hideAside'
         if aside.enable && aside.button && page.aside !== false
-          button#hide-aside-btn(type="button" title=_p('rightside.aside'))
+          button#hide-aside-btn(type="button" title=_p(langPrefix+'rightside.aside'))
             i.fas.fa-arrows-alt-h
       when 'toc'
         if showToc
-          button#mobile-toc-button.close(type="button" title=_p("rightside.toc"))
+          button#mobile-toc-button.close(type="button" title=_p(langPrefix+"rightside.toc"))
             i.fas.fa-list-ul
       when 'chat'
         if chat_btn
-          button#chat-btn(type="button" title=_p("rightside.chat"))
+          button#chat-btn(type="button" title=_p(langPrefix+"rightside.chat"))
             i.fas.fa-sms
       when 'comment'
         if commentsJsLoad
-          a#to_comment(href="#post-comment" title=_p("rightside.scroll_to_comment"))
+          a#to_comment(href="#post-comment" title=_p(langPrefix+"rightside.scroll_to_comment"))
             i.fas.fa-comments
 
 #rightside
@@ -42,20 +48,20 @@ mixin rightsideItem(array)
   #rightside-config-show
     if enable
       if hide
-        button#rightside-config(type="button" title=_p("rightside.setting"))
+        button#rightside-config(type="button" title=_p(langPrefix+"rightside.setting"))
           i.fas.fa-cog.slow-spin
     else
       if is_post()
         if (readmode || translate.enable || (darkmode.enable && darkmode.button))
-          button#rightside-config(type="button" title=_p("rightside.setting"))
+          button#rightside-config(type="button" title=_p(langPrefix+"rightside.setting"))
             i.fas.fa-cog.slow-spin
       else if translate.enable || (darkmode.enable && darkmode.button)
-        button#rightside-config(type="button" title=_p("rightside.setting"))
+        button#rightside-config(type="button" title=_p(langPrefix+"rightside.setting"))
           i.fas.fa-cog.slow-spin
 
     if showArray
       +rightsideItem(showArray)
 
-    button#go-up(type="button" title=_p("rightside.back_to_top"))
+    button#go-up(type="button" title=_p(langPrefix+"rightside.back_to_top"))
       span.scroll-percent
       i.fas.fa-arrow-up

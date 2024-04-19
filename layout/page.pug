@@ -18,4 +18,4 @@ block content
     if page.comments !== false && theme.comments && theme.comments.use
       - var commentsJsLoad = true
       //- changed to cache false since the content should be different among language settings
-      !=partial('includes/third-party/comments/index', {}, {cache: false})
+      !=partial('includes/third-party/comments/index', {langPrefices: langPrefices}, {cache: false})

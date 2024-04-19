@@ -3,9 +3,9 @@ script.
     const changeContent = (content) => {
       if (content === '') return content
 
-      content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[!{_p("aside.card_newest_comments.image")}]') // replace image link
-      content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[!{_p("aside.card_newest_comments.link")}]') // replace url
-      content = content.replace(/<code>.*?<\/code>/gi, '[!{_p("aside.card_newest_comments.code")}]') // replace code
+      content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[!{_p(langPrefix+"aside.card_newest_comments.image")}]') // replace image link
+      content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[!{_p(langPrefix+"aside.card_newest_comments.link")}]') // replace url
+      content = content.replace(/<code>.*?<\/code>/gi, '[!{_p(langPrefix+"aside.card_newest_comments.code")}]') // replace code
       content = content.replace(/<[^>]+>/g,"") // remove html tag
 
       if (content.length > 150) {
@@ -32,7 +32,7 @@ script.
           generateHtml(disqusArray)
         }).catch(e => {
           const $dom = document.querySelector('#card-newest-comments .aside-list')
-          $dom.textContent= "!{_p('aside.card_newest_comments.error')}"
+          $dom.textContent= "!{_p(langPrefix+'aside.card_newest_comments.error')}"
         })
     }
 
@@ -54,7 +54,7 @@ script.
           </div></div>`
         }
       } else {
-        result += '!{_p("aside.card_newest_comments.zero")}'
+        result += '!{_p(langPrefix+"aside.card_newest_comments.zero")}'
       }
 
       let $dom = document.querySelector('#card-newest-comments .aside-list')

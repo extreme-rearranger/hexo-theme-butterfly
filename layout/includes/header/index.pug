@@ -1,3 +1,9 @@
+- let langPrefices
+if is_default_language(page.lang)
+  - langPrefices = Object.fromEntries(display_languages().map((lang) => [lang,`${lang}.`]))
+else
+  - langPrefices = Object.fromEntries([[page.lang, '']])
+
 if !theme.disable_top_img && page.top_img !== false
   if is_post()
     - var top_img = page.top_img || page.cover || theme.default_top_img
@@ -32,10 +38,10 @@ else
 
 header#page-header(class=`${isHomeClass+isFixedClass}` style=bg_img)
   //- changed to cache false since the content should be different among language settings
-  !=partial('includes/header/nav', {}, {cache: false})  
+  !=partial('includes/header/nav', {langPrefices: langPrefices}, {cache: false})  
   if top_img !== false
     if is_post()
-      include ./post-info.pug
+      !=partial('includes/header/post-info', {langPrefices: langPrefices}, {cache: false})
     else if is_home() 
       #site-info
         h1#site-title=site_title

@@ -4,7 +4,8 @@ hr.custom-hr
   .comment-head
     .comment-headline
       i.fas.fa-comments.fa-fw
-      span= ' ' + _p('comment')
+      each langPrefix, lang in langPrefices
+        span(lang-type='relative' language=lang)= ' ' + _p(langPrefix+'comment')
     
     if theme.comments.use.length > 1
       .comment-switch

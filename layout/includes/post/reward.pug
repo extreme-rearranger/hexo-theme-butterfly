@@ -1,7 +1,8 @@
 .post-reward
   .reward-button
     i.fas.fa-qrcode
-    = theme.reward.text || _p('donate')
+    each langPrefix, lang in langPrefices
+      span(lang-type='relative' language=lang)= theme.reward.text || _p(langPrefix+'donate')
   .reward-main
     ul.reward-all
       each item in theme.reward.QR_code
