@@ -1,8 +1,4 @@
-<div align="right">
-<a title="Chinese" href="/README_CN.md">中文</a>
-</div>
-
-# hexo-theme-butterfly
+# hexo-theme-butterfly (forked)
 
 ![master version](https://img.shields.io/github/package-json/v/jerryc127/hexo-theme-butterfly/master?color=%231ab1ad&label=master)
 ![master version](https://img.shields.io/github/package-json/v/jerryc127/hexo-theme-butterfly/dev?label=dev)
@@ -12,100 +8,90 @@
 
 ![](https://cdn.jsdelivr.net/gh/jerryc127/CDN@m2/img/theme-butterfly-readme.png)
 
-📢 Demo: [Butterfly](https://butterfly.js.org/) || [CrazyWong](https://blog.crazywong.com/)
 
-📖 Docs: [English](https://butterfly.js.org/en/posts/butterfly-docs-en-get-started/) || [Chinese](https://butterfly.js.org/posts/21cfbf15/)
+## Changed to Multilingual (Check commits from 2024-04-19 to 2024-04-20)
+>In my blog, the basic goal was to make English and Korean cross-support possible.<br>
+> So I used the 'hexo-generator-i18n' plug-in.<br>
 
-Based on [hexo-theme-melody](https://github.com/Molunerfinn/hexo-theme-melody) theme.
+> In addition, many scripts using '_p()' have been modified to make the default language page (e.g., about.html) common to all languages.<br>
 
-## 💻 Installation
+> By doing this, **posts set in the 'default' language can alternately display both languages** through the right side button, and furthermore, **they are accessible to all archive/tags/categories regardless of language**.
 
-### GIT
-
-> If you are in Mainland China, you can download in [Gitee](https://gitee.com/immyw/hexo-theme-butterfly.git)
-
-Stable branch [recommend]:
-
-```
-git clone -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/butterfly
+### install generators for multilingual pages
+```bash
+npm install hexo-generator-i18n --save
 ```
 
-Dev branch:
-
+### add i18n-related files in `scripts` directory
+- get `i18n.js`, `rfc5646.js`, and `10_i18n.js` files from [hexo-theme-minos](https://github.com/ppoffice/hexo-theme-minos)'.
+- Then add the three files into `butterfly/layout/includes/scripts`.<br>I add directory name `custom_helpers` to distinguish with original files.
+- In `10_i18n.js`, `categories()` and `tags()` helpers should be all comment out since the functions don't work in this theme.
+- Instead, I made `tagclouds()` and `list_categories()` helpers by referring to the two.
+- Therefore, the final file structure is as follows:
 ```
-git clone -b dev https://github.com/jerryc127/hexo-theme-butterfly.git themes/butterfly
+...
+├── scripts/
+│   ├── custom_helpers
+│   │   ├── 10_i18n.js  # from hexo-theme-minos (except categories() and tags() helpers)
+│   │   ├── i18n.js     # from hexo-theme-minos 
+│   │   │                 (i've changed isDefaultLanguage() and getDisplayLanguage() a little bit)
+│   │   ├── listcategories.js
+│   │   ├── rfc5646.js  # from hexo-theme-minos
+│   │   └── tagcloud.js
+...
 ```
 
-### NPM
 
-> It supports Hexo 5.0.0 or later
+### change the following to _config.yml
+- Can use more than two languages though I used two.
 
-In Hexo site root directory 
-
-```powershell
-npm i hexo-theme-butterfly
+```yaml
+languages:
+  - default  # important!!!! `default` should be explicitly defined as first element
+  - en
+  - ko
+i18n_dir: :lang
+i18n: # hexo-generator-i18n settings
+  languages: # important!!!! `default` should be explicitly defined as first element
+    - default
+    - en
+    - ko
+  type:
+    # - page  # if active, then page_title, ko/page_title, en/page_title are all available with the same content
+    # - post  # if active, then posts/:title, en/posts/:title, ko/posts/:title are all avaliable (this is not recommended since :title already contains language information)
+  generator:
+    - archive
+    - category
+    - tag
+    - index
 ```
 
-## ⚙ Configuration
 
- Set theme in the hexo work folder's root config file `_config.yml`: 
+### add default.yml, en.yml, and ko.yml in `languages` directory
+- `default.yml` should contains all languages as the first level key.
+- I copied and pasted the contents of `en.yml` and `ko.yml` to `default.yml`.<br>Then, added the `en` and `ko` keys in the first level.
 
-> theme: butterfly
 
- If you don't have pug & stylus renderer, try this: 
+### add the language as prefix to the `_p()` function's parameter
+- In this theme, the `_p()` function is used to get the language-specific content.
+- Since I want to use all language contents in the default language page, I added the language as prefix to the parameter of `_p()` function.
+- For instance, if it had previously been written as `_p('page_title')`, then I changed it to `_p('en.page.title')` and `_p('ko.page.title')` when the language is set to default.
+- In this way, the default language page can display both languages alternately if click the language transition button.
+- It was a lot of work since i never studied js, pug, and any other front-end languages before.
+- So the code might be a little bit messy, but it works pretty well. (maybe haha)
 
-> npm install hexo-renderer-pug hexo-renderer-stylus
 
-## 🎉 Features
+### add html attributes to the language related tags
+- In the theme, the language-related tags are used to display the language-specific content.
+- For instance, `div` is changed to `div(div(lang-type='relative' language='en')` when the content is written in English.
 
-- [x] Card UI Design
-- [X] Support sub-menu
-- [x] Two-column layout
-- [x] Responsive Web Design
-- [x] Dark Mode
-- [x] Pjax
-- [x] Read Mode
-- [x] Conversion between Traditional and Simplified Chinese
-- [X] TOC catalog is available for both computers and mobile phones
-- [X] Built-in Syntax Highlighting Themes (darker/pale night/light/ocean/mac/mac light), also support customization
-- [X] Code Blocks (Display code language/close or expand Code Blocks/Copy Button/word wrap)
-- [X] Disable copy/Add a Copyright Notice to the Copied Text
-- [X] Search (Algolia Search/Local Search)
-- [x] Mathjax and Katex
-- [x] Built-in 404 page
-- [x] WordCount
-- [x] Related articles
-- [x] Displays outdated notice for a post
-- [x] Share (Sharejs/Addtoany)
-- [X] Comment (Disqus/Disqusjs/Livere/Gitalk/Valine/Waline/Utterances/Facebook Comments/Twikoo/Giscus/Remark42/artalk)
-- [x] Multiple Comment System Support
-- [x] Online Chats (Chatra/Tidio/Daovoice/Crisp/messenger)
-- [x] Web analytics
-- [x] Google AdSense
-- [x] Webmaster Verification
-- [x] Change website colour scheme
-- [x] Typewriter Effect: activate_power_mode
-- [x] Background effects (Canvas ribbon/canvas_ribbon_piao/canvas_nest)
-- [x] Mouse click effects (Fireworks/Heart/Text)
-- [x] Preloader/Loading Animation/pace.js
-- [x] Busuanzi visitor counter
-- [x] Medium Zoom/Fancybox
-- [x] Mermaid
-- [x] Justified Gallery
-- [x] Lazyload images
-- [x] Instantpage/Pangu/Snackbar notification toast/PWA......
 
-## ✨ Contributors
+### Change the following features to support multilingual
+- [x] Archive Length Helper (`findArchiveLength.js`)
+- [x] Language Transition Button on rightside (`change_lang.js`, ...)
+- [x] Tag Cloud Helper (`tagcloud.js`)
+- [x] List Categories Helper (`listcategories.js`)
+- [x] Menu and Navigation
+- [X] Aside (Recent Posts, Categories, Tags, Blog Info, Archives) (`aside_categories.js`, `aside_archives.js`, ...)
+- [X] Post Meta (...)
 
-<a href="https://github.com/jerryc127/hexo-theme-butterfly/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=jerryc127/hexo-theme-butterfly" />
-</a>
-
-## 📷 Screenshots
-
-![](https://cdn.jsdelivr.net/gh/jerryc127/CDN@m2/img/butterfly-readme-screenshots-1.jpg)
-![](https://cdn.jsdelivr.net/gh/jerryc127/CDN@m2/img/butterfly-readme-screenshots-2.jpg)
-![](https://cdn.jsdelivr.net/gh/jerryc127/CDN@m2/img/butterfly-readme-screenshots-3.jpg)
-![](https://cdn.jsdelivr.net/gh/jerryc127/CDN@m2/img/butterfly-readme-screenshots-4.jpg)
-![](https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/theme-butterfly-readme-homepage-1.png)
-![](https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/theme-butterfly-readme-homepage-2.png)
