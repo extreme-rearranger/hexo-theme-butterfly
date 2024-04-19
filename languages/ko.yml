@@ -9,13 +9,12 @@ copy:
 
 page:
   articles: 게시물 목록
-  tag: 태그 목록
-  category: 카테고리 목록
+  tag: 태그
+  category: 카테고리
   archives: 아카이브
 
 card_post_count: comments
 
-# sticky: 상단 고정
 no_title: 제목 없음
 
 post:
@@ -83,6 +82,7 @@ aside:
     link: 링크
     code: 코드
   card_toc: 목차
+  card_post_series: 시리즈
 
 date_suffix:
   just: 방금 전
@@ -95,6 +95,7 @@ donate: Donate
 share: Share
 
 rightside:
+  langmode_title: 한/영 사이트 전환
   readmode_title: 읽기 모드
   translate_title: 번체 / 간체
   night_mode_title: 라이트 모드 / 다크 모드
@@ -112,10 +113,11 @@ copy_copyright:
   info: 저작자표시-동일조건변경허락 (https://creativecommons.org/licenses/by-sa/4.0/deed.ko)
 
 Snackbar:
-  chs_to_cht: 중국어(번체)로 전환됨
-  cht_to_chs: 중국어(간체)로 전환됨
-  day_to_night: 다크 모드로 전환됨
-  night_to_day: 라이트 모드로 전환됨
+  chs_to_cht: 중국어(번체)로 전환되었습니다
+  cht_to_chs: 중국어(간체)로 전환되었습니다
+  day_to_night: 다크 모드로 전환되었습니다
+  night_to_day: 라이트 모드로 전환되었습니다
+  readmode_on: "읽기 모드가 활성화되었습니다<br>(나가기 버튼을 클릭하면 해제됩니다)"
 
 loading: 로딩 중...
 

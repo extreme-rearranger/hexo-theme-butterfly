@@ -11,7 +11,7 @@ page:
   articles: Articles
   tag: Tag
   category: Category
-  archives: Archives
+  archives: Archive
 
 card_post_count: comments
 
@@ -95,6 +95,7 @@ donate: Sponsor
 share: Share
 
 rightside:
+  langmode_title: Change Site Language (Kor/Eng)
   readmode_title: Read Mode
   translate_title: Toggle Between Traditional Chinese And Simplified Chinese
   night_mode_title: Toggle Between Light And Dark Mode
@@ -116,6 +117,7 @@ Snackbar:
   cht_to_chs: You have switched to Simplified Chinese
   day_to_night: You have switched to Dark Mode
   night_to_day: You have switched to Light Mode
+  readmode_on: Read Mode On (Click exit button to turn off)
 
 loading: Loading...
 load_more: Load More

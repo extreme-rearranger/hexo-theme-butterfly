@@ -1,123 +1,252 @@
-footer:
-  framework: Framework
-  theme: Theme
+en:
+  footer:
+    framework: Framework
+    theme: Theme
 
-copy:
-  success: Copy Successful
-  error: Copy Error
-  noSupport: Browser Not Supported
+  copy:
+    success: Copy Successful
+    error: Copy Error
+    noSupport: Browser Not Supported
 
-page:
-  articles: Articles
-  tag: Tag
-  category: Category
-  archives: Archives
+  page:
+    articles: Articles
+    tag: Tag
+    category: Category
+    archives: Archive
 
-card_post_count: comments
+  card_post_count: comments
 
-no_title: Untitled
+  no_title: Untitled
 
-post:
-  created: Created
-  updated: Updated
-  wordcount: Word Count
-  min2read: Reading Time
-  min2read_unit: mins
-  page_pv: Post Views
-  comments: Comments
-  copyright:
+  post:
+    created: Created
+    updated: Updated
+    wordcount: Word Count
+    min2read: Reading Time
+    min2read_unit: mins
+    page_pv: Post Views
+    comments: Comments
+    copyright:
+      author: Author
+      link: Link
+      copyright_notice: Copyright Notice
+      copyright_content: 'All articles in this blog are licensed under <a href="%s">%s</a> unless stating additionally.'
+    recommend: Related Articles
+    edit: Edited on
+
+  search:
+    title: Search
+    load_data: Loading the Database
+    algolia_search:
+      input_placeholder: Search for Posts
+      hits_empty: "We didn't find any results for the search: ${query}."
+      hits_stats: '${hits} results found in ${time} ms'
+
+    local_search:
+      input_placeholder: Search for Posts
+      hits_empty: "We didn't find any results for the search: ${query}"
+      hits_stats: '${hits} results found'
+
+  pagination:
+    prev: Previous
+    next: Next
+
+  comment: Comment
+
+  aside:
+    articles: Articles
+    tags: Tags
+    categories: Categories
+    card_announcement: Announcement
+    card_categories: Categories
+    card_tags: Tags
+    card_archives: Archives
+    card_recent_post: Recent Post
+    card_webinfo:
+      headline: Info
+      article_name: Article
+      runtime:
+        name: Runtime
+        unit: days
+      last_push_date:
+        name: Last Update
+      site_wordcount: Total Count
+      site_uv_name: UV
+      site_pv_name: PV
+    more_button: View More
+    card_newest_comments:
+      headline: Latest Comments
+      loading_text: loading...
+      error: Unable to retrieve comments, please check the configuration
+      zero: No comments
+      image: image
+      link: link
+      code: code
+    card_toc: Contents
+    card_post_series: Series
+
+  date_suffix:
+    just: Just now
+    min: minutes ago
+    hour: hours ago
+    day: days ago
+    month: months ago
+
+  donate: Sponsor
+  share: Share
+
+  rightside:
+    langmode_title: Change Site Language (Kor/Eng)
+    readmode_title: Read Mode
+    translate_title: Toggle Between Traditional Chinese And Simplified Chinese
+    night_mode_title: Toggle Between Light And Dark Mode
+    back_to_top: Back To Top
+    toc: Table Of Contents
+    scroll_to_comment: Scroll To Comments
+    setting: Setting
+    aside: Toggle between Single-column and Double-column
+    chat: Chat
+
+  copy_copyright:
     author: Author
     link: Link
-    copyright_notice: Copyright Notice
-    copyright_content: 'All articles in this blog are licensed under <a href="%s">%s</a> unless stating additionally.'
-  recommend: Related Articles
-  edit: Edited on
+    source: Source
+    info: Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
 
-search:
-  title: Search
-  load_data: Loading the Database
-  algolia_search:
-    input_placeholder: Search for Posts
-    hits_empty: "We didn't find any results for the search: ${query}."
-    hits_stats: '${hits} results found in ${time} ms'
+  Snackbar:
+    chs_to_cht: You have switched to Traditional Chinese
+    cht_to_chs: You have switched to Simplified Chinese
+    day_to_night: You have switched to Dark Mode
+    night_to_day: You have switched to Light Mode
+    readmode_on: Read Mode On (Click exit button to turn off)
 
-  local_search:
-    input_placeholder: Search for Posts
-    hits_empty: "We didn't find any results for the search: ${query}"
-    hits_stats: '${hits} results found'
+  loading: Loading...
+  load_more: Load More
 
-pagination:
-  prev: Previous
-  next: Next
+  error404: Page Not Found
 
-comment: Comment
+ko:
+  footer:
+    framework: Framework
+    theme: Theme
 
-aside:
-  articles: Articles
-  tags: Tags
-  categories: Categories
-  card_announcement: Announcement
-  card_categories: Categories
-  card_tags: Tags
-  card_archives: Archives
-  card_recent_post: Recent Post
-  card_webinfo:
-    headline: Info
-    article_name: Article
-    runtime:
-      name: Runtime
-      unit: days
-    last_push_date:
-      name: Last Update
-    site_wordcount: Total Count
-    site_uv_name: UV
-    site_pv_name: PV
-  more_button: View More
-  card_newest_comments:
-    headline: Latest Comments
-    loading_text: loading...
-    error: Unable to retrieve comments, please check the configuration
-    zero: No comments
-    image: image
-    link: link
-    code: code
-  card_toc: Contents
-  card_post_series: Series
+  copy:
+    success: 복사 성공!
+    error: 복사 에러ㅜㅜ
+    noSupport: 이 브라우저는 해당 기능을 지원하지 않습니다
 
-date_suffix:
-  just: Just now
-  min: minutes ago
-  hour: hours ago
-  day: days ago
-  month: months ago
+  page:
+    articles: 게시물 목록
+    tag: 태그
+    category: 카테고리
+    archives: 아카이브
 
-donate: Sponsor
-share: Share
+  card_post_count: comments
 
-rightside:
-  readmode_title: Read Mode
-  translate_title: Toggle Between Traditional Chinese And Simplified Chinese
-  night_mode_title: Toggle Between Light And Dark Mode
-  back_to_top: Back To Top
-  toc: Table Of Contents
-  scroll_to_comment: Scroll To Comments
-  setting: Setting
-  aside: Toggle between Single-column and Double-column
-  chat: Chat
+  no_title: 제목 없음
 
-copy_copyright:
-  author: Author
-  link: Link
-  source: Source
-  info: Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+  post:
+    created: 게시일
+    updated: 업데이트
+    wordcount: 단어수
+    min2read: 독해시간
+    min2read_unit: 분
+    page_pv: 조회수
+    comments: 댓글수
+    copyright:
+      author: 작성자
+      link: 링크
+      copyright_notice: 저작권 안내
+      copyright_content: "이 블로그의 모든 내용은 별도의 언급이 없는 한 기본적으로 <a href='%s'>%s</a> 라이센스를 따릅니다."
+    recommend: 관련 게시물
+    edit: 편집
 
-Snackbar:
-  chs_to_cht: You have switched to Traditional Chinese
-  cht_to_chs: You have switched to Simplified Chinese
-  day_to_night: You have switched to Dark Mode
-  night_to_day: You have switched to Light Mode
+  search:
+    title: Search
+    load_data: 로딩 중...
+    algolia_search:
+      input_placeholder: 검색 문장
+      hits_empty: "'${query}'에 대한 검색 결과를 찾을 수 없습니다."
+      hits_stats: '${time} ms 동안 총 ${hits} 건의 결과를 찾았습니다.'
 
-loading: Loading...
-load_more: Load More
+    local_search:
+      input_placeholder: 검색 문장
+      hits_empty: "'${query}'에 대한 검색 결과를 찾을 수 없습니다."
+      hits_stats: '총 ${hits} 건의 결과를 찾았습니다.'
 
-error404: Page Not Found
+  pagination:
+    prev: 이전 게시물
+    next: 다음 게시물
+
+  comment: 댓글
+
+  aside:
+    articles: 게시물
+    tags: 태그
+    categories: 카테고리
+    card_announcement: 공지사항
+    card_categories: 카테고리
+    card_tags: 태그
+    card_archives: 아카이브
+    card_recent_post: 최근 게시물
+    card_webinfo:
+      headline: 블로그 정보
+      article_name: 전체 게시물 수
+      runtime:
+        name: 블로그 운영 기간
+        unit: 일
+      last_push_date:
+        name: 마지막 업데이트
+      site_wordcount: 전체 단어 수
+      site_uv_name: 전체 방문자 수
+      site_pv_name: 전체 조회 수
+    more_button: 더보기
+    card_newest_comments:
+      headline: 최근 댓글
+      loading_text: 로딩 중 ...
+      error: 데이터를 가져올 수 없습니다. 설정이 올바른지 확인하십시오.
+      zero: 댓글 없음
+      image: 이미지
+      link: 링크
+      code: 코드
+    card_toc: 목차
+    card_post_series: 시리즈
+
+  date_suffix:
+    just: 방금 전
+    min: 분 전
+    hour: 시간 전
+    day: 일 전
+    month: 개월 전
+
+  donate: Donate
+  share: Share
+
+  rightside:
+    langmode_title: 한/영 사이트 전환
+    readmode_title: 읽기 모드
+    translate_title: 번체 / 간체
+    night_mode_title: 라이트 모드 / 다크 모드
+    back_to_top: 맨위로
+    toc: 목차
+    scroll_to_comment: 댓글 창으로 이동
+    setting: 화면 설정 (다크 모드 등)
+    aside: 1단 / 2단 전환
+    chat: 채팅
+
+  copy_copyright:
+    author: 저자
+    link: 링크
+    source: 출처
+    info: 저작자표시-동일조건변경허락 (https://creativecommons.org/licenses/by-sa/4.0/deed.ko)
+
+  Snackbar:
+    chs_to_cht: 중국어(번체)로 전환되었습니다
+    cht_to_chs: 중국어(간체)로 전환되었습니다
+    day_to_night: 다크 모드로 전환되었습니다
+    night_to_day: 라이트 모드로 전환되었습니다
+    readmode_on: "읽기 모드가 활성화되었습니다<br>(나가기 버튼을 클릭하면 해제됩니다)"
+
+  loading: 로딩 중...
+
+  error404: 페이지를 표시할 수 없습니다
