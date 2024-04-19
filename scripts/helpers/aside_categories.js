@@ -3,9 +3,15 @@
  * for aside categories
  */
 
+const {
+  pathJoin,
+  postFilter,
+} = require('../custom_helpers/i18n')(hexo);
+
 'use strict'
 
 hexo.extend.helper.register('aside_categories', function (categories, options) {
+
   if (!options && (!categories || !Object.prototype.hasOwnProperty.call(categories, 'length'))
   ) {
     options = categories
@@ -14,6 +20,12 @@ hexo.extend.helper.register('aside_categories', function (categories, options) {
 
   if (!categories || !categories.length) return ''
   options = options || {}
+  const lang = options.lang 
+    ? options.lang 
+    : (this.is_default_language(this.page.lang) ? this.display_language()[0] : this.page.lang)
+  const langPrefix = options.langPrefix 
+    ? options.langPrefix 
+    : (this.is_default_language(this.page.lang) ? `${lang}` : '')
   const { config } = this
   const showCount = Object.prototype.hasOwnProperty.call(options, 'show_count')
     ? options.show_count
@@ -25,7 +37,7 @@ hexo.extend.helper.register('aside_categories', function (categories, options) {
   const limit = options.limit === 0 ? categories.length : options.limit
   const isExpand = options.expand !== 'none'
   const expandClass = isExpand && options.expand === true ? 'expand' : ''
-  const buttonLabel = this._p('aside.more_button')
+  const buttonLabel = this._p(langPrefix+'aside.more_button')
   const prepareQuery = (parent) => {
     const query = {}
     if (parent) { query.parent = parent } else { query.parent = { $exists: false } }
@@ -33,16 +45,17 @@ hexo.extend.helper.register('aside_categories', function (categories, options) {
   }
   let expandBtn = ''
 
-  const hierarchicalList = (t, level, parent, topparent = true) => {
+  const hierarchicalList = (cats_lang, t, level, parent, topparent = true) => {
     let result = ''
     const isTopParent = topparent
     if (t > 0) {
       prepareQuery(parent).forEach((cat, i) => {
+        let cat_lang = cats_lang.find((e) => e._id === cat._id)
         if (t > 0) {
           t = t - 1
           let child
           if (!depth || level + 1 < depth) {
-            const childList = hierarchicalList(t, level + 1, cat._id, false)
+            const childList = hierarchicalList(categories_lang, t, level + 1, cat_lang._id, false)
             child = childList[0]
             t = childList[1]
           }
@@ -51,12 +64,12 @@ hexo.extend.helper.register('aside_categories', function (categories, options) {
 
           result += `<li class="card-category-list-item ${parentClass}">`
 
-          result += `<a class="card-category-list-link" href="${this.url_for(cat.path)}">`
+          result += `<a class="card-category-list-link" href="${this.url_for_lang(cat_lang.path)}">`
 
-          result += `<span class="card-category-list-name">${cat.name}</span>`
+          result += `<span class="card-category-list-name">${cat_lang.name}</span>`
 
           if (showCount) {
-            result += `<span class="card-category-list-count">${cat.length}</span>`
+            result += `<span class="card-category-list-count">${cat_lang.length}</span>`
           }
 
           if (isExpand && isTopParent && child) {
@@ -78,7 +91,20 @@ hexo.extend.helper.register('aside_categories', function (categories, options) {
     return [result, t]
   }
 
-  const list = hierarchicalList(limit, 0)
+  const categories_lang = categories.map(category => {
+    // Filter posts by language considering. Posts without a language is considered of the default language.
+    const posts = category.posts.filter(postFilter(lang));
+    if (posts.length === 0) {
+      return null;
+    }
+    return Object.assign({}, category, {
+      posts: posts,
+      path: pathJoin(lang, category.path),
+      length: posts.length
+    });
+  }).filter(category => category !== null);
+
+  const list = hierarchicalList(categories_lang, limit, 0)
 
   const moreButton = function () {
     if (categories.length <= limit) return ''
@@ -90,7 +116,7 @@ hexo.extend.helper.register('aside_categories', function (categories, options) {
 
   return `<div class="item-headline">
             <i class="fas fa-folder-open"></i>
-            <span>${this._p('aside.card_categories')}</span>
+            <span>${this._p(langPrefix+'aside.card_categories')}</span>
             ${moreButton()}
             </div>
             <ul class="card-category-list${expandBtn}" id="aside-cat-list">

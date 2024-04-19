@@ -5,11 +5,15 @@
 
 'use strict'
 
+const {
+  postFilter,
+} = require('../custom_helpers/i18n')(hexo);
+
 hexo.extend.helper.register('aside_archives', function (options = {}) {
   const { config } = this
   const archiveDir = config.archive_dir
   const { timezone } = config
-  const lang = toMomentLocale(this.page.lang || this.page.language || config.language)
+  const lang = toMomentLocale(options.lang || this.page.lang || this.page.language || config.language)
   let { format } = options
   const type = options.type || 'monthly'
   const { transform } = options
@@ -19,13 +23,12 @@ hexo.extend.helper.register('aside_archives', function (options = {}) {
     ? (yearA, monthA, yearB, monthB) => yearA === yearB && monthA === monthB
     : (yearA, monthA, yearB, monthB) => yearA === yearB
   const limit = options.limit
+  let langPrefix = this.is_default_language(this.page.lang) ? `${lang}.` : ''
   let result = ''
-
   if (!format) {
     format = type === 'monthly' ? 'MMMM YYYY' : 'YYYY'
   }
-
-  const posts = this.site.posts.sort('date', order)
+  const posts = this.site.posts.sort('date', order).filter(postFilter(lang))
   if (!posts.length) return result
 
   const data = []
@@ -63,16 +66,16 @@ hexo.extend.helper.register('aside_archives', function (options = {}) {
       url += `${item.month}/`
     }
 
-    return this.url_for(url)
+    return this.url_for_lang(langPrefix.slice(0,-1)+'/'+url)
   }
 
   const len = data.length
   const Judge = limit === 0 ? len : Math.min(len, limit)
-
-  result += `<div class="item-headline"><i class="fas fa-archive"></i><span>${this._p('aside.card_archives')}</span>`
+  
+  result += `<div class="item-headline"><i class="fas fa-archive"></i><span>${this._p(langPrefix+'aside.card_archives')}</span>`
 
   if (len > Judge) {
-    result += `<a class="card-more-btn" href="${this.url_for(archiveDir)}/" title="${this._p('aside.more_button')}">
+    result += `<a class="card-more-btn" href="${this.url_for_lang(langPrefix+'/'+archiveDir())}/" title="${this._p(langPrefix+'aside.more_button')}">
     <i class="fas fa-angle-right"></i></a>`
   }
 
@@ -101,13 +104,13 @@ hexo.extend.helper.register('aside_archives', function (options = {}) {
 
 const toMomentLocale = function (lang) {
   if (lang === undefined) {
-    return undefined
+    return 'default'
   }
 
   // moment.locale('') equals moment.locale('en')
   // moment.locale(null) equals moment.locale('en')
-  if (!lang || lang === 'en' || lang === 'default') {
-    return 'en'
+  if (!lang || lang === 'default') {
+    return 'default'
   }
   return lang.toLowerCase().replace('_', '-')
 }

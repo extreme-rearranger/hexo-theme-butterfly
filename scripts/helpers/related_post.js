@@ -5,12 +5,14 @@
  */
 
 'use strict'
+const { isDefaultLanguage, getDisplayLanguages } = require('../custom_helpers/i18n')(hexo);
 
 hexo.extend.helper.register('related_posts', function (currentPost, allPosts) {
   let relatedPosts = []
   currentPost.tags.forEach(function (tag) {
     allPosts.forEach(function (post) {
-      if (isTagRelated(tag.name, post.tags)) {
+      if ((currentPost.lang === post.lang || isDefaultLanguage(post.lang))
+        && isTagRelated(tag.name, post.tags)) {
         const relatedPost = {
           title: post.title,
           path: post.path,
@@ -40,7 +42,8 @@ hexo.extend.helper.register('related_posts', function (currentPost, allPosts) {
 
   const limitNum = config.related_post.limit || 6
   const dateType = config.related_post.date_type || 'created'
-  const headlineLang = this._p('post.recommend')
+  const langPrefix = isDefaultLanguage(this.page.lang) ? `${getDisplayLanguages()[0]}.` : this.page.lang + '.'
+  const headlineLang = this._p(langPrefix+'post.recommend')
 
   relatedPosts = relatedPosts.sort(compare('weight'))
 
