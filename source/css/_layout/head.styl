@@ -92,10 +92,10 @@
 
   // post
   &.post-bg
-    height: 400px
+    height: 360px // original: 400px
 
     +maxWidth768()
-      height: 360px
+      height: 260px // original: 360px
 
   #post-info
     position: absolute
@@ -280,8 +280,11 @@
     @extend .limit-one-line
 
     .site-icon
-      margin-right: 6px
-      height: 36px
+      margin-right: 8px  // original : 6px
+      height: 1.5em  // original : 36px
+      vertical-align: middle
+    
+    .site-name
       vertical-align: middle
 
   #toggle-menu

@@ -13,7 +13,7 @@ hexo.extend.helper.register('inject_head_js', function () {
   const themeColorLight = (theme_color && theme_color.enable && theme_color.meta_theme_color_light) || '#ffffff'
   const themeColorDark = (theme_color && theme_color.enable && theme_color.meta_theme_color_dark) || '#0d0d0d'
 
-  const createCustonJs = () => {
+  const createCustomJs = () => {
     return `
       const saveToLocal = {
         set: (key, value, ttl) => {
@@ -192,5 +192,5 @@ hexo.extend.helper.register('inject_head_js', function () {
     `
   }
 
-  return `<script>(()=>{${createCustonJs() + createDarkmodeJs() + createAsideStatus() + createDetectApple()}})()</script>`
+  return `<script>(()=>{${createCustomJs() + createDarkmodeJs() + createAsideStatus() + createDetectApple()}})()</script>`
 })
