@@ -55,6 +55,15 @@ header#page-header(class=`${isHomeClass+isFixedClass}` style=bg_img)
             !=partial('includes/header/social', {}, {cache: false})
       #scroll-down
         i.fas.fa-angle-down.scroll-down-effects
+    else if is_category()
+      #page-site-info
+        h1#site-title
+          each langPrefix, lang in langPrefices
+            span(lang-type='relative' language=lang)=_p(langPrefix+'page.category')
+          span=' - ' + site_title
+    else if is_tag()
+      #page-site-info
+        h1#site-title='# ' + site_title + '  '
     else
       #page-site-info
         h1#site-title=site_title
