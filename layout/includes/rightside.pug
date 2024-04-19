@@ -8,6 +8,9 @@ else
 mixin rightsideItem(array)
   each item in array
     case item
+      when 'langmode'
+        button#langmode(type="button" title=_p(langPrefix+'rightside.langmode_title'))
+          i.fas.fa-language
       when 'readmode'
         if is_post() && readmode
           button#readmode(type="button" title=_p(langPrefix+'rightside.readmode_title'))

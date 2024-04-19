@@ -38,6 +38,11 @@ hexo.extend.filter.register('before_generate', () => {
       name: 'hexo-theme-butterfly',
       file: 'js/search/algolia.js',
       version
+    },
+    change_lang: {
+      name: 'hexo-theme-butterfly',
+      file: 'js/custom/change_lang.js',
+      version
     }
   }
 

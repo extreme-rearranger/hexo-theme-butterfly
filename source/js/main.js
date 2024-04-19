@@ -619,6 +619,9 @@ document.addEventListener('DOMContentLoaded', function () {
     },
     translateLink: () => { // switch between traditional and simplified chinese
       window.translateFn.translatePage()
+    },
+    langmode: () => {
+      window.changeLangaugeFn.changeLanguagePage()
     }
   }
 
@@ -904,6 +907,7 @@ document.addEventListener('DOMContentLoaded', function () {
   window.addEventListener('hexo-blog-decrypt', e => {
     forPostFn()
     window.translateFn.translateInitialization()
+    window.changeLangaugeFn.languageInitialization()
     Object.values(window.globalFn.encrypt).forEach(fn => {
       fn()
     })
