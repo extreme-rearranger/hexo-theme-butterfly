@@ -13,6 +13,7 @@ en:
     tag: Tag
     category: Category
     archives: Archive
+    all: All
 
   card_post_count: comments
 
@@ -140,6 +141,7 @@ ko:
     tag: 태그
     category: 카테고리
     archives: 아카이브
+    all: 전체
 
   card_post_count: comments
 
