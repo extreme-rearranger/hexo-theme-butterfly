@@ -563,6 +563,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       newEle.addEventListener('click', clickFn)
+      GLOBAL_CONFIG.Snackbar !== undefined && btf.snackbarShow(GLOBAL_CONFIG.Snackbar.readmode_on)
     },
     darkmode: () => { // switch between light and dark mode
       const willChangeMode = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'
