@@ -455,7 +455,7 @@ document.addEventListener('DOMContentLoaded', function () {
       autoScrollToc = item => {
         const activePosition = item.getBoundingClientRect().top
         const sidebarScrollTop = $cardToc.scrollTop
-        if (activePosition > (document.documentElement.clientHeight - 100)) {
+        if (activePosition > (document.documentElement.clientHeight * 0.6 - 100)) {
           $cardToc.scrollTop = sidebarScrollTop + 150
         }
         if (activePosition < 100) {
