@@ -102,6 +102,7 @@ en:
     translate_title: Toggle Between Traditional Chinese And Simplified Chinese
     night_mode_title: Toggle Between Light And Dark Mode
     back_to_top: Back To Top
+    move_to_bottom: Move To Bottom
     toc: Table Of Contents
     scroll_to_comment: Scroll To Comments
     setting: Setting
@@ -230,6 +231,7 @@ ko:
     translate_title: 번체 / 간체
     night_mode_title: 라이트 모드 / 다크 모드
     back_to_top: 맨위로
+    move_to_bottom: 맨아래로
     toc: 목차
     scroll_to_comment: 댓글 창으로 이동
     setting: 화면 설정 (다크 모드 등)

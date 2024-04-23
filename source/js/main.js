@@ -348,7 +348,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (scrollPercent < 95) {
       goUpElement.classList.add('show-percent')
-      goUpElement.querySelector('.scroll-percent').textContent = scrollPercent
+      goUpElement.querySelector('.scroll-percent').textContent = scrollPercent + "%"
     } else {
       goUpElement.classList.remove('show-percent')
     }
@@ -367,7 +367,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // 當滾動條小于 56 的時候
     if (document.body.scrollHeight <= innerHeight) {
-      $rightside.classList.add('rightside-show')
+      $rightside.classList.add('')
       return
     }
 
@@ -385,7 +385,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (currentTop > 56) {
         if (flag === '') {
           $header.classList.add('nav-fixed')
-          $rightside.classList.add('rightside-show')
+          // $rightside.classList.add('rightside-show')
         }
 
         if (isDown) {
@@ -406,13 +406,13 @@ document.addEventListener('DOMContentLoaded', function () {
         if (currentTop === 0) {
           $header.classList.remove('nav-fixed', 'nav-visible')
         }
-        $rightside.classList.remove('rightside-show')
+        // $rightside.classList.remove('rightside-show')
       }
 
       isShowPercent && rightsideScrollPercent(currentTop)
 
       if (document.body.scrollHeight <= innerHeight) {
-        $rightside.classList.add('rightside-show')
+        // $rightside.classList.add('rightside-show')
       }
     }, 300)
 
@@ -590,6 +590,9 @@ document.addEventListener('DOMContentLoaded', function () {
     },
     'go-up': () => { // Back to top
       btf.scrollToDest(0, 500)
+    },
+    'go-down': () => { // Go to bottom 
+      btf.scrollToDest(document.body.scrollHeight, 500)
     },
     'hide-aside-btn': () => { // Hide aside
       const $htmlDom = document.documentElement.classList
