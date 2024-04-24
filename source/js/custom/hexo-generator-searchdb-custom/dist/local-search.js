@@ -1,8 +1,11 @@
 /**
  * Refer to hexo-generator-searchdb
  * https://github.com/next-theme/hexo-generator-searchdb/blob/main/dist/search.js
- * Modified by hexo-theme-butterfly
+ * 
+ * First Modified by hexo-theme-butterfly
+ * Then Add the ability to search by language, tags, and categories
  */
+
 
 class LocalSearch {
   constructor ({
@@ -103,20 +106,53 @@ class LocalSearch {
 
   getResultItems (keywords) {
     const resultItems = []
-    this.datas.forEach(({ title, content, url }) => {
+    this.datas.forEach(({ title, language, tags, categories, content, url }) => {
       // The number of different keywords included in the article.
       const [indexOfTitle, keysOfTitle] = this.getIndexByWord(keywords, title)
+      const indexAndkeysOfTags = tags.map(tag => this.getIndexByWord(keywords, tag))
+      const indexAndkeydOfCategories = categories.map(cat => this.getIndexByWord(keywords, cat))
       const [indexOfContent, keysOfContent] = this.getIndexByWord(keywords, content)
-      const includedCount = new Set([...keysOfTitle, ...keysOfContent]).size
+
+      // Change includedCount into weighted value (title: 3, tags: 2, categories: 2, content: 1)
+      // const includedCount = new Set([...keysOfTitle, ...keysOfContent]).size  // ORIGINAL
+      const includedCount = keysOfTitle.size * 3 +
+                            indexAndkeysOfTags.reduce((acc, [_, keys]) => acc + keys.size, 0) * 2 +
+                            indexAndkeydOfCategories.reduce((acc, [_, keys]) => acc + keys.size, 0) * 2 +
+                            keysOfContent.size
 
       // Show search results
-      const hitCount = indexOfTitle.length + indexOfContent.length
+      // const hitCount = indexOfTitle.length + indexOfContent.length  // ORIGINAL
+      const hitCount = indexOfTitle.length + indexOfContent.length + 
+                      indexAndkeysOfTags.reduce((acc, [index, _]) => acc + index.length, 0) +
+                      indexAndkeydOfCategories.reduce((acc, [index, _]) => acc + index.length, 0)
       if (hitCount === 0) return
 
       const slicesOfTitle = []
       if (indexOfTitle.length !== 0) {
         slicesOfTitle.push(this.mergeIntoSlice(0, title.length, indexOfTitle))
       }
+
+      const slicesOfTags = []
+      indexAndkeysOfTags.forEach((indexAndkeysOfTag, index) => {
+        const [indexOfTag, _] = indexAndkeysOfTag
+        if (indexOfTag.length !== 0) {
+          slicesOfTags.push(this.mergeIntoSlice(0, tags[index].length, indexOfTag))
+        }
+        else {
+          slicesOfTags.push(null)
+        }
+      })
+
+      const slicesOfCategories = []
+      indexAndkeydOfCategories.forEach((indexAndkeydOfCategory, index) => {
+        const [indexOfCategory, _] = indexAndkeydOfCategory
+        if (indexOfCategory.length !== 0) {
+          slicesOfCategories.push(this.mergeIntoSlice(0, categories[index].length, indexOfCategory))
+        }
+        else {
+          slicesOfCategories.push(null)
+        }
+      })
 
       let slicesOfContent = []
       while (indexOfContent.length !== 0) {
@@ -155,6 +191,28 @@ class LocalSearch {
         resultItem += `<div class="local-search-hit-item"><a href="${url.href}"><span class="search-result-title">${title}</span>`
       }
 
+      resultItem += '<div style="font-size: 0.9em; font-weight:500; color:#999;">'
+      if (slicesOfTags.filter(slice => slice).length !== 0) {
+        resultItem += `<div class="search-result-tags" style="display:inline-block; padding-right:10px;">[Tags] `
+        slicesOfTags.forEach((slice, index) => {
+          if (slice) {
+            resultItem += `<span class="search-result-tag">${this.highlightKeyword(tags[index], slice)}</span>, `
+          }
+        })
+        resultItem = resultItem.slice(0, -2) + '</div>'
+      }
+
+      if (slicesOfCategories.filter(slice => slice).length !== 0) {
+        resultItem += `<div class="search-result-categories" style="display:inline-block;">[Categories] `
+        slicesOfCategories.forEach((slice, index) => {
+          if (slice) {
+            resultItem += `<span class="search-result-category">${this.highlightKeyword(categories[index], slice)}</span>, `
+          }
+        })
+        resultItem = resultItem.slice(0, -2) + '</div>'
+      }
+      resultItem += '</div>'
+
       slicesOfContent.forEach(slice => {
         resultItem += `<p class="search-result">${this.highlightKeyword(content, slice)}...</p></a>`
       })
@@ -164,7 +222,8 @@ class LocalSearch {
         item: resultItem,
         id: resultItems.length,
         hitCount,
-        includedCount
+        includedCount,
+        language
       })
     })
     return resultItems
@@ -180,6 +239,9 @@ class LocalSearch {
         this.datas = isXml
           ? [...new DOMParser().parseFromString(res, 'text/xml').querySelectorAll('entry')].map(element => ({
               title: element.querySelector('title').textContent,
+              language: element.querySelector('language').textContent,
+              tags: element.querySelector('tags').textContent,
+              categories: element.querySelector('categories').textContent,
               content: element.querySelector('content').textContent,
               url: element.querySelector('url').textContent
             }))
@@ -187,6 +249,8 @@ class LocalSearch {
         // Only match articles with non-empty titles
         this.datas = this.datas.filter(data => data.title).map(data => {
           data.title = data.title.trim()
+          data.tags = data.tags ? data.tags.trim().replace(/\n[\s]+/g, '\n').split('\n') : []
+          data.categories = data.categories ? data.categories.trim().replace(/\n[\s]+/g, '\n').split('\n') : []
           data.content = data.content ? data.content.trim().replace(/<[^>]+>/g, '') : ''
           data.url = decodeURIComponent(data.url).replace(/\/{2,}/g, '/')
           return data
@@ -235,7 +299,7 @@ class LocalSearch {
 }
 
 window.addEventListener('load', () => {
-  // Search
+// Search
   const { path, top_n_per_article, unescape, languages } = GLOBAL_CONFIG.localSearch
   const localSearch = new LocalSearch({
     path,
@@ -247,6 +311,7 @@ window.addEventListener('load', () => {
   const statsItem = document.getElementById('local-search-stats-wrap')
   const $loadingStatus = document.getElementById('loading-status')
   const isXml = !path.endsWith('json')
+  const siteLang = document.querySelector('html').getAttribute('site-lang')
 
   const inputEventFunction = () => {
     if (!localSearch.isfetched) return
@@ -271,6 +336,8 @@ window.addEventListener('load', () => {
       statsItem.innerHTML = statsDiv.outerHTML
     } else {
       resultItems.sort((left, right) => {
+        left.includedCount = siteLang === left.language ? left.includedCount + 10000 : left.includedCount
+        right.includedCount = siteLang === right.language ? right.includedCount + 10000 : right.includedCount
         if (left.includedCount !== right.includedCount) {
           return right.includedCount - left.includedCount
         } else if (left.hitCount !== right.hitCount) {
