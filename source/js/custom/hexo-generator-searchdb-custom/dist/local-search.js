@@ -311,8 +311,7 @@ window.addEventListener('load', () => {
   const statsItem = document.getElementById('local-search-stats-wrap')
   const $loadingStatus = document.getElementById('loading-status')
   const isXml = !path.endsWith('json')
-  const siteLang = document.querySelector('html').getAttribute('site-lang')
-
+  
   const inputEventFunction = () => {
     if (!localSearch.isfetched) return
     let searchText = input.value.trim().toLowerCase()
@@ -320,6 +319,7 @@ window.addEventListener('load', () => {
     if (searchText !== '') $loadingStatus.innerHTML = '<i class="fas fa-spinner fa-pulse"></i>'
     const keywords = searchText.split(/[-\s]+/)
     const container = document.getElementById('local-search-results')
+    const siteLang = document.querySelector('html').getAttribute('site-lang') || document.querySelector('html').getAttribute('page-lang')
     let resultItems = []
     if (searchText.length > 0) {
     // Perform local searching
@@ -336,10 +336,11 @@ window.addEventListener('load', () => {
       statsItem.innerHTML = statsDiv.outerHTML
     } else {
       resultItems.sort((left, right) => {
-        left.includedCount = siteLang === left.language ? left.includedCount + 10000 : left.includedCount
-        right.includedCount = siteLang === right.language ? right.includedCount + 10000 : right.includedCount
-        if (left.includedCount !== right.includedCount) {
-          return right.includedCount - left.includedCount
+        left_count = (siteLang === left.language) || left.language === 'default' ? left.includedCount + 10000 : left.includedCount
+        right_count = (siteLang === right.language) || right.language === 'default' ? right.includedCount + 10000 : right.includedCount
+        console.log(siteLang, left.language, left_count, right.language, right_count)
+        if (left_count !== right_count) {
+          return right_count - left_count
         } else if (left.hitCount !== right.hitCount) {
           return right.hitCount - left.hitCount
         }
