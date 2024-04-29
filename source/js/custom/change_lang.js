@@ -79,8 +79,34 @@ document.addEventListener('DOMContentLoaded', function () {
     // 만약 없다면 스낵바로 타겟 언어로 된 동일 게시물이 없음을 안내
     prev_lang = languages[prev-1]
     post_lang = languages[post-1]
+    
+    new_url = window.location.href.replace(`/${prev_lang}/`, `/${post_lang}/`).split('?')[0].split('#')[0]
+
+    window
+      .fetch(new_url)
+      .then(response => {
+        if (response.status === 200) {
+          window
+            .fetch(new_url, { redirect: 'manual' })
+            .then(response => {
+              isSnackbar && btf.snackbarShow(`Language will be changed to [${langToText(post_lang)}] in a moment.`)
+              setTimeout(() => {
+                window.location.href = new_url
+              } , 2000)
+            })
+        } else {
+          isSnackbar && btf.snackbarShow(`No corresponding [${langToText(post_lang)}] page exists.`)
+        }
+      }
+    )
+
+
+
+
+    
+
     // isSnackbar && btf.snackbarShow(`No corresponding [${langToText(post_lang)}] page exists.`)
-    isSnackbar && btf.snackbarShow(`Not implemented yet.`)
+    // isSnackbar && btf.snackbarShow(`Not implemented yet.`)
     
   }
 
