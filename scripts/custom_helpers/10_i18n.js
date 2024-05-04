@@ -23,6 +23,8 @@ const {
     getClosestRfc5646WithCountryCode
 } = require('./i18n')(hexo);
 
+const pagination = require('hexo-pagination');
+
 // Creators
 
 // mask the original post creator
@@ -61,6 +63,38 @@ hexo.post.create = async (data, replace) => {
     return results[0];
 };
 
+function injectUsedLanguages(func) {
+    return function(locals) {
+        return func.call(this, getUsedLanguages(), locals);
+    }
+}
+
+// mask the original draft creator
+hexo.extend.generator.register('index', injectUsedLanguages(function(languages, locals) {
+    const config = hexo.config;
+    const posts = locals.posts.sort(config.index_generator.order_by);
+    
+    posts.data.sort((a, b) => (b.sticky || 0) - (a.sticky || 0));
+
+    const paginationDir = config.pagination_dir || 'page';
+    const path = config.index_generator.path || '';
+
+    return _.flatten(languages.map((language) => {
+        const filteredPosts = isDefaultLanguage(language) ? posts : posts.filter(postFilter(language));
+        return pagination(
+            isDefaultLanguage(language) ? path : pathJoin(language, path),
+            filteredPosts, 
+            {
+                perPage: config.index_generator.per_page,
+                layout: ['index', 'archive'],
+                format: paginationDir + '/%d/',
+                data: {
+                    __index: true
+                }
+        });
+    }));
+}));
+
 
 
 // hexo-theme-minos/scripts/10_i18n.js　からコピペ
@@ -68,28 +102,68 @@ hexo.post.create = async (data, replace) => {
  * Modify previous and next post link
  */
 hexo.extend.generator.register('post', function(locals) {
-    return postGenerator(locals).map(route => {
+    const langs = getDisplayLanguages();
+
+    let posts = postGenerator(locals);
+    posts.forEach(route => {
+        tmp_prev = {};
+        tmp_next = {};
+        for (let lang of langs) {
+            tmp_prev[lang] = route.data.prev? route.data.prev : null;
+            tmp_next[lang] = route.data.next? route.data.next : null;
+        }
+        route.data.prev = tmp_prev;
+        route.data.next = tmp_next;
+    });
+
+    return posts.map(route => {
         let post = route.data;
-        if (post.next) {
-            let next = post.next;
-            while (next && next.lang && (isDefaultLanguage(next.lang) || post.lang !== next.lang)) {
-                next = next.next;
+        
+        langs.forEach(lang => {
+            // if post language is not default and not equal to the current language, skip
+            if (!isDefaultLanguage(post.lang) && post.lang !== lang) {
+                delete post.prev[lang];
+                delete post.next[lang];
+                return;
             }
-            post.next = next;
-            if (next) {
-                next.prev = post;
+
+            // find the previous and next post in the current language
+            if (post.next[lang]) {
+                let post_next = post.next[lang];
+                while (post_next && !isDefaultLanguage(post_next.lang) && (lang !== post_next.lang)) {
+                    post_next = post_next.next[lang];
+                }
+                post.next[lang] = post_next;
+                if (post_next) {
+                    post_next.prev[lang] = post;
+                }
+                
             }
-        }
-        if (post.prev) {
-            let prev = post.prev;
-            while (prev && post.lang !== prev.lang) {
-                prev = prev.prev;
+            if (post.prev[lang]) {
+                let post_prev = post.prev[lang];
+                while (post_prev && !isDefaultLanguage(post_prev.lang) && lang !== post_prev.lang) {
+                    post_prev = post_prev.prev[lang];
+                }
+                post.prev[lang] = post_prev;
+                if (post_prev) {
+                    post_prev.next[lang] = post;
+                }
             }
-            post.prev = prev;
-            if (prev) {
-                prev.next = post;
-            }
-        }
+
+        });
+
+        // console.log('\nCURRENT:', route.path);
+        // if (route.data.prev){
+        //     console.log('\tPREV:', Object.keys(route.data.prev).map(lang => {
+        //         return `${lang}: ${route.data.prev[lang] ? route.data.prev[lang].path : null}`;
+        //     }));
+        // }
+        // if (route.data.next){
+        //     console.log('\tNEXT:', Object.keys(route.data.next).map(lang => {
+        //         return `${lang}: ${route.data.next[lang] ? route.data.next[lang].path : null}`;
+        //     }));
+        // }
+
         return route;
     });
 });

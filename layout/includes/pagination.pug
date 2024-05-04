@@ -16,31 +16,30 @@ if is_post()
   - let prev = theme.post_pagination === 1 ? page.prev : page.next
   - let next = theme.post_pagination === 1 ? page.next : page.prev
   nav#pagination.pagination-post
-    if(prev)
-      - var hasPageNext = next ? 'pull-left' : 'pull-full'
-      each langPrefix, lang in langPrefices
+    each langPrefix, lang in langPrefices
+      if(prev[lang])
+        - var hasPageNext = next ? 'pull-left' : 'pull-full'
         .prev-post(class=hasPageNext lang-type='relative' language=lang)
-          a(href=url_for(prev.path) title=prev.title)
-            if prev.cover_type === 'img'
-              img.cover(src=url_for(prev.cover) onerror=`onerror=null;src='${url_for(theme.error_img.post_page)}'` alt='cover of previous post')
+          a(href=url_for(prev[lang].path) title=prev[lang].title)
+            if prev[lang].cover_type === 'img'
+              img.cover(src=url_for(prev[lang].cover) onerror=`onerror=null;src='${url_for(theme.error_img.post_page)}'` alt='cover of previous post')
             else
-              .cover(style=`background: ${prev.cover || 'var(--default-bg-color)'}`)
+              .cover(style=`background: ${prev[lang].cover || 'none'}`)
             .pagination-info
               .label=_p(langPrefix+'pagination.prev')
-              .prev_info=prev.title
+              .prev_info=prev[lang].title
           
-    if(next)
-      - var hasPagePrev = prev ? 'pull-right' : 'pull-full'
-      each langPrefix, lang in langPrefices
+      if(next[lang])
+        - var hasPagePrev = prev ? 'pull-right' : 'pull-full'
         .next-post(class=hasPagePrev lang-type='relative' language=lang)
-          a(href=url_for(next.path) title=next.title)
-            if next.cover_type === 'img'
-              img.cover(src=url_for(next.cover) onerror=`onerror=null;src='${url_for(theme.error_img.post_page)}'` alt='cover of next post')
+          a(href=url_for(next[lang].path) title=next[lang].title)
+            if next[lang].cover_type === 'img'
+              img.cover(src=url_for(next[lang].cover) onerror=`onerror=null;src='${url_for(theme.error_img.post_page)}'` alt='cover of next post')
             else
-              .cover(style=`background: ${next.cover || 'var(--default-bg-color)'}`)
+              .cover(style=`background: ${next[lang].cover || 'none'}`)
             .pagination-info
               .label=_p(langPrefix+'pagination.next')
-              .next_info=next.title
+              .next_info=next[lang].title
 else
   nav#pagination
     .pagination
