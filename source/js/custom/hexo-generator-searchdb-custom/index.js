@@ -20,11 +20,11 @@ if (!extname(config.path)) {
   config.path += '.xml';
 }
 if (extname(config.path) === '.xml') {
-  console.log('test xml')
+  console.log('Search DB XML Created')
   hexo.extend.generator.register('xml', require('./lib/xml_generator'));
 }
 if (extname(config.path) === '.json') {
-  console.log('test json')
+  console.log('Search DB JSON Created')
   hexo.extend.generator.register('json', require('./lib/json_generator'));
 }
 

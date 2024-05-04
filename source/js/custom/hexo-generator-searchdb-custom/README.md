@@ -1,4 +1,4 @@
-# hexo-generator-searchdb
+# hexo-generator-searchdb (custom)
 
 [![Build Status][github-image]][github-url]
 [![npm-image]][npm-url]
@@ -6,8 +6,9 @@
 [![lic-image]](LICENSE)
 
 Seach data generator plugin for Hexo.
-
 This plugin is used for generating a search index file, which contains all the necessary data of your articles that you can use to write a local search engine for your blog. Supports both XML and JSON format output.
+
+> I've made some changes to the original plugin to make it work **MULTILINGUAL** in my custom butterfly theme.
 
 ## Install
 
@@ -16,7 +17,7 @@ This plugin is used for generating a search index file, which contains all the n
 [![dt-image]][npm-url]
 
 ```bash
-$ npm install hexo-generator-searchdb
+$ npm install /path/to/hexo-generator-searchdb-custom --save
 ```
 
 ## Options
