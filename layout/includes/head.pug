@@ -8,6 +8,7 @@
 
 - var isSubtitle = config.subtitle ? ' - ' + config.subtitle : ''
 - var tabTitle = is_home() || !pageTitle ? config.title + isSubtitle : pageTitle + ' | ' + config.title
+- tabTitle = page.series ? page.series + ' - ' + tabTitle : tabTitle
 - var pageAuthor = config.email ? config.author + ',' + config.email : config.author
 - var pageCopyright = config.copyright || config.author
 - var themeColorLight = theme.theme_color && theme.theme_color.enable && theme.theme_color.meta_theme_color_light || '#ffffff'
