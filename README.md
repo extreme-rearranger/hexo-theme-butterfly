@@ -46,24 +46,21 @@ npm install hexo-generator-i18n --save
 - Can use more than two languages though I used two.
 
 ```yaml
-languages:
-  - default  # important!!!! `default` should be explicitly defined as first element
+language: 
+  - default
   - en
   - ko
+language_default: default
 i18n_dir: :lang
 i18n: # hexo-generator-i18n settings
-  languages: # important!!!! `default` should be explicitly defined as first element
-    - default
-    - en
-    - ko
   type:
     # - page  # if active, then page_title, ko/page_title, en/page_title are all available with the same content
     # - post  # if active, then posts/:title, en/posts/:title, ko/posts/:title are all avaliable (this is not recommended since :title already contains language information)
-  generator:
-    - archive
-    - category
-    - tag
-    - index
+  generator:  # all inactive since every helpers is defined in 10_i18n.js
+    # - archive
+    # - category
+    # - tag
+    # - index
 ```
 
 
@@ -86,12 +83,29 @@ i18n: # hexo-generator-i18n settings
 - For instance, `div` is changed to `div(div(lang-type='relative' language='en')` when the content is written in English.
 
 
-### Change the following features to support multilingual
+#### RESULT : Change the following features to support multilingual
 - [x] Archive Length Helper (`findArchiveLength.js`)
+  - Get archive length in multilingual manner
+  - For example, the posts in Korean will be dropped when the page language is set to English.
 - [x] Language Transition Button on rightside (`change_lang.js`, ...)
+  - If the page language is set to default, then the button changes the text language alternately.
+  - If the page language is set to specific language, then the site will be redirected to the same page in the alternative language.
 - [x] Tag Cloud Helper (`tagcloud.js`)
+  - `/en/tags/` and `/ko/tags/` are available
 - [x] List Categories Helper (`listcategories.js`)
+  - `/en/categories/` and `/ko/categories/` are available
 - [x] Menu and Navigation
+  - Some site url changes automatically according to the page language
+  - For example, `/en/archive/` changes to `/ko/archive/` when the language is changed
+- [x] Index Page with Multilingual Support (see index helper in `10_i18n.js`)
+  - `index.html` show all posts
+  - `en/index.html` show only English posts
+  - `ko/index.html` show only Korean posts
 - [X] Aside (Recent Posts, Categories, Tags, Blog Info, Archives) (`aside_categories.js`, `aside_archives.js`, ...)
-- [X] Post Meta (...)
-
+  - All the aside contents are available in multilingual manner
+  - If Language Transition Button is clicked, then the aside contents will be changed to the alternative language
+- [X] Search (`source/js/custom/hexo-generator-searchdb-custom`)
+  - The search DB is generated in multilingual manner
+  - The search result is displayed in the alternative language when the language is changed
+  - Also, I add tags and categories to be searched
+  - The search result is sorted with weighted score of count (3: title > 2: categories, tags > 1: content)
