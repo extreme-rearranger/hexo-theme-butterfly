@@ -191,7 +191,7 @@ class LocalSearch {
         resultItem += `<div class="local-search-hit-item"><a href="${url.href}"><span class="search-result-title">${title}</span>`
       }
 
-      resultItem += '<div style="font-size: 0.9em; font-weight:500; color:#999;">'
+      resultItem += '<div style="font-size: 0.9em; font-weight: 450; color:#999;">'
       if (slicesOfTags.filter(slice => slice).length !== 0) {
         resultItem += `<div class="search-result-tags" style="display:inline-block; padding-right:10px;">[Tags] `
         slicesOfTags.forEach((slice, index) => {
