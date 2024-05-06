@@ -31,7 +31,7 @@ en:
       author: Author
       link: Link
       copyright_notice: Copyright Notice
-      copyright_content: 'All articles in this blog are licensed under <a href="%s">%s</a> unless stating additionally.'
+      copyright_content: 'All articles are licensed under <a href="%s">%s</a> unless stating additionally.'
     recommend: Related Articles
     edit: Edited on
 
@@ -160,7 +160,7 @@ ko:
       author: 작성자
       link: 링크
       copyright_notice: 저작권 안내
-      copyright_content: "이 블로그의 모든 내용은 별도의 언급이 없는 한 기본적으로 <a href='%s'>%s</a> 라이센스를 따릅니다."
+      copyright_content: "이 블로그의 모든 내용은 별도의 언급이 없는 한 <a href='%s'>%s</a> 라이센스를 따릅니다."
     recommend: 관련 게시물
     edit: 편집
 
