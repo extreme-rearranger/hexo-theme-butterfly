@@ -5,10 +5,10 @@
 - var lang = is_default_language(page_language()) ? 'default' : page_language()
 
 - let langPrefices
-if is_default_language(page.lang)
+if is_default_language(page_language())
   - langPrefices = Object.fromEntries(display_languages().map((lang) => [lang,`${lang}.`]))
 else
-  - langPrefices = Object.fromEntries([[page.lang, '']])
+  - langPrefices = Object.fromEntries([[page_language(), '']])
 
 doctype html
 html(lang=display_languages() page-lang=lang data-theme=theme.display_mode class=htmlClassHideAside)

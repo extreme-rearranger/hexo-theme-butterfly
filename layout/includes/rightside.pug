@@ -1,5 +1,5 @@
 - let langPrefix
-if is_default_language(page.lang)
+if is_default_language(page_language())
   - langPrefix = `${display_languages()[0]}.`
 else
   - langPrefix = ''

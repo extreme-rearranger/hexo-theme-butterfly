@@ -33,7 +33,23 @@ module.exports = function (hexo) {
     }
 
     function getUsedLanguages() {
-        return hexo.theme.i18n.list();
+        let languages = hexo.config.language;
+        const defaultLanguage = hexo.config.language_default;
+        if (!languages) {
+            return ['default'];
+        }
+        if (!Array.isArray(languages)) {
+            languages = [languages];
+        }
+        if (defaultLanguage){
+            // add default language to languages at first
+            if (languages.indexOf(defaultLanguage) > -1) {
+                languages = languages.filter(language => language !== defaultLanguage);
+            }
+            languages.unshift(defaultLanguage);
+        }
+        hexo.theme.i18n.languages = languages;
+        return languages;
     }
 
     function getDisplayLanguages() {

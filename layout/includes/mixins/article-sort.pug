@@ -1,9 +1,9 @@
 mixin articleSort(posts)
   - let langPrefices
-  if is_default_language(page.lang)
+  if is_default_language(page_language())
     - langPrefices = Object.fromEntries(display_languages().map((lang) => [lang,`${lang}.`]))
   else
-    - langPrefices = Object.fromEntries([[page.lang, '']])
+    - langPrefices = Object.fromEntries([[page_language(), '']])
 
   each langPrefix, lang in langPrefices
     .article-sort(lang-type='relative' language=lang)

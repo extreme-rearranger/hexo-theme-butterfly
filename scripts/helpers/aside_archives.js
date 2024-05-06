@@ -23,7 +23,7 @@ hexo.extend.helper.register('aside_archives', function (options = {}) {
     ? (yearA, monthA, yearB, monthB) => yearA === yearB && monthA === monthB
     : (yearA, monthA, yearB, monthB) => yearA === yearB
   const limit = options.limit
-  let langPrefix = this.is_default_language(this.page.lang) ? `${lang}.` : ''
+  let langPrefix = this.is_default_language(this.page_language()) ? `${lang}.` : ''
   let result = ''
   if (!format) {
     format = type === 'monthly' ? 'MMMM YYYY' : 'YYYY'
