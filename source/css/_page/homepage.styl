@@ -64,18 +64,18 @@
 
         .sticky
           margin-right: 10px
-          color: $sticky-color
+          color: var(--sticky-color)
           transform: rotate(45deg)
 
         +maxWidth768()
           font-size: 1.43em
 
         &:hover
-          color: $text-hover
+          color: var(--text-hover)
 
       & > .article-meta-wrap
         margin: 6px 0
-        color: $theme-meta-color
+        color: var(--meta-color)
         font-size: .9em
 
         & > .post-meta-date
@@ -104,10 +104,10 @@
             display: none
 
         a
-          color: $theme-meta-color
+          color: var(--meta-color)
 
           &:hover
-            color: $text-hover
+            color: var(--text-hover)
             text-decoration: underline
 
       & > .content

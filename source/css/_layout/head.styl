@@ -1,7 +1,7 @@
 #page-header
   position: relative
   width: 100%
-  background-color: $light-blue
+  background-color: var(--theme-color)
   background-position: center center
   background-size: cover
   background-repeat: no-repeat
@@ -12,7 +12,7 @@
       position: absolute
       width: 100%
       height: 100%
-      background-color: var(--mark-bg)
+      background-color: var(--mask-bg)
       content: ''
 
   // index
@@ -113,7 +113,7 @@
     background: 0
 
     #nav
-      background: rgba(255, 255, 255, .8)
+      background: var(--white80)
       box-shadow: 0 5px 6px -5px rgba(133, 133, 133, .6)
 
       a,
@@ -127,15 +127,15 @@
       position: fixed
       top: -60px
       z-index: 91
-      background: rgba(255, 255, 255, .8)
-      box-shadow: 0 5px 6px -5px alpha($grey, .6)
+      background: var(--white80)
+      box-shadow: 0 5px 6px -5px var(--grey60)
       transition: transform .2s ease-in-out, opacity .2s ease-in-out
 
       #blog-info
         color: var(--font-color)
 
         &:hover
-          color: $light-blue
+          color: var(--theme-color)
 
         .site-name
           text-shadow: none
@@ -147,7 +147,7 @@
         text-shadow: none
 
         &:hover
-          color: $light-blue
+          color: var(--theme-color)
 
     &.fixed
       #nav
@@ -248,7 +248,7 @@
       transition: all .3s ease-out
 
       &:hover
-        color: $text-hover
+        color: var(--text-hover)
         text-decoration: underline
 
     if hexo-config('post_meta.post.date_format') == 'relative'
@@ -303,7 +303,7 @@
       color: var(--white)
 
   .site-name
-    text-shadow: 2px 2px 4px rgba($dark-black, .15)
+    text-shadow: 2px 2px 4px var(--dark-black15)
     font-weight: 650
 
   .menus_items
@@ -334,7 +334,7 @@
         width: max-content
         border-radius: 5px
         background-color: var(--sidebar-bg)
-        box-shadow: 0 5px 20px -4px rgba($dark-black, .5)
+        box-shadow: 0 5px 20px -4px var(--dark-black50)
         animation: sub_menus .3s .1s ease both
 
         &:before
@@ -386,7 +386,7 @@
   .site-page
     position: relative
     padding-bottom: 6px
-    text-shadow: 1px 1px 2px rgba($dark-black, .3)
+    text-shadow: 1px 1px 2px var(--dark-black30)
     font-size: .78em
     cursor: pointer
 
@@ -398,7 +398,7 @@
         z-index: -1
         width: 0
         height: 3px
-        background-color: lighten($theme-color, 30%)
+        background-color: var(--theme-color-light30)
         content: ''
         transition: all .3s ease-in-out
 

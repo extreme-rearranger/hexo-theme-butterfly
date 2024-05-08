@@ -9,7 +9,7 @@
         padding: 5px 14px
         width: 100%
         outline: none
-        border: 2px solid $search-color
+        border: 2px solid var(--search-color)
         border-radius: 40px
         background: var(--search-bg)
         color: var(--search-input-color)
@@ -35,7 +35,7 @@
         left: 0
         width: w = $w
         height: h = w
-        border: 3px solid $search-color
+        border: 3px solid var(--search-color)
         border-radius: w
         background: transparent
         content: ''
@@ -47,7 +47,7 @@
         color: var(--search-a-color)
 
         &:hover
-          color: $search-color
+          color: var(--search-color)
 
       .search-result-title
         font-weight: 550
@@ -66,5 +66,5 @@
 
 .search-keyword
   background: transparent
-  color: $search-keyword-highlight
+  color: var(--search-keyword-highlight)
   font-weight: 650

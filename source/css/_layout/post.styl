@@ -28,7 +28,7 @@ beautify()
 
     &:hover
       &:before
-        color: $light-blue
+        color: var(--theme-color)
 
   h1
     headStyle(20)
@@ -55,7 +55,7 @@ beautify()
 
   li
     &::marker
-      color: $light-blue
+      color: var(--pseudo-color)
       font-weight: 550
       font-size: 1.05em
 
@@ -77,7 +77,7 @@ beautify()
     text-align: justify
 
   a
-    color: $theme-link-color
+    color: var(--post-link-color)
 
     &:hover
       text-decoration: underline
@@ -171,14 +171,14 @@ beautify()
         margin: 8px 8px 8px 0
         padding: 0 12px
         width: fit-content
-        border: 1px solid $light-blue
+        border: 1px solid var(--theme-color)
         border-radius: 12px
-        color: $light-blue
+        color: var(--theme-color)
         font-size: .85em
         transition: all .2s ease-in-out
 
         &:hover
-          background: $light-blue
+          background: var(--theme-color)
           color: var(--white)
 
     .post_share
@@ -209,7 +209,7 @@ beautify()
       position: absolute
       top: 2px
       right: 12px
-      color: $theme-color
+      color: var(--theme-color)
       content: '\f1f9'
       font-size: 1.3em
 
@@ -218,7 +218,7 @@ beautify()
 
     .post-copyright
       &-meta
-        color: $light-blue
+        color: var(--theme-color)
         font-weight: 650
 
         i

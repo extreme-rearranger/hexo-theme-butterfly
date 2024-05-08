@@ -1,41 +1,41 @@
 :root
   --global-font-size: $font-size
-  --global-bg: $body-bg
-  --font-color: $font-black
-  --hr-border: lighten($theme-hr-color, 50%)
-  --hr-before-color: lighten($theme-hr-color, 30%)
-  --search-bg: $search-bg
-  --search-input-color: $search-input-color
-  --search-a-color: $search-a-color
-  --preloader-bg: $preloader-bg
-  --preloader-color: $preloader-word-color
-  --tab-border-color: $tab-border-color
-  --tab-botton-bg: $tab-botton-bg
-  --tab-botton-color: $tab-botton-color
-  --tab-button-hover-bg: $tab-button-hover-bg
-  --tab-button-active-bg: $tab-button-active-bg
-  --card-bg: $card-bg
-  --sidebar-bg: $sidebar-background
-  --btn-hover-color: $button-hover-color
-  --btn-color: $button-color
-  --btn-bg: $button-bg
-  --text-bg-hover: rgba($text-bg-hover, .7)
-  --light-grey: $light-grey
-  --dark-grey: $dark-grey
-  --white: $white
-  --text-highlight-color: $text-highlight-color
-  --blockquote-color: $blockquote-color
-  --blockquote-bg: $blockquote-background-color
+  // --global-bg: $body-bg
+  // --font-color: $font-black
+  // --hr-border: lighten($theme-hr-color, 50%)
+  // --hr-before-color: lighten($theme-hr-color, 30%)
+  // --search-bg: $search-bg
+  // --search-input-color: $search-input-color
+  // --search-a-color: $search-a-color
+  // --preloader-bg: $preloader-bg
+  // --preloader-color: $preloader-word-color
+  // --tab-border-color: $tab-border-color
+  // --tab-botton-bg: $tab-botton-bg
+  // --tab-botton-color: $tab-botton-color
+  // --tab-button-hover-bg: $tab-button-hover-bg
+  // --tab-button-active-bg: $tab-button-active-bg
+  // --card-bg: $card-bg
+  // --sidebar-bg: $sidebar-background
+  // --btn-hover-color: $button-hover-color
+  // --btn-color: $button-color
+  // --btn-bg: $button-bg
+  // --text-bg-hover: rgba($text-bg-hover, .7)
+  // --light-grey: $light-grey
+  // --dark-grey: $dark-grey
+  // --white: $white
+  // --text-highlight-color: $text-highlight-color
+  // --blockquote-color: $blockquote-color
+  // --blockquote-bg: $blockquote-background-color
   --reward-pop: $reward-pop-up-bg
-  --toc-link-color: $toc-link-color
-  --card-box-shadow: 0 3px 8px 6px rgba(7, 17, 27, .05)
-  --card-hover-box-shadow: 0 3px 8px 6px rgba(7, 17, 27, .09)
-  --pseudo-hover: $pseudo-hover
-  --headline-presudo: #a0a0a0
-  --scrollbar-color: $scrollbar-color
-  --default-bg-color: $theme-color
-  --zoom-bg: #fff
-  --mark-bg: alpha($dark-black, .3)
+  // --toc-link-color: $toc-link-color
+  // --card-box-shadow: 0 3px 8px 6px rgba(7, 17, 27, .05)
+  // --card-hover-box-shadow: 0 3px 8px 6px rgba(7, 17, 27, .09)
+  // --pseudo-hover: $pseudo-hover
+  // --headline-presudo: #a0a0a0  // not used
+  // --scrollbar-color: $scrollbar-color
+  // --default-bg-color: var(--theme-color)
+  // --zoom-bg: #fff
+  // --mask-bg: alpha($dark-black, .3)
 
 body
   position: relative
@@ -71,13 +71,13 @@ body
 input::placeholder
   color: var(--font-color)
 
-if $web-bg
+if hexo-config('background')
   #web_bg
     position: fixed
     z-index: -999
     width: 100%
     height: 100%
-    background: $web-bg
+    background: var(--web-bg)
     background-attachment: local
     background-position: center
     background-size: cover
@@ -112,7 +112,7 @@ table
   empty-cells: show
 
   thead
-    background: alpha($table-thead-bg, 10%)
+    background: var(--table-thead-bg)
 
   th,
   td
@@ -133,14 +133,14 @@ button
   touch-action: manipulation
 
 a
-  color: $a-link-color
+  color: var(--a-link-color)
   text-decoration: none
   word-wrap: break-word
   transition: all .2s
   overflow-wrap: break-word
 
   &:hover
-    color: $light-blue
+    color: var(--theme-color)
 
 // font
 if $site-name-font
@@ -184,7 +184,7 @@ if hexo-config('lazyload.enable') && hexo-config('lazyload.blur') && !hexo-confi
 blockquote
   margin: 0 0 20px
   padding: 12px 15px
-  border-left: 3px solid $blockquote-padding-color
+  border-left: 3px solid var(--blockquote-padding-color)
   background-color: var(--blockquote-bg)
   color: var(--blockquote-color)
 

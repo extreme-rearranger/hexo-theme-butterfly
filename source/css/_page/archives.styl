@@ -1,7 +1,7 @@
 .article-sort
   margin-left: 10px
   padding-left: 20px
-  border-left: 2px solid lighten($light-blue, 20)
+  border-left: 2px solid var(--theme-color-light20)
 
   &-title
     position: relative
@@ -21,7 +21,7 @@
       z-index: 1
       width: w = 10px
       height: h = w
-      border: .5 * w solid $light-blue
+      border: .5 * w solid var(--theme-color)
       border-radius: w
       background: var(--card-bg)
       content: ''
@@ -35,7 +35,7 @@
       z-index: 0
       width: 2px
       height: 1.5em
-      background: lighten($light-blue, 20)
+      background: var(--theme-color-light20)
       content: ''
 
   &-item
@@ -55,7 +55,7 @@
       left: calc(-20px - 17px)
       width: w = $w
       height: h = w
-      border: .5 * w solid $light-blue
+      border: .5 * w solid var(--theme-color)
       border-radius: w
       background: var(--card-bg)
       content: ''
@@ -72,13 +72,13 @@
 
       &:hover
         &:before
-          border-color: $light-blue
+          border-color: var(--theme-color)
 
       &:before
         border-color: var(--pseudo-hover)
 
     &-time
-      color: $theme-meta-color
+      color: var(--meta-color)
       font-size: 95%
 
       time
@@ -93,7 +93,7 @@
       -webkit-line-clamp: 2
 
       &:hover
-        color: $text-hover
+        color: var(--text-hover)
         transform: translateX(10px)
 
     &-img

@@ -2,7 +2,7 @@
   .timeline
     margin: 0 0 20px 10px
     padding: 14px 20px 5px
-    border-left: 2px solid var(--timeline-color, $theme-color)
+    border-left: 2px solid var(--timeline-color, var(--theme-color))
 
     for $type in $color-types
       &.{$type}
@@ -15,7 +15,7 @@
       &:hover
         .item-circle
           &:before
-            border-color: var(--timeline-color, $theme-color)
+            border-color: var(--timeline-color, var(--theme-color))
 
       &.headline
         .timeline-item-title
@@ -26,7 +26,7 @@
 
             &:before
               left: -28px
-              border: 4px solid var(--timeline-color, $theme-color)
+              border: 4px solid var(--timeline-color, var(--theme-color))
 
         &:hover
           .item-circle
@@ -58,7 +58,7 @@
         position: relative
         padding: 12px 15px
         border-radius: 8px
-        background: var(--timeline-bg, lighten($theme-color, 85%))
+        background: var(--timeline-bg, --theme-color-light85)
         font-size: .93em
 
         & > :last-child

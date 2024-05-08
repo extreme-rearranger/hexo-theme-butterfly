@@ -24,7 +24,7 @@
 
   .search-nav
     margin: 0 0 14px
-    color: $search-color
+    color: var(--search-color)
     font-size: 1.4em
     line-height: 1
 
@@ -33,11 +33,11 @@
 
     .search-close-button
       float: right
-      color: $grey
+      color: var(--grey)
       transition: color .2s ease-in-out
 
       &:hover
-        color: $search-color
+        color: var(--search-color)
   
   hr
     margin: 20px auto
@@ -51,7 +51,7 @@
   left: 0
   z-index: 1000
   display: none
-  background: rgba($dark-black, .6)
+  background: --dark-black50
 
 if hexo-config('algolia_search.enable')
   @require 'algolia'

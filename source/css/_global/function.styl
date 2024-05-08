@@ -19,11 +19,11 @@
 .cardHover
   border-radius: 8px
   background: var(--card-bg)
-  box-shadow: var(--card-box-shadow)
+  box-shadow: 0 3px 8px 6px var(--card-box-shadow)
   transition: all .3s
 
   &:hover
-    box-shadow: var(--card-hover-box-shadow)
+    box-shadow-color: var(--card-hover-box-shadow)
 
 .imgHover
   width: 100%
@@ -65,7 +65,7 @@
       left: 0
       width: w = .43em
       height: h = w
-      border: .5 * w solid $light-blue
+      border: .5 * w solid var(--theme-color)
       border-radius: w
       background: transparent
       content: ''

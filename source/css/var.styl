@@ -7,11 +7,11 @@ $themeColorEnable = hexo-config('theme_color') && hexo-config('theme_color.enabl
 $theme-color = $themeColorEnable && hexo-config('theme_color.main') ? convert(hexo-config('theme_color.main')) : $bright-blue
 $theme-paginator-color = $themeColorEnable && hexo-config('theme_color.paginator') ? convert(hexo-config('theme_color.paginator')) : $strong-cyan
 $theme-text-selection-color = $themeColorEnable && hexo-config('theme_color.text_selection') ? convert(hexo-config('theme_color.text_selection')) : $strong-cyan
-$theme-link-color = $themeColorEnable && hexo-config('theme_color.link_color') ? convert(hexo-config('theme_color.link_color')) : $bright-blue
-$theme-hr-color = $themeColorEnable && hexo-config('theme_color.hr_color') ? convert(hexo-config('theme_color.hr_color')) : $bright-blue
-$code-foreground = $themeColorEnable && hexo-config('theme_color.code_foreground') ? convert(hexo-config('theme_color.code_foreground')) : $light-red
-$code-background = $themeColorEnable && hexo-config('theme_color.code_background') ? convert(hexo-config('theme_color.code_background')) : rgba(27, 31, 35, .05)
-$theme-toc-color = $themeColorEnable && hexo-config('theme_color.toc_color') ? convert(hexo-config('theme_color.toc_color')) : $strong-cyan
+// $theme-link-color = $themeColorEnable && hexo-config('theme_color.link_color') ? convert(hexo-config('theme_color.link_color')) : $bright-blue
+// $theme-hr-color = $themeColorEnable && hexo-config('theme_color.hr_color') ? convert(hexo-config('theme_color.hr_color')) : $bright-blue
+// $code-foreground = $themeColorEnable && hexo-config('theme_color.code_foreground') ? convert(hexo-config('theme_color.code_foreground')) : $light-red
+// $code-background = $themeColorEnable && hexo-config('theme_color.code_background') ? convert(hexo-config('theme_color.code_background')) : rgba(27, 31, 35, .05)
+// $theme-toc-color = $themeColorEnable && hexo-config('theme_color.toc_color') ? convert(hexo-config('theme_color.toc_color')) : $strong-cyan
 // font
 $dafault-font-family = -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Lato, Roboto, 'PingFang SC', 'Microsoft YaHei', sans-serif
 $dafault-code-font = consolas, Menlo, 'PingFang SC', 'Microsoft YaHei', sans-serif
@@ -26,63 +26,62 @@ $hr-icon-top = $hrEnable && hexo-config('hr_icon.icon-top') ? convert(hexo-confi
 $beautifyEnable = hexo-config('beautify.enable')
 $title-prefix-icon = $beautifyEnable && hexo-config('beautify.title-prefix-icon') ? hexo-config('beautify.title-prefix-icon') : '\f0c1'
 $title-prefix-icon-color = $beautifyEnable && hexo-config('beautify.title-prefix-icon-color') ? convert(hexo-config('beautify.title-prefix-icon-color')) : $light-red
-// Global Variables
+// // Global Variables
 $font-size = hexo-config('font.global-font-size') ? convert(hexo-config('font.global-font-size')) : 14px
 $code-font-size = hexo-config('font.code-font-size') ? convert(hexo-config('font.code-font-size')) : var(--global-font-size)
-$font-color = #1F2D3D
+// $font-color = #1F2D3D
 $text-line-height = 1.75  // original : 2
-$web-bg = hexo-config('background') && unquote(hexo-config('background'))
+// $web-bg = hexo-config('background') && unquote(hexo-config('background'))
 $index_top_img_height = hexo-config('index_top_img_height') ? convert(hexo-config('index_top_img_height')) : 100vh
 $index_site_info_top = hexo-config('index_site_info_top') ? convert(hexo-config('index_site_info_top')) : 43%
-// Global color & SVG
-$light-blue = $theme-color
-$dark-black = #000000
-$light-grey = #EEEEEE
-$grey = #858585
-$dark-grey = #cacaca
-$white = #FFFFFF
-$whitesmoke = #f5f5f5
-$font-black = #4C4948
-$card-bg = $white
-$text-highlight-color = $font-color
-$text-hover = $theme-color
-$text-bg-hover = $theme-color
-// code
+// // Global color & SVG
+// $dark-black = #000000
+// $light-grey = #EEEEEE
+// $grey = #858585
+// $dark-grey = #cacaca
+// $white = #FFFFFF
+// $whitesmoke = #f5f5f5
+// $font-black = #4C4948
+// $card-bg = $white
+// $text-highlight-color = $font-color
+// $text-hover = $theme-color
+// $text-bg-hover = $theme-color
+// // code
 $line-height-code-block = 1.6
-$blockquote-color = #6a737d
-$blockquote-padding-color = $themeColorEnable && hexo-config('theme_color.blockquote_padding_color') ? convert(hexo-config('theme_color.blockquote_padding_color')) : #49B1F5
-$blockquote-background-color = $themeColorEnable && hexo-config('theme_color.blockquote_background_color') ? alpha(convert(hexo-config('theme_color.blockquote_background_color')), .1) : alpha($blockquote-padding-color, .1)
-// page
-$body-bg = #fff
-$a-link-color = #99a9bf
-$sticky-color = $light-orange
-$theme-meta-color = $themeColorEnable && hexo-config('theme_color.meta_color') ? convert(hexo-config('theme_color.meta_color')) : #858585
+// $blockquote-color = #6a737d
+// $blockquote-padding-color = $themeColorEnable && hexo-config('theme_color.blockquote_padding_color') ? convert(hexo-config('theme_color.blockquote_padding_color')) : $theme-color
+// $blockquote-background-color = $themeColorEnable && hexo-config('theme_color.blockquote_background_color') ? alpha(convert(hexo-config('theme_color.blockquote_background_color')), .1) : alpha($blockquote-padding-color, .1)
+// // page
+// $body-bg = #fff
+// $a-link-color = #99a9bf
+// $sticky-color = $light-orange
+// $theme-meta-color = $themeColorEnable && hexo-config('theme_color.meta_color') ? convert(hexo-config('theme_color.meta_color')) : #858585
 // sidebar
 $sidebar-background = #f6f8fa
 $sidebar-width = 300px
-// aside
-$toc-link-color = #666261
+// // aside
+// $toc-link-color = #666261
 $toc-mobile-width = calc(100% - 80px)
 $toc-mobile-maxWidth = 380px
-$toc-active-color = #fff
-// Button
-$button-color = #fff
-$button-hover-color = $themeColorEnable && hexo-config('theme_color.button_hover') ? convert(hexo-config('theme_color.button_hover')) : $light-orange
-$button-bg = $theme-color
-$pseudo-hover = $button-hover-color
-// scrollbar
-$scrollbar-color = $themeColorEnable && hexo-config('theme_color.scrollbar_color') ? convert(hexo-config('theme_color.scrollbar_color')) : $theme-color
-// table
-$table-thead-bg = #99a9bf
+// $toc-active-color = #fff
+// // Button
+// $button-color = #fff
+// $button-hover-color = $themeColorEnable && hexo-config('theme_color.button_hover') ? convert(hexo-config('theme_color.button_hover')) : $light-orange
+// $button-bg = $theme-color
+// $pseudo-hover = $button-hover-color
+// // scrollbar
+// $scrollbar-color = $themeColorEnable && hexo-config('theme_color.scrollbar_color') ? convert(hexo-config('theme_color.scrollbar_color')) : $theme-color
+// // table
+// $table-thead-bg = #99a9bf
 // reward
 $reward-pop-up-bg = #f5f5f5
 $reward-pop-up-color = #858585
-// search
-$search-bg = #f6f8fa
-$search-input-color = $font-black
-$search-color = $theme-color
-$search-keyword-highlight = #F47466
-$search-a-color = $font-black
+// // search
+// $search-bg = #f6f8fa
+// $search-input-color = $font-black
+// $search-color = $theme-color
+// $search-keyword-highlight = #F47466
+// $search-a-color = $font-black
 // comments
 $comments-switch-first-text = $bright-blue
 $comments-switch-second-text = $light-orange
@@ -97,9 +96,9 @@ $gallery-color = #fff
 // tag-hide
 $tag-hide-bg = $theme-color
 $tag-hide-toggle-bg = #f0f0f0
-// preloader
-$preloader-bg = #37474f
-$preloader-word-color = #fff
+// // preloader
+// $preloader-bg = #37474f
+// $preloader-word-color = #fff
 // rightside
 $rightside-bottom = hexo-config('rightside_bottom') ? convert(hexo-config('rightside_bottom')) : 40px
 // fireworks
@@ -171,14 +170,14 @@ $tagsP-red-color = #FF0000
 $tagsP-orange-color = #FF8C00
 $tagsP-purple-color = #6f42c1
 $tagsP-green-color = #5cb85c
-// Tag Plugins - Tab
-$tab-border-color = #f0f0f0
-$tab-botton-bg = #f0f0f0
-$tab-botton-color = $font-color
-$tab-button-hover-bg = darken($tab-border-color, 8)
-$tab-active-border-color = $theme-color
-$tab-button-active-bg = $card-bg
-$tab-to-top-color = #99a9bf
-$tab-to-top-hover-color = $theme-color
+// // Tag Plugins - Tab
+// $tab-border-color = #f0f0f0
+// $tab-botton-bg = #f0f0f0
+// $tab-botton-color = $font-color
+// $tab-button-hover-bg = darken($tab-border-color, 8)
+// $tab-active-border-color = $theme-color
+// $tab-button-active-bg = $card-bg
+// $tab-to-top-color = #99a9bf
+// $tab-to-top-hover-color = $theme-color
 // Tag Plugins - timeline
 $timeline-default-color = $theme-color

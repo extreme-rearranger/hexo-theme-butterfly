@@ -49,8 +49,8 @@ $code-block
 
   code
     padding: 2px 4px
-    background: $code-background
-    color: $code-foreground
+    background: var(--hl-bg)
+    color: var(--hl-color)
 
   pre
     @extend $code-block
@@ -144,7 +144,7 @@ $code-block
       transition: color .2s
 
       &:hover
-        color: $theme-color
+        color: var(--theme-color)
 
   .gutter
     user-select: none

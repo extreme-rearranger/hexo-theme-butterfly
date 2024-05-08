@@ -88,7 +88,7 @@
       padding: 0 4px
 
       &:hover
-        color: $text-hover !important
+        color: var(--text-hover) !important
 
   .aside-list
     & > span
@@ -130,7 +130,7 @@
         & > time,
         & > .name
           display: block
-          color: $theme-meta-color
+          color: var(--meta-color)
           font-size: 85%
 
         & > .title,
@@ -142,7 +142,7 @@
           -webkit-line-clamp: 2
 
           &:hover
-            color: $text-hover
+            color: var(--text-hover)
 
       &.no-cover
         min-height: 4.4em
@@ -293,11 +293,11 @@
         transition: all .2s ease-in-out
 
         &:hover
-          color: $theme-color
+          color: var(--toc-link-hover)
 
         &.active
-          background: $theme-toc-color
-          color: $toc-active-color
+          background: var(--theme-toc-color)
+          color: var(--toc-active-color)
 
   .sticky_layout:only-child
     > :first-child
@@ -344,7 +344,7 @@
 
     &:hover
       div
-        color: $theme-color !important
+        color: var(--sub-theme-color) !important
 
     .headline
       @extend .limit-one-line
