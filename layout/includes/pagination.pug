@@ -15,7 +15,8 @@ else
 if is_post()
   - let prev = theme.post_pagination === 1 ? page.prev : page.next
   - let next = theme.post_pagination === 1 ? page.next : page.prev
-  nav#pagination.pagination-post(class="card-widget")
+  - card_class = is_card_widget ? 'card-widget' : ''
+  nav#pagination.pagination-post(class=card_class)
     each langPrefix, lang in langPrefices
       if(prev[lang])
         - var hasPageNext = next ? 'pull-left' : 'pull-full'

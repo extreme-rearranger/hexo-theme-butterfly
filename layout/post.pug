@@ -2,11 +2,11 @@ extends includes/layout.pug
 
 block content
   #post
-    div(class='card-widget')
+    div(class='card-widget post-content')
       if top_img === false
         !=partial('includes/header/post-info', {langPrefices: langPrefices}, {cache: false})
 
-      article#article-container.post-content!=page.content
+      article#article-container!=page.content
       !=partial('includes/post/post-copyright', {langPrefices: langPrefices}, {cache: false})
       .tag_share
         if (theme.post_meta.post.tags)
@@ -14,22 +14,22 @@ block content
             each item, index in page.tags.data
               a(href=url_for_lang(item.path) lang-type='relative' language=lang).post-meta__tags #[=item.name]
         !=partial('includes/third-party/share/index', {}, {cache: false})
-        
+      
     if theme.reward.enable && theme.reward.QR_code
       //- changed to cache false since the content should be different among language settings
-      !=partial('includes/post/reward', {langPrefices: langPrefices}, {cache: false})
+      !=partial('includes/post/reward', {langPrefices: langPrefices, is_card_widget: true}, {cache: false})
 
     //- ad
     if theme.ad && theme.ad.post
       .ads-wrap!=theme.ad.post
 
     if theme.post_pagination
-      !=partial('includes/pagination', {langPrefices: langPrefices}, {cache: false})
+      !=partial('includes/pagination', {langPrefices: langPrefices, is_card_widget: true}, {cache: false})
     if theme.related_post && theme.related_post.enable
       != related_posts(page,site.posts)
 
     if page.comments !== false && theme.comments && theme.comments.use
       - var commentsJsLoad = true
       //- changed to cache false since the content should be different among language settings
-      !=partial('includes/third-party/comments/index', {langPrefices: langPrefices}, {cache: false})
+      !=partial('includes/third-party/comments/index', {langPrefices: langPrefices, is_card_widget: true}, {cache: false})
       

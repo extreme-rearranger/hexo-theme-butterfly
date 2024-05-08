@@ -1,6 +1,7 @@
 - let defaultComment = theme.comments.use[0]
+- card_class = is_card_widget ? 'card-widget' : ''
 
-#post-comment(class="card-widget")
+#post-comment(class=card_class)
   .comment-head
     .comment-headline
       i.fas.fa-comments.fa-fw
