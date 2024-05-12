@@ -134,8 +134,8 @@
       #blog-info
         color: var(--font-color)
 
-        &:hover
-          color: var(--theme-color)
+        // &:hover
+        //   color: var(--theme-color)
 
         .site-name
           text-shadow: none
@@ -146,8 +146,8 @@
         color: var(--font-color)
         text-shadow: none
 
-        &:hover
-          color: var(--theme-color)
+        // &:hover
+        //   color: var(--theme-color)
 
     &.fixed
       #nav
@@ -188,7 +188,7 @@
 
     .post-title
       padding-bottom: 4px
-      border-bottom: 1px solid var(--light-grey)
+      border-bottom: 1px solid var(--title-border-color)
       color: var(--text-highlight-color)
 
       .post-edit-link
@@ -196,7 +196,7 @@
 
     #post-meta,
     #post-meta a
-      color: #78818a
+      color: var(--grey)
 
 #post-info
   .post-title
@@ -398,7 +398,7 @@
         z-index: -1
         width: 0
         height: 3px
-        background-color: var(--theme-color-light30)
+        background-color: var(--sub-theme-color-light30)
         content: ''
         transition: all .3s ease-in-out
 

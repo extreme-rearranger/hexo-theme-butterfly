@@ -26,12 +26,12 @@
   // --text-highlight-color: $text-highlight-color
   // --blockquote-color: $blockquote-color
   // --blockquote-bg: $blockquote-background-color
-  --reward-pop: $reward-pop-up-bg
+  // --reward-pop: $reward-pop-up-bg
   // --toc-link-color: $toc-link-color
   // --card-box-shadow: 0 3px 8px 6px rgba(7, 17, 27, .05)
   // --card-hover-box-shadow: 0 3px 8px 6px rgba(7, 17, 27, .09)
   // --pseudo-hover: $pseudo-hover
-  // --headline-presudo: #a0a0a0  // not used
+  // --headline-presudo: #a0a0a0
   // --scrollbar-color: $scrollbar-color
   // --default-bg-color: var(--theme-color)
   // --zoom-bg: #fff
@@ -121,8 +121,8 @@ table
     vertical-align: middle
 
 *::selection
-  background: $theme-text-selection-color
-  color: #F7F7F7
+  background: var(--text-select-bg)
+  color: var(--text-select-color)
 
 button
   padding: 0
@@ -140,7 +140,7 @@ a
   overflow-wrap: break-word
 
   &:hover
-    color: var(--theme-color)
+    color: var(--sub-theme-color)
 
 // font
 if $site-name-font
@@ -176,7 +176,7 @@ if hexo-config('lazyload.enable') && hexo-config('lazyload.blur') && !hexo-confi
 
 .img-alt
   margin: -10px 0 10px
-  color: #858585
+  color: --var(grey)
 
   &:hover
     text-decoration: none !important
