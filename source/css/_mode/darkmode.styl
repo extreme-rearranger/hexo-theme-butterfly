@@ -55,7 +55,7 @@ if hexo-config('darkmode.enable') || hexo-config('display_mode') == 'dark'
           background: var(--hl-bg)
 
       .aplayer
-        filter: brightness(.8)
+        filter: brightness(0.7)
 
       kbd
         border-color: #696969
@@ -75,12 +75,12 @@ if hexo-config('darkmode.enable') || hexo-config('display_mode') == 'dark'
           background: #2c2c2c !important
 
         #switch-btn
-          filter: brightness(.8)
+          filter: brightness(0.7)
 
     // note
     if hexo-config('note.style') == 'modern' || hexo-config('note.style') == 'flat'
       .note
-        filter: brightness(.8)
+        filter: brightness(0.7)
 
     // hide-tags
     .hide-button,
@@ -91,20 +91,20 @@ if hexo-config('darkmode.enable') || hexo-config('display_mode') == 'dark'
     #article-container iframe,
     .gist,
     .ads-wrap
-      filter: brightness(.8)
+      filter: brightness(0.7)
 
     img
       if hexo-config('lazyload.enable') && hexo-config('lazyload.blur') && !hexo-config('lazyload.placeholder')
-        filter: blur(0) brightness(.8)
+        filter: blur(0) brightness(0.7)
       else
-        filter: brightness(.8)
+        filter: brightness(0.7)
 
     #aside-content .aside-list > .aside-list-item:not(:last-child)
       border-bottom: 1px dashed alpha(#FFFFFF, .1)
 
     // Gitalk
     #gitalk-container
-      filter: brightness(.8)
+      filter: brightness(0.7)
 
       svg
         fill: alpha(#FFFFFF, .9) !important
