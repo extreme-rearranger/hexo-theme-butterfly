@@ -14,7 +14,7 @@
 
       &:hover
         .item-circle
-          &:before
+          &::before
             border-color: var(--timeline-color, var(--theme-color))
 
       &.headline
@@ -24,20 +24,20 @@
               font-weight: 550
               font-size: 1.2em
 
-            &:before
+            &::before
               left: -28px
               border: 4px solid var(--timeline-color, var(--theme-color))
 
         &:hover
           .item-circle
-            &:before
+            &::before
               border-color: var(--pseudo-hover)
 
       .timeline-item-title
         position: relative
 
       .item-circle
-        &:before
+        &::before
           position: absolute
           top: 50%
           left: -27px

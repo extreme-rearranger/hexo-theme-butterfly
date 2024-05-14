@@ -29,7 +29,7 @@
             margin-left: -10px
             width: 0
 
-        &:before
+        &::before
           position: absolute
           top: 0
           right: 0
@@ -41,9 +41,9 @@
           transition: transform .3s ease-out
           transform: scale(0)
 
-        &:hover:before,
-        &:focus:before,
-        &:active:before
+        &:hover::before,
+        &:focus::before,
+        &:active::before
           transform: scale(1)
 
         a

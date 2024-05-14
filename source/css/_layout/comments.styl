@@ -2,7 +2,7 @@
   .comment-head
     margin-bottom: 20px
 
-    &:after
+    &::after
       display: block
       clear: both
       content: ''
@@ -47,7 +47,7 @@
         cursor: pointer
         transition: .4s
 
-        &:before
+        &::before
           position: absolute
           bottom: 4px
           left: 4px
@@ -69,7 +69,7 @@
     #switch-btn
       background-color: $comments-switch-second-text
 
-      &:before
+      &::before
         transform: translateX(20px)
 
     .comment-wrap

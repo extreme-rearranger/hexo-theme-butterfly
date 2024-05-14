@@ -2,7 +2,7 @@ beautify()
   headStyle(fontsize)
     padding-left: unit(fontsize + 8, 'px')
 
-    &:before
+    &::before
       font-size: unit(fontsize - 2, 'px')
 
     &:hover
@@ -16,7 +16,7 @@ beautify()
   h6
     transition: all .2s ease-out
 
-    &:before
+    &::before
       position: absolute
       top: calc(50% - 7px)
       color: $title-prefix-icon-color
@@ -27,7 +27,7 @@ beautify()
       @extend .fontawesomeIcon
 
     &:hover
-      &:before
+      &::before
         color: var(--theme-color)
 
   h1
@@ -157,7 +157,7 @@ beautify()
 
 #post
   .tag_share
-    &:after
+    &::after
       display: block
       clear: both
       content: ''
@@ -204,7 +204,7 @@ beautify()
     border: 1px solid var(--title-border-color)
     transition: box-shadow .3s ease-in-out
 
-    &:before
+    &::before
       @extend .fontawesomeIcon
       position: absolute
       top: 2px
@@ -246,7 +246,7 @@ beautify()
       padding: .5em 1em .5em 2.6em
       border-left: 5px solid $noticeOutdate-border
 
-      &:before
+      &::before
         @extend .fontawesomeIcon
         position: absolute
         top: 50%

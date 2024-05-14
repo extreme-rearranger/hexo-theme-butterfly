@@ -8,7 +8,7 @@
   transition: all .5s
 
   if hexo-config('mask.header')
-    &:not(.not-top-img):before
+    &:not(.not-top-img)::before
       position: absolute
       width: 100%
       height: 100%
@@ -337,7 +337,7 @@
         box-shadow: 0 5px 20px -4px var(--dark-black50)
         animation: sub_menus .3s .1s ease both
 
-        &:before
+        &::before
           position: absolute
           top: -8px
           left: 0
@@ -391,7 +391,7 @@
     cursor: pointer
 
     &:not(.child)
-      &:after
+      &::after
         position: absolute
         bottom: 0
         left: 0
@@ -403,5 +403,5 @@
         transition: all .3s ease-in-out
 
       &:hover
-        &:after
+        &::after
           width: 100%

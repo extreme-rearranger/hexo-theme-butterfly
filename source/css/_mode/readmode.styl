@@ -56,7 +56,7 @@ if hexo-config('readmode')
     #page-header.post-bg
       background: none !important
 
-      &:before
+      &::before
         opacity: 0
 
       & #post-info
@@ -101,7 +101,7 @@ if hexo-config('readmode')
         & > :not(.highlight-tools)
           display: block !important
 
-        .line:before
+        .line::before
           color: var(--font-color) !important
 
         .hljs
@@ -115,7 +115,7 @@ if hexo-config('readmode')
       h6
         padding: 0
 
-        &:before
+        &::before
           content: ''
 
         &:hover
@@ -124,18 +124,18 @@ if hexo-config('readmode')
       ul,
       li,
       ol
-        &:hover:before
+        &:hover::before
           transform: none !important
 
       ol,
       li
-        &:before
+        &::before
           background: transparent !important
           color: var(--font-color) !important
 
       ul
         >li
-          &:before
+          &::before
             border-color: var(--gray) !important
 
       .tabs
@@ -180,6 +180,6 @@ if hexo-config('readmode')
         background-color: var(--readmode-light-color) !important
         color: var(--font-color)
 
-        &:before,
+        &::before,
         .note-icon
           color: var(--font-color)

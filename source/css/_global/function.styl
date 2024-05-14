@@ -56,10 +56,10 @@
     padding: .12em .4em .12em 1.4em
 
     &:hover
-      &:before
+      &::before
         border-color: var(--pseudo-hover)
 
-    &:before
+    &::before
       position: absolute
       top: .67em
       left: 0
@@ -81,10 +81,10 @@
     width: calc(100% - 4px)
 
     &:hover
-      &:before
+      &::before
         left: calc(95% - 20px)
 
-    &:before
+    &::before
       position: absolute
       top: $hr-icon-top
       left: 5%

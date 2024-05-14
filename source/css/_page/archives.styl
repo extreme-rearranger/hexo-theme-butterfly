@@ -11,10 +11,10 @@
     font-size: 1.72em
 
     &:hover
-      &:before
+      &::before
         border-color: var(--pseudo-hover)
 
-    &:before
+    &::before
       position: absolute
       top: calc(((100% - 36px) / 2))
       left: -9px
@@ -28,7 +28,7 @@
       line-height: h
       transition: all .2s ease-in-out
 
-    &:after
+    &::after
       position: absolute
       bottom: 0
       left: 0
@@ -46,10 +46,10 @@
     transition: all .2s ease-in-out
 
     &:hover
-      &:before
+      &::before
         border-color: var(--pseudo-hover)
 
-    &:before
+    &::before
       $w = 6px
       position: absolute
       left: calc(-20px - 17px)
@@ -71,10 +71,10 @@
       font-size: 1.43em
 
       &:hover
-        &:before
+        &::before
           border-color: var(--theme-color)
 
-      &:before
+      &::before
         border-color: var(--pseudo-hover)
 
     &-time
