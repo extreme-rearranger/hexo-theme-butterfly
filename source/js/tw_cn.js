@@ -52,16 +52,17 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
   function translatePage () {
+    const currentLanguage = document.documentElement.getAttribute('lang')
     if (targetEncoding === 1) {
       currentEncoding = 1
       targetEncoding = 2
       translateButtonObject.textContent = msgToTraditionalChinese
-      isSnackbar && btf.snackbarShow(snackbarData.cht_to_chs)
+      isSnackbar && btf.snackbarShow(snackbarData.cht_to_chs.find((item) => item[0] === currentLanguage)[1])
     } else if (targetEncoding === 2) {
       currentEncoding = 2
       targetEncoding = 1
       translateButtonObject.textContent = msgToSimplifiedChinese
-      isSnackbar && btf.snackbarShow(snackbarData.chs_to_cht)
+      isSnackbar && btf.snackbarShow(snackbarData.chs_to_cht.find((item) => item[0] === currentLanguage)[1])
     }
     btf.saveToLocal.set(targetEncodingCookie, targetEncoding, 2)
     setLang()
