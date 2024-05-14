@@ -4,7 +4,17 @@ block content
   #page
     div(class='card-widget')
       if top_img === false
-        h1.page-title= page.title
+        case page.type
+          when 'tags'
+            h1.page-title
+              i.fas.fa-tags(style='padding-right: 10px;')
+              != page.title
+          when 'categories'
+            h1.page-title
+              i.fas.fa-folder-open(style='padding-right: 10px;')
+              != page.title
+          default
+            h1.page-title= page.title
 
       case page.type
         when 'tags'
