@@ -57,7 +57,10 @@ mixin postUI(posts)
               span.article-meta-separator |
               each item, index in article.categories.data
                 i.fas.fa-inbox
-                a(href=url_for_lang(item.path)).article-meta__categories #[=item.name]
+                if is_default_language(article.lang)
+                  a(href=url_for_lang(item.path) lang-type='relative').article-meta__categories #[=item.name]
+                else
+                  a(href=url_for_lang(article.lang+'/'+item.path) lang-type='absolute').article-meta__categories #[=item.name]
                 if (index < article.categories.data.length - 1)
                   i.fas.fa-angle-right.article-meta-link
           if (theme.post_meta.page.tags && article.tags.data.length > 0)
@@ -65,7 +68,10 @@ mixin postUI(posts)
               span.article-meta-separator |
               each item, index in article.tags.data
                 i.fas.fa-tag
-                a(href=url_for_lang(item.path)).article-meta__tags #[=item.name]
+                if is_default_language(article.lang)
+                  a(href=url_for_lang(item.path) lang-type='relative').article-meta__tags #[=item.name]
+                else
+                  a(href=url_for_lang(article.lang+'/'+item.path) lang-type='absolute').article-meta__tags #[=item.name]
                 if (index < article.tags.data.length - 1)
                   span.article-meta-link #[='•']
           
