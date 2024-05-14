@@ -307,6 +307,10 @@ window.addEventListener('load', () => {
     unescape
   })
 
+  const currentLanguage = document.documentElement.getAttribute('page-lang') === 'default' 
+      ? document.documentElement.getAttribute('site-lang')
+      : document.documentElement.getAttribute('page-lang')
+
   const input = document.querySelector('#local-search-input input')
   const statsItem = document.getElementById('local-search-stats-wrap')
   const $loadingStatus = document.getElementById('loading-status')
@@ -332,7 +336,14 @@ window.addEventListener('load', () => {
       container.textContent = ''
       const statsDiv = document.createElement('div')
       statsDiv.className = 'search-result-stats'
-      statsDiv.textContent = languages.hits_empty.replace(/\$\{query}/, searchText)
+      // statsDiv.textContent = languages.hits_empty.replace(/\$\{query}/, searchText)
+      statsDiv.innerHTML = languages.map((item) => {
+        if (item.lang === currentLanguage) {
+          return `<span lang-type='relative' language=${item.lang}>${item.hits_empty.replace(/\$\{query}/, searchText)}</span>`
+        } else {
+          return `<span lang-type='relative' language=${item.lang} style="display: none;">${item.hits_empty.replace(/\$\{query}/, searchText)}</span>`
+        }
+      }).join('')
       statsItem.innerHTML = statsDiv.outerHTML
     } else {
       resultItems.sort((left, right) => {
@@ -347,7 +358,14 @@ window.addEventListener('load', () => {
         return right.id - left.id
       })
 
-      const stats = languages.hits_stats.replace(/\$\{hits}/, resultItems.length)
+      // const stats = languages.hits_stats.replace(/\$\{hits}/, resultItems.length)
+      const stats = languages.map((item) => {
+        if (item.lang === currentLanguage) {
+          return `<span lang-type='relative' language=${item.lang}>${item.hits_stats.replace(/\$\{hits}/, resultItems.length)}</span>`
+        } else {
+          return `<span lang-type='relative' language=${item.lang} style="display: none;">${item.hits_stats.replace(/\$\{hits}/, resultItems.length)}</span>`
+        }
+      }).join('')
 
       container.innerHTML = `<div class="search-result-list">${resultItems.map(result => result.item).join('')}</div>`
       statsItem.innerHTML = `<hr><div class="search-result-stats">${stats}</div>`

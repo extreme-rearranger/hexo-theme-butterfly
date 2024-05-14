@@ -1,14 +1,18 @@
 mixin postUI(posts)
-  - let langPrefix
+  - let langPrefices
+  - let langPrefixDefault
   if is_default_language(page_language())
-    - langPrefix = `${display_languages()[0]}.`
+    - langPrefices = Object.fromEntries(display_languages().map((lang) => [lang,`${lang}.`]))
+    - langPrefixDefault = `${display_languages()[0]}.`
   else
-    - langPrefix = ''
+    - langPrefices = Object.fromEntries([[page_language(), '']])
+    - langPrefixDefault = ''
+
   each article , index in page.posts.data
     .recent-post-item
       -
         let link = article.link || article.path
-        let title = article.title || _p(langPrefix+'no_title')
+        let title = article.title || _p(langPrefixDefault+'no_title')
         const position = theme.cover.position
         let leftOrRight = position === 'both'
           ? index%2 == 0 ? 'left' : 'right'
@@ -30,23 +34,24 @@ mixin postUI(posts)
           = title
         .article-meta-wrap
           if (theme.post_meta.page.date_type)
-            span.post-meta-date
-              if (theme.post_meta.page.date_type === 'both')
-                i.far.fa-calendar-alt
-                span.article-meta-label=_p(langPrefix+'post.created')
-                time.post-meta-date-created(datetime=date_xml(article.date) title=_p(langPrefix+'post.created') + ' ' + full_date(article.date, format=config.full_date_format))=date(article.date, config.date_format)
-                span.article-meta-separator |
-                i.fas.fa-history
-                span.article-meta-label=_p(langPrefix+'post.updated')
-                time.post-meta-date-updated(datetime=date_xml(article.updated) title=_p(langPrefix+'post.updated') + ' ' + full_date(article.updated, format=config.full_date_format))=date(article.updated, config.date_format)
-              else
-                - let data_type_updated = theme.post_meta.page.date_type === 'updated'
-                - let date_type = data_type_updated ? 'updated' : 'date'
-                - let date_icon = data_type_updated ? 'fas fa-history' :'far fa-calendar-alt'
-                - let date_title = data_type_updated ? _p(langPrefix+'post.updated') : _p(langPrefix+'post.created')
-                i(class=date_icon)
-                span.article-meta-label=date_title
-                time(datetime=date_xml(article[date_type]) title=date_title + ' ' + full_date(article[date_type], format=config.full_date_format))=date(article[date_type], config.date_format)
+            each langPrefix, lang in langPrefices
+              span.post-meta-date(lang-type='relative' language=lang)
+                if (theme.post_meta.page.date_type === 'both')
+                  i.far.fa-calendar-alt
+                  span.article-meta-label=_p(langPrefix+'post.created')
+                  time.post-meta-date-created(datetime=date_xml(article.date) title=_p(langPrefix+'post.created') + ' ' + full_date(article.date, format=config.full_date_format))=date(article.date, config.date_format)
+                  span.article-meta-separator |
+                  i.fas.fa-history
+                  span.article-meta-label=_p(langPrefix+'post.updated')
+                  time.post-meta-date-updated(datetime=date_xml(article.updated) title=_p(langPrefix+'post.updated') + ' ' + full_date(article.updated, format=config.full_date_format))=date(article.updated, config.date_format)
+                else
+                  - let data_type_updated = theme.post_meta.page.date_type === 'updated'
+                  - let date_type = data_type_updated ? 'updated' : 'date'
+                  - let date_icon = data_type_updated ? 'fas fa-history' :'far fa-calendar-alt'
+                  - let date_title = data_type_updated ? _p(langPrefix+'post.updated') : _p(langPrefix+'post.created')
+                  i(class=date_icon)
+                  span.article-meta-label=date_title
+                  time(datetime=date_xml(article[date_type]) title=date_title + ' ' + full_date(article[date_type], format=config.full_date_format))=date(article[date_type], config.date_format, lang=lang)
           if (theme.post_meta.page.categories && article.categories.data.length > 0)
             span.article-meta
               span.article-meta-separator |
@@ -71,7 +76,8 @@ mixin postUI(posts)
               i.fas.fa-comments
               if block
                 block
-              span.article-meta-label= ' ' + _p(langPrefix+'card_post_count')
+              each langPrefix, lang in langPrefices
+                span(lang-type='relative' language=lang).article-meta-label= ' ' + _p(langPrefix+'card_post_count')
           
           if theme.comments.card_post_count && theme.comments.use
             case theme.comments.use[0]

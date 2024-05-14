@@ -1,39 +1,48 @@
-- let langPrefix
+- let langPrefices
 if is_default_language(page_language())
-  - langPrefix = `${display_languages()[0]}.`
+  - langPrefices = display_languages().map((lang) => [lang,`${lang}.`])
 else
-  - langPrefix = ''
+  - langPrefices = [[page_language(), '']]
 
 -
   let algolia = 'undefined';
   let env = process.env;
   if (theme.algolia_search.enable) {
+    let algolia_language = [];
+    langPrefices.forEach(([lang, langPrefix]) => {
+      algolia_language.push({
+        lang: lang,
+        input_placeholder: _p(langPrefix+"search.algolia_search.input_placeholder"),
+        hits_empty: _p(langPrefix+"search.algolia_search.hits_empty"),
+        hits_stats: _p(langPrefix+"search.algolia_search.hits_stats"),
+      }) 
+    })
     algolia = JSON.stringify({
       appId: env.ALGOLIA_APP_ID || config.algolia.appId || config.algolia.applicationID,
       apiKey: env.ALGOLIA_API_KEY || config.algolia.apiKey,
       indexName: env.ALGOLIA_INDEX_NAME || config.algolia.indexName,
       hits: theme.algolia_search.hits,
-      // search languages
-      languages: {
-        input_placeholder: _p(langPrefix+"search.algolia_search.input_placeholder"),
-        hits_empty: _p(langPrefix+"search.algolia_search.hits_empty"),
-        hits_stats: _p(langPrefix+"search.algolia_search.hits_stats"),
-      }
+      languages: algolia_language
     })
   }
 
   let localSearch = 'undefined';
   if (theme.local_search && theme.local_search.enable) {
+    let localsearch_language = [];
+    langPrefices.forEach(([lang, langPrefix]) => {
+      localsearch_language.push({
+        lang: lang,
+        input_placeholder: _p(langPrefix+"search.local_search.input_placeholder"),
+        hits_empty: _p(langPrefix+"search.local_search.hits_empty"),
+        hits_stats: _p(langPrefix+"search.local_search.hits_stats"),
+      }) 
+    })
     localSearch = JSON.stringify({
       path: theme.local_search.CDN ? theme.local_search.CDN : config.root + config.search.path,
       preload: theme.local_search.preload,
       top_n_per_article: theme.local_search.top_n_per_article,
       unescape: theme.local_search.unescape,
-      languages: {
-        // search languages
-        hits_empty: _p(langPrefix+"search.local_search.hits_empty"),
-        hits_stats: _p(langPrefix+"search.local_search.hits_stats"),
-      }
+      languages: localsearch_language
     })
   }
 
@@ -49,25 +58,35 @@ else
 
   let copyright = 'undefined';
   if (theme.copy.enable && theme.copy.copyright.enable){
-    copyright = JSON.stringify({
-      limitCount: theme.copy.copyright.limit_count,
-      languages: {
+    let copy_language = [];
+    langPrefices.forEach(([lang, langPrefix]) => {
+      copy_language.push({
+        lang: lang,
         author: _p(langPrefix+"copy_copyright.author") + ': ' + config.author,
         link: _p(langPrefix+"copy_copyright.link") + ': ',
         source: _p(langPrefix+"copy_copyright.source") + ': ' + config.title,
         info: _p(langPrefix+"copy_copyright.info")
-      }
+      }) 
+    })
+    copyright = JSON.stringify({
+      limitCount: theme.copy.copyright.limit_count,
+      languages: copy_language
     })
   }
 
   let Snackbar = 'undefined';
   if (theme.snackbar && theme.snackbar.enable) {
     Snackbar = JSON.stringify({
-      chs_to_cht: _p(langPrefix+"Snackbar.chs_to_cht"),
-      cht_to_chs: _p(langPrefix+"Snackbar.cht_to_chs"),
-      day_to_night: _p(langPrefix+"Snackbar.day_to_night"),
-      night_to_day: _p(langPrefix+"Snackbar.night_to_day"),
-      readmode_on: _p(langPrefix+"Snackbar.readmode_on"),
+      chs_to_cht: langPrefices.map(([lang, langPrefix]) => 
+        `<span lang-type='relative' language='${lang}'>${_p(langPrefix+"Snackbar.chs_to_cht")}</span>`).join(''),
+      cht_to_chs: langPrefices.map(([lang, langPrefix]) => 
+        `<span lang-type='relative' language='${lang}'>${_p(langPrefix+"Snackbar.cht_to_chs")}</span>`).join(''),
+      day_to_night: langPrefices.map(([lang, langPrefix]) => 
+        `<span lang-type='relative' language='${lang}'>${_p(langPrefix+"Snackbar.day_to_night")}</span>`).join(''),
+      night_to_day: langPrefices.map(([lang, langPrefix]) => 
+        `<span lang-type='relative' language='${lang}'>${_p(langPrefix+"Snackbar.night_to_day")}</span>`).join(''),
+      readmode_on: langPrefices.map(([lang, langPrefix]) => 
+        `<span lang-type='relative' language='${lang}'>${_p(langPrefix+"Snackbar.readmode_on")}</span>`).join(''),
       bgLight: theme.snackbar.bg_light,
       bgDark: theme.snackbar.bg_dark,
       position: theme.snackbar.position,
@@ -96,6 +115,34 @@ else
     })
   }
 
+  const copy = JSON.stringify(
+    langPrefices.map(([lang, langPrefix]) => {
+      return {
+        lang: lang,
+        success: _p(langPrefix+"copy.success"),
+        error: _p(langPrefix+"copy.error"),
+        noSupport: _p(langPrefix+"copy.noSupport"),
+      }
+    })
+  )
+
+  const runtime = theme.runtimeshow.enable ? 
+    JSON.stringify(langPrefices.map(([lang, langPrefix]) => [lang, _p(langPrefix+"aside.card_webinfo.runtime.unit")])) : 
+    ""
+
+  const date_suffix = JSON.stringify(
+    langPrefices.map(([lang, langPrefix]) => {
+      return {
+        lang: lang,
+        just: _p(langPrefix+"date_suffix.just"),
+        min: _p(langPrefix+"date_suffix.min"),
+        hour: _p(langPrefix+"date_suffix.hour"),
+        day: _p(langPrefix+"date_suffix.day"),
+        month: _p(langPrefix+"date_suffix.month")
+      }
+    })
+  )
+
 script.
   const GLOBAL_CONFIG = {
     root: '!{config.root}',
@@ -104,29 +151,19 @@ script.
     translate: !{translate},
     noticeOutdate: !{noticeOutdate},
     highlight: !{highlight},
-    copy: {
-      success: '!{_p(langPrefix+"copy.success")}',
-      error: '!{_p(langPrefix+"copy.error")}',
-      noSupport: '!{_p(langPrefix+"copy.noSupport")}'
-    },
+    copy: !{copy},
     relativeDate: {
       homepage: !{theme.post_meta.page.date_format === 'relative'},
       post: !{theme.post_meta.post.date_format === 'relative'}
     },
-    runtime: '!{theme.runtimeshow.enable ? _p(langPrefix+"aside.card_webinfo.runtime.unit") : ""}',
-    dateSuffix: {
-      just: '!{_p(langPrefix+"date_suffix.just")}',
-      min: '!{_p(langPrefix+"date_suffix.min")}',
-      hour: '!{_p(langPrefix+"date_suffix.hour")}',
-      day: '!{_p(langPrefix+"date_suffix.day")}',
-      month: '!{_p(langPrefix+"date_suffix.month")}'
-    },
+    runtime: !{runtime},
+    dateSuffix: !{date_suffix},
     copyright: !{copyright},
     lightbox: '!{ theme.medium_zoom ? "mediumZoom" : (theme.fancybox ? "fancybox" : "null" )}',
     Snackbar: !{Snackbar},
     infinitegrid: {
       js: '!{url_for(theme.asset.egjs_infinitegrid)}',
-      buttonText: '!{_p(langPrefix+"load_more")}'
+      buttonText: '!{langPrefices.map(([lang, langPrefix]) => [lang, _p(langPrefix+"load_more")])}',
     },
     isPhotoFigcaption: !{theme.photofigcaption},
     islazyload: !{theme.lazyload.enable},

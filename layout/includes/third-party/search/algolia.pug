@@ -1,7 +1,8 @@
 #algolia-search
   .search-dialog
     nav.search-nav
-      span.search-dialog-title= _p(langPrefix+'search.title')
+      each langPrefix, lang in langPrefices
+        span(lang-type='relative' language=lang).search-dialog-title= _p(langPrefix+'search.title')
       button.search-close-button
         i.fas.fa-times
 

@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const hideMenuIndex = window.innerWidth <= 768 || headerContentWidth > $nav.offsetWidth - 120
+    console.log('hideMenuIndex', hideMenuIndex, window.innerWidth)
     $nav.classList.toggle('hide-menu', hideMenuIndex)
   }
 
@@ -87,11 +88,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const copy = ctx => {
+      const currentLanguage = document.documentElement.getAttribute('page-lang') === 'default' ? document.documentElement.getAttribute('site-lang') : document.documentElement.getAttribute('page-lang')
+      const copyLanguage = GLOBAL_CONFIG.copy.find(i => i.lang === currentLanguage)
       if (document.queryCommandSupported && document.queryCommandSupported('copy')) {
         document.execCommand('copy')
-        alertInfo(ctx, GLOBAL_CONFIG.copy.success)
+        alertInfo(ctx, copyLanguage.success)
       } else {
-        alertInfo(ctx, GLOBAL_CONFIG.copy.noSupport)
+        alertInfo(ctx, copyLanguage.noSupport)
       }
     }
 
@@ -247,10 +250,13 @@ document.addEventListener('DOMContentLoaded', function () {
       return nextItems
     }
 
-    const buttonText = GLOBAL_CONFIG.infinitegrid.buttonText
+    const buttonText = GLOBAL_CONFIG.infinitegrid.buttonText.map(item => {
+      return `<span lang-type="relative" language=${item[0]}>${item[1]}</span>`
+    }).join('')
     const addButton = item => {
       const button = document.createElement('button')
-      button.textContent = buttonText
+      // button.textContent = buttonText
+      button.innerHTML = buttonText
 
       const buttonFn = e => {
         e.target.removeEventListener('click', buttonFn)
@@ -661,7 +667,13 @@ document.addEventListener('DOMContentLoaded', function () {
  * 複製時加上版權信息
  */
   const addCopyright = () => {
-    const { limitCount, languages } = GLOBAL_CONFIG.copyright
+    let { limitCount, languages } = GLOBAL_CONFIG.copyright
+
+    const currentLanguage = document.documentElement.getAttribute('page-lang') === 'default' 
+      ? document.documentElement.getAttribute('site-lang')
+      : document.documentElement.getAttribute('page-lang')
+
+    languages = languages.find((item) => item.lang === currentLanguage)
 
     const handleCopy = (e) => {
       e.preventDefault()
@@ -687,7 +699,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const $runtimeCount = document.getElementById('runtimeshow')
     if ($runtimeCount) {
       const publishDate = $runtimeCount.getAttribute('data-publishDate')
-      $runtimeCount.textContent = `${btf.diffDate(publishDate)} ${GLOBAL_CONFIG.runtime}`
+      // $runtimeCount.textContent = `${btf.diffDate(publishDate)} ${GLOBAL_CONFIG.runtime}`
+      $runtimeCount.innerHTML = `${btf.diffDate(publishDate)}` +
+        GLOBAL_CONFIG.runtime.map(item => {
+          return `<span lang-type="relative" language=${item[0]}> ${item[1]}</span>`
+        }).join('')
     }
   }
 
@@ -698,7 +714,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const $lastPushDateItem = document.getElementById('last-push-date')
     if ($lastPushDateItem) {
       const lastPushDate = $lastPushDateItem.getAttribute('data-lastPushDate')
-      $lastPushDateItem.textContent = btf.diffDate(lastPushDate, true)
+      $lastPushDateItem.innerHTML = btf.diffDate(lastPushDate, true)
     }
   }
 
@@ -841,7 +857,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const relativeDate = function (selector) {
     selector.forEach(item => {
       const timeVal = item.getAttribute('datetime')
-      item.textContent = btf.diffDate(timeVal, true)
+      item.innerHTML = btf.diffDate(timeVal, true)
       item.style.display = 'inline'
     })
   }

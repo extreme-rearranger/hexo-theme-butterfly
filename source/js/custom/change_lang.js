@@ -16,7 +16,8 @@ document.addEventListener('DOMContentLoaded', function () {
   let languageButtonObject
   const snackbarData = GLOBAL_CONFIG.Snackbar
   const isSnackbar = snackbarData !== undefined
-  
+  const search_config = GLOBAL_CONFIG.localSearch || GLOBAL_CONFIG.algolia
+
   function langToText(lang) {
     if (lang === 'ko') return 'Korean'
     if (lang === 'en') return 'English'
@@ -28,11 +29,18 @@ document.addEventListener('DOMContentLoaded', function () {
       document.documentElement.setAttribute('site-lang', languages[targetLanguage - 1])
     else
       document.documentElement.removeAttribute('site-lang')
+
+    if (search_config) {
+      document.querySelector('#local-search-input input').setAttribute('placeholder', 
+        search_config.languages.find(item => item.lang === languages[targetLanguage - 1]).input_placeholder)
+    }
   }
   function changeLang (prev, post) {
     // 1. 각종 redirection url의 링크를 바꿈 (메뉴바, 사이드)
     // 2. 각종 사이드 카드 위젯을 바꿈
     // 3. 각종 언어를 바꿈
+    // 4. 언어 변경을 스낵바로 알림
+    // 5. 검색창의 placeholder를 바꿈
     prev_lang = languages[prev-1]
     post_lang = languages[post-1]
     const relative_links = document.querySelectorAll('a[lang-type="relative"]')
@@ -71,6 +79,10 @@ document.addEventListener('DOMContentLoaded', function () {
           text.style.removeProperty('display');
       })
       isSnackbar && btf.snackbarShow(`Language changed from [${langToText(prev_lang)}] to [${langToText(post_lang)}]`)
+    }
+    if (search_config){
+      document.querySelector('#local-search-input input').setAttribute('placeholder', 
+        search_config.languages.find(item => item.lang === post_lang).input_placeholder)
     }
   }
   

@@ -97,7 +97,7 @@ window.addEventListener('load', () => {
     container: '#algolia-search-input',
     showReset: false,
     showSubmit: false,
-    placeholder: GLOBAL_CONFIG.algolia.languages.input_placeholder,
+    placeholder: '',
     showLoadingIndicator: true
   })
 
@@ -121,11 +121,22 @@ window.addEventListener('load', () => {
           </a>`
       },
       empty: function (data) {
-        return (
-          '<div id="algolia-hits-empty">' +
-          GLOBAL_CONFIG.algolia.languages.hits_empty.replace(/\$\{query}/, data.query) +
-          '</div>'
-        )
+        const currentLanguage = document.documentElement.getAttribute('page-lang') === 'default' 
+        ? document.documentElement.getAttribute('site-lang')
+        : document.documentElement.getAttribute('page-lang')
+
+        return GLOBAL_CONFIG.algolia.languages.map((item) => {
+          if (item.lang === currentLanguage) {
+            return `<div id="algolia-hits-empty" lang-type='relative' language=${item.lang}">` +
+            item.hits_empty.replace(/\$\{query}/, data.query) +
+            '</div>'
+          }
+          else {
+            return `<div id="algolia-hits-empty" lang-type='relative' language=${item.lang} style="display:none">` +
+              item.hits_empty.replace(/\$\{query}/, data.query) +
+              '</div>'
+          }
+        }).join('')
       }
     }
   })
@@ -134,12 +145,23 @@ window.addEventListener('load', () => {
     container: '#algolia-info > .algolia-stats',
     templates: {
       text: function (data) {
-        const stats = GLOBAL_CONFIG.algolia.languages.hits_stats
-          .replace(/\$\{hits}/, data.nbHits)
-          .replace(/\$\{time}/, data.processingTimeMS)
-        return (
-          `<hr>${stats}`
-        )
+        res = '<hr>'
+        GLOBAL_CONFIG.algolia.languages.forEach((item) => {
+          const currentLanguage = document.documentElement.getAttribute('page-lang') === 'default' 
+            ? document.documentElement.getAttribute('site-lang')
+            : document.documentElement.getAttribute('page-lang')
+          
+          if (item.lang === currentLanguage) {
+            res += `<span lang-type='relative' language=${item.lang}>`+
+              item.hits_stats.replace(/\$\{hits}/, data.nbHits).replace(/\$\{time}/, data.processingTimeMS) +
+              '</span>'
+          } else {
+            res += `<span lang-type='relative' language=${item.lang} style="display:none">` + 
+              item.hits_stats.replace(/\$\{hits}/, data.nbHits).replace(/\$\{time}/, data.processingTimeMS) +
+              '</span>'
+          }
+        })
+        return res
       }
     }
   })

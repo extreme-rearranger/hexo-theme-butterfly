@@ -69,7 +69,7 @@
       })
     },
 
-    diffDate: (d, more = false) => {
+    diffDate: (d, more = false, lang = undefined) => {
       const dateNow = new Date()
       const datePost = new Date(d)
       const dateDiff = dateNow.getTime() - datePost.getTime()
@@ -77,7 +77,7 @@
       const hour = minute * 60
       const day = hour * 24
       const month = day * 30
-      const { dateSuffix } = GLOBAL_CONFIG
+      let { dateSuffix } = GLOBAL_CONFIG
 
       if (!more) return parseInt(dateDiff / day)
 
@@ -86,12 +86,22 @@
       const hourCount = dateDiff / hour
       const minuteCount = dateDiff / minute
 
-      if (monthCount > 12) return datePost.toISOString().slice(0, 10)
-      if (monthCount >= 1) return `${parseInt(monthCount)} ${dateSuffix.month}`
-      if (dayCount >= 1) return `${parseInt(dayCount)} ${dateSuffix.day}`
-      if (hourCount >= 1) return `${parseInt(hourCount)} ${dateSuffix.hour}`
-      if (minuteCount >= 1) return `${parseInt(minuteCount)} ${dateSuffix.min}`
-      return dateSuffix.just
+      if (lang){
+        dateSuffix = dateSuffix.find(i => i.lang === lang)
+        if (monthCount > 12) return datePost.toISOString().slice(0, 10)
+        if (monthCount >= 1) return `${parseInt(monthCount)} ${dateSuffix.month}`
+        if (dayCount >= 1) return `${parseInt(dayCount)} ${dateSuffix.day}`
+        if (hourCount >= 1) return `${parseInt(hourCount)} ${dateSuffix.hour}`
+        if (minuteCount >= 1) return `${parseInt(minuteCount)} ${dateSuffix.min}`
+        return dateSuffix.just
+      } else {
+        if (monthCount > 12) return datePost.toISOString().slice(0, 10)
+        if (monthCount >= 1) return dateSuffix.map(i => `<span lang-type="relative" language=${i.lang}> ${parseInt(monthCount)} ${i.month} </span>`).join('')
+        if (dayCount >= 1) return dateSuffix.map(i => `<span lang-type="relative" language=${i.lang}> ${parseInt(dayCount)} ${i.day} </span>`).join('')
+        if (hourCount >= 1) return dateSuffix.map(i => `<span lang-type="relative" language=${i.lang}> ${parseInt(hourCount)} ${i.hour} </span>`).join('')
+        if (minuteCount >= 1) return dateSuffix.map(i => `<span lang-type="relative" language=${i.lang}> ${parseInt(minuteCount)} ${i.minute} </span>`).join('')
+        return dateSuffix.map(i => `<span lang-type="relative" language=${i.lang}> ${i.just} </span>`).join('')
+      }
     },
 
     loadComment: (dom, callback) => {

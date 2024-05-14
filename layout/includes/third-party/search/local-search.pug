@@ -1,7 +1,8 @@
 #local-search
   .search-dialog
     nav.search-nav
-      span.search-dialog-title= _p(langPrefix+'search.title')
+      each langPrefix, lang in langPrefices
+        span(lang-type='relative' language=lang).search-dialog-title= _p(langPrefix+'search.title')
       span#loading-status
       button.search-close-button
         i.fas.fa-times
@@ -13,7 +14,7 @@
     .search-wrap
       #local-search-input
         .local-search-box
-          input(placeholder=_p(langPrefix+"search.local_search.input_placeholder") type="text").local-search-box--input
+          input(placeholder="" type="text").local-search-box--input
       hr
       #local-search-results
       #local-search-stats-wrap

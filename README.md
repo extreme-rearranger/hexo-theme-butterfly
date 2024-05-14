@@ -83,7 +83,33 @@ i18n: # hexo-generator-i18n settings
 - For instance, `div` is changed to `div(div(lang-type='relative' language='en')` when the content is written in English.
 
 
-#### RESULT : Change the following features to support multilingual
+### change search db generator to support multilingual
+- I use LocalSearch in my blog, so I changed the `source/js/search/local-search.js` to support multilingual.
+- Since the language information is initially not in `hexo-generator-searchdb` library, 
+  <br>I added the language information to the search DB.
+  <br>(`source/js/custom/hexo-generator-searchdb-custom`)
+- The search result is displayed in the alternative language when the language is changed
+- Also, I add tags and categories to be searched
+  - The search result is sorted with weighted score of match count 
+    <br>(1000: language > 3: title > 2: categories, tags > 1: content)
+
+
+### change all GLOBAL_CONFIG _p() into multilingual
+- In the theme, the `GLOBAL_CONFIG` is used to store the global variables that is used in the js during runtime.
+- I changed all the `GLOBAL_CONFIG` variables and related functions to support multilingual.
+- The changed files are below:
+  - `layout/includes/head/config.pug`
+  - `layout/includes/mixins/post-ui.pug`
+  - `layout/includes/third-party/search/*`
+  - `source/js/search/algolia.js`
+  - `source/js/custom/hexo-generator-searchdb-custom/dist/local-search.js`
+    - This is the cusomized version of `source/js/search/local-search.js`
+  - `source/js/custom/change_lang.js`
+  - `source/js/utils.js` (change diffDate() to support multilingual)
+  - `source/js/main.js` (change all the text that using GLOBAL_CONFIG to support multilingual)
+
+
+## RESULT : Change the following features to support multilingual
 - [x] Archive Length Helper (`findArchiveLength.js`)
   - Get archive length in multilingual manner
   - For example, the posts in Korean will be dropped when the page language is set to English.

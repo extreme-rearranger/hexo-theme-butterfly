@@ -1,12 +1,12 @@
-- let langPrefix
+- let langPrefices
 if is_default_language(page_language())
-  - langPrefix = `${display_languages()[0]}.`
+  - langPrefices = Object.fromEntries(display_languages().map((lang) => [lang,`${lang}.`]))
 else
-  - langPrefix = ''
+  - langPrefices = Object.fromEntries([[page_language(), '']])
 
 if theme.algolia_search.enable
-  !=partial('includes/third-party/search/algolia', {langPrefix: langPrefix}, {cache: false})
+  !=partial('includes/third-party/search/algolia', {langPrefices: langPrefices}, {cache: false})
 else if theme.local_search.enable
-  !=partial('includes/third-party/search/local-search', {langPrefix: langPrefix}, {cache: false})
+  !=partial('includes/third-party/search/local-search', {langPrefices: langPrefices}, {cache: false})
 else if theme.docsearch.enable
   !=partial('includes/third-party/search/docsearch', {}, {cache: false})
