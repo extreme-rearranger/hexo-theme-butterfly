@@ -122,7 +122,7 @@ window.addEventListener('load', () => {
       },
       empty: function (data) {
         const currentLanguage = document.documentElement.getAttribute('page-lang') === 'default' 
-        ? document.documentElement.getAttribute('site-lang')
+        ? document.documentElement.getAttribute('lang')
         : document.documentElement.getAttribute('page-lang')
 
         return GLOBAL_CONFIG.algolia.languages.map((item) => {
@@ -148,7 +148,7 @@ window.addEventListener('load', () => {
         res = '<hr>'
         GLOBAL_CONFIG.algolia.languages.forEach((item) => {
           const currentLanguage = document.documentElement.getAttribute('page-lang') === 'default' 
-            ? document.documentElement.getAttribute('site-lang')
+            ? document.documentElement.getAttribute('lang')
             : document.documentElement.getAttribute('page-lang')
           
           if (item.lang === currentLanguage) {

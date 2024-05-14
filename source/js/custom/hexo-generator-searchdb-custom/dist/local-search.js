@@ -308,7 +308,7 @@ window.addEventListener('load', () => {
   })
 
   const currentLanguage = document.documentElement.getAttribute('page-lang') === 'default' 
-      ? document.documentElement.getAttribute('site-lang')
+      ? document.documentElement.getAttribute('lang')
       : document.documentElement.getAttribute('page-lang')
 
   const input = document.querySelector('#local-search-input input')
@@ -323,7 +323,7 @@ window.addEventListener('load', () => {
     if (searchText !== '') $loadingStatus.innerHTML = '<i class="fas fa-spinner fa-pulse"></i>'
     const keywords = searchText.split(/[-\s]+/)
     const container = document.getElementById('local-search-results')
-    const siteLang = document.querySelector('html').getAttribute('site-lang') || document.querySelector('html').getAttribute('page-lang')
+    const siteLang = document.querySelector('html').getAttribute('lang') || document.querySelector('html').getAttribute('page-lang')
     let resultItems = []
     if (searchText.length > 0) {
     // Perform local searching

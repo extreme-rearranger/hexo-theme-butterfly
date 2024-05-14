@@ -2,7 +2,8 @@
 - page.aside = is_archive() ? theme.aside.display.archive: is_category() ? theme.aside.display.category : is_tag() ? theme.aside.display.tag : page.aside
 - var hideAside = !theme.aside.enable || page.aside === false ? 'hide-aside' : ''
 - var pageType = is_post() ? 'post' : 'page'
-- var lang = is_default_language(page_language()) ? 'default' : page_language()
+- var pageLang = is_default_language(page_language()) ? 'default' : page_language()
+- var htmlLang = is_default_language(page_language()) ? 'unknown' : page_language()
 
 - let langPrefices
 if is_default_language(page_language())
@@ -11,7 +12,7 @@ else
   - langPrefices = Object.fromEntries([[page_language(), '']])
 
 doctype html
-html(lang=display_languages() page-lang=lang data-theme=theme.display_mode class=htmlClassHideAside)
+html(lang=htmlLang site-lang=display_languages() page-lang=pageLang data-theme=theme.display_mode class=htmlClassHideAside)
   head
     include ./head.pug
   body

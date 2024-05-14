@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-  const languages = JSON.parse(document.documentElement.getAttribute('lang'))
+  const languages = JSON.parse(document.documentElement.getAttribute('site-lang'))
   const defaultLanguage = 1  // 1 ~ languages.length
   const pageLanguage = document.documentElement.getAttribute('page-lang')
   let currentLanguage
@@ -26,9 +26,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function setSiteLang() {
     if (pageLanguage !== languages[targetLanguage - 1])
-      document.documentElement.setAttribute('site-lang', languages[targetLanguage - 1])
-    else
-      document.documentElement.removeAttribute('site-lang')
+      document.documentElement.setAttribute('lang', languages[targetLanguage - 1])
+    // else
+    //   document.documentElement.removeAttribute('lang')
 
     if (search_config) {
       document.querySelector('#local-search-input input').setAttribute('placeholder', 

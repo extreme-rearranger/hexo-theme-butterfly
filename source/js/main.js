@@ -16,7 +16,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const hideMenuIndex = window.innerWidth <= 768 || headerContentWidth > $nav.offsetWidth - 120
-    console.log('hideMenuIndex', hideMenuIndex, window.innerWidth)
     $nav.classList.toggle('hide-menu', hideMenuIndex)
     $card_info.classList.toggle('hide-menu', hideMenuIndex)
   }
@@ -90,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const copy = ctx => {
-      const currentLanguage = document.documentElement.getAttribute('page-lang') === 'default' ? document.documentElement.getAttribute('site-lang') : document.documentElement.getAttribute('page-lang')
+      const currentLanguage = document.documentElement.getAttribute('page-lang') === 'default' ? document.documentElement.getAttribute('lang') : document.documentElement.getAttribute('page-lang')
       const copyLanguage = GLOBAL_CONFIG.copy.find(i => i.lang === currentLanguage)
       if (document.queryCommandSupported && document.queryCommandSupported('copy')) {
         document.execCommand('copy')
@@ -672,7 +671,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let { limitCount, languages } = GLOBAL_CONFIG.copyright
 
     const currentLanguage = document.documentElement.getAttribute('page-lang') === 'default' 
-      ? document.documentElement.getAttribute('site-lang')
+      ? document.documentElement.getAttribute('lang')
       : document.documentElement.getAttribute('page-lang')
 
     languages = languages.find((item) => item.lang === currentLanguage)
