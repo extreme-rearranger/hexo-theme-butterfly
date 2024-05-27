@@ -52,27 +52,29 @@ mixin postUI(posts)
                   i(class=date_icon)
                   span.article-meta-label=date_title
                   time(datetime=date_xml(article[date_type]) title=date_title + ' ' + full_date(article[date_type], format=config.full_date_format))=date(article[date_type], config.date_format, lang=lang)
-          if (theme.post_meta.page.categories && article.categories.data.length > 0)
+          if (theme.post_meta.page.categories && article.categories.data.length > 0 && article.sticky_categories)
             span.article-meta
               span.article-meta-separator |
-              each item, index in article.categories.data
+              each item, index in article.sticky_categories
+                - let item_path = article.categories.data.find((category) => category.name === item).path
                 i.fas.fa-inbox
                 if is_default_language(article.lang)
-                  a(href=url_for_lang(item.path) lang-type='relative').article-meta__categories #[=item.name]
+                  a(href=url_for_lang(item_path) lang-type='relative').article-meta__categories #[=item]
                 else
-                  a(href=url_for_lang(article.lang+'/'+item.path) lang-type='absolute').article-meta__categories #[=item.name]
-                if (index < article.categories.data.length - 1)
-                  i.fas.fa-angle-right.article-meta-link
-          if (theme.post_meta.page.tags && article.tags.data.length > 0)
+                  a(href=url_for_lang(article.lang+'/'+item_path) lang-type='absolute').article-meta__categories #[=item]
+                if (index < article.sticky_categories.length - 1)
+                  span.article-meta-link #[='•']
+          if (theme.post_meta.page.tags && article.tags.data.length > 0 && article.sticky_tags)
             span.article-meta.tags
               span.article-meta-separator |
-              each item, index in article.tags.data
+              each item, index in article.sticky_tags 
+                - let item_path = article.tags.data.find((tag) => tag.name === item).path
                 i.fas.fa-tag
                 if is_default_language(article.lang)
-                  a(href=url_for_lang(item.path) lang-type='relative').article-meta__tags #[=item.name]
+                  a(href=url_for_lang(item_path) lang-type='relative').article-meta__tags #[=item]
                 else
-                  a(href=url_for_lang(article.lang+'/'+item.path) lang-type='absolute').article-meta__tags #[=item.name]
-                if (index < article.tags.data.length - 1)
+                  a(href=url_for_lang(article.lang+'/'+item_path) lang-type='absolute').article-meta__tags #[=item]
+                if (index < article.sticky_tags.length - 1)
                   span.article-meta-link #[='•']
           
           mixin countBlockInIndex

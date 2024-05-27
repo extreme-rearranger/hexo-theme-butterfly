@@ -10,7 +10,7 @@ mixin rightsideItem(array)
     case item
       when 'langmode'
         button#langmode(type="button" title=_p(langPrefix+'rightside.langmode_title'))
-          i.fas.fa-language
+          i.fontagon-icons.ft-icons.ft-icon-language
       when 'readmode'
         if is_post() && readmode
           button#readmode(type="button" title=_p(langPrefix+'rightside.readmode_title'))

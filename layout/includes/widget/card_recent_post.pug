@@ -27,11 +27,7 @@ if theme.aside.card_recent_post.enable
               a.title(href=url_for(link) title=title)= title
               if theme.aside.card_recent_post.sort === 'updated'
                 time(datetime=date_xml(article.updated) title=_p(langPrefix+'post.updated') + ' ' + full_date(article.updated, format=config.full_date_format)) #[=date(article.updated, config.date_format)]
-                  - let lang = is_default_language(article.lang) ? display_languages().join('&') : article.lang
-                    span(style="word-spacing: 0.3em;")=` | ${lang}`
               else
                 time(datetime=date_xml(article.date) title=_p(langPrefix+'post.created') + ' ' + full_date(article.date, format=config.full_date_format)) #[=date(article.date, config.date_format)]
-                  - let lang = is_default_language(article.lang) ? display_languages().join(',') : article.lang
-                    span(style="word-spacing: 0.3em;")=` | ${lang}`
 
         - })
