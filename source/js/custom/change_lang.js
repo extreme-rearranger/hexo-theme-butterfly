@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
     prev_lang = languages[prev-1]
     post_lang = languages[post-1]
     const relative_links = document.querySelectorAll('a[lang-type="relative"]')
-    const relative_cards = document.querySelectorAll('div[lang-type="relative"]')
+    const relative_divs = document.querySelectorAll('div[lang-type="relative"]')
     const relative_texts = document.querySelectorAll('span[lang-type="relative"]')
     if (prev === 0){
       relative_links.forEach(function(link){
@@ -52,32 +52,45 @@ document.addEventListener('DOMContentLoaded', function () {
         href = `/${post_lang}${href}`
         link.setAttribute('href', href)
       })
-      relative_cards.forEach(function(card){
+      relative_divs.forEach(function(card){
         if (card.getAttribute('language') !== post_lang)
-          card.style['display']  = 'none';
+          card.classList.add('lang-hidden')
       })
       relative_texts.forEach(function(text){
         if (text.getAttribute('language') !== post_lang)
-          text.style['display']  = 'none';
+          text.classList.add('lang-hidden')
       })
+
     } else {
       relative_links.forEach(function(link){
         let href = link.getAttribute('href').split('/')
         href.splice(1,1,post_lang)
         link.setAttribute('href', href.join('/'))
       })
-      relative_cards.forEach(function(card){
+      relative_divs.forEach(function(card){
+        let is_left = true
         if (card.getAttribute('language') === prev_lang)
-          card.style['display']  = 'none';
-        else if (card.getAttribute('language') === post_lang)
-          card.style.removeProperty('display');
+          card.classList.add('lang-hidden')
+        else if (card.getAttribute('language') === post_lang) {
+          card.classList.remove('lang-hidden')
+          if (is_left){
+            card.classList.add('card-left')
+            card.classList.remove('card-right')
+            is_left = false
+          } else {
+            card.classList.add('card-right')
+            card.classList.remove('card-left')
+            is_left = true
+          }
+        }
       })
       relative_texts.forEach(function(text){
         if (text.getAttribute('language') === prev_lang)
-          text.style['display']  = 'none';
+          text.classList.add('lang-hidden')
         else if (text.getAttribute('language') === post_lang)
-          text.style.removeProperty('display');
+          text.classList.remove('lang-hidden')
       })
+
       isSnackbar && btf.snackbarShow(`Language changed from [${langToText(prev_lang)}] to [${langToText(post_lang)}]`)
     }
     if (search_config){
@@ -131,6 +144,7 @@ document.addEventListener('DOMContentLoaded', function () {
         setSiteLang()
         changeLang(currentLanguage, targetLanguage)
         currentLanguage = targetLanguage
+        changeCardPosition()
       } else {
         moveURL(currentLanguage, targetLanguage)
       }
@@ -143,6 +157,23 @@ document.addEventListener('DOMContentLoaded', function () {
       changeLang(0, targetLanguage)
       currentLanguage = targetLanguage
     }
+    changeCardPosition()
+  }
+
+  function changeCardPosition () {
+    let is_left = true
+    const displayed_cards = document.querySelectorAll('div.sticky_layout > div.card-widget:not(#card-toc):not(.lang-hidden)')
+    displayed_cards.forEach(function(card){
+      if (is_left){
+        card.classList.add('card-left')
+        card.classList.remove('card-right')
+        is_left = false
+      } else {
+        card.classList.add('card-right')
+        card.classList.remove('card-left')
+        is_left = true
+      }
+    })
   }
 
   window.changeLangaugeFn = {

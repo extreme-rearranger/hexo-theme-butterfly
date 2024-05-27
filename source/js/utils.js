@@ -96,11 +96,11 @@
         return dateSuffix.just
       } else {
         if (monthCount > 12) return datePost.toISOString().slice(0, 10)
-        if (monthCount >= 1) return dateSuffix.map(i => `<span lang-type="relative" language=${i.lang}> ${parseInt(monthCount)} ${i.month} </span>`).join('')
-        if (dayCount >= 1) return dateSuffix.map(i => `<span lang-type="relative" language=${i.lang}> ${parseInt(dayCount)} ${i.day} </span>`).join('')
-        if (hourCount >= 1) return dateSuffix.map(i => `<span lang-type="relative" language=${i.lang}> ${parseInt(hourCount)} ${i.hour} </span>`).join('')
-        if (minuteCount >= 1) return dateSuffix.map(i => `<span lang-type="relative" language=${i.lang}> ${parseInt(minuteCount)} ${i.minute} </span>`).join('')
-        return dateSuffix.map(i => `<span lang-type="relative" language=${i.lang}> ${i.just} </span>`).join('')
+        if (monthCount >= 1) return dateSuffix.map(i => `<span lang-type="relative" language=${i.lang}>${parseInt(monthCount)} ${i.month}</span>`).join('')
+        if (dayCount >= 1) return dateSuffix.map(i => `<span lang-type="relative" language=${i.lang}>${parseInt(dayCount)} ${i.day}</span>`).join('')
+        if (hourCount >= 1) return dateSuffix.map(i => `<span lang-type="relative" language=${i.lang}>${parseInt(hourCount)} ${i.hour}</span>`).join('')
+        if (minuteCount >= 1) return dateSuffix.map(i => `<span lang-type="relative" language=${i.lang}>${parseInt(minuteCount)} ${i.minute}</span>`).join('')
+        return dateSuffix.map(i => `<span lang-type="relative" language=${i.lang}>${i.just}</span>`).join('')
       }
     },
 

@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-  let headerContentWidth, $nav
+  let headerContentWidth, $nav, $sidebar
   let mobileSidebarOpen = false
 
   const adjustMenu = init => {
@@ -8,16 +8,15 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     if (init) {
-      const blogInfoWidth = getAllWidth(document.querySelector('#blog-info > a').children)
+      const blogInfoWidth = document.querySelector('#blog-info > a').offsetWidth
       const menusWidth = getAllWidth(document.getElementById('menus').children)
       headerContentWidth = blogInfoWidth + menusWidth
       $nav = document.getElementById('nav')
-      $card_info = document.getElementById('aside-content').getElementsByClassName('card-info')[0]
+      $sidebar = document.getElementById('sidebar')
     }
-
-    const hideMenuIndex = window.innerWidth <= 768 || headerContentWidth > $nav.offsetWidth - 120
+    const hideMenuIndex = window.innerWidth <= 768 || headerContentWidth > $nav.offsetWidth - 100 - 40
     $nav.classList.toggle('hide-menu', hideMenuIndex)
-    $card_info.classList.toggle('hide-menu', hideMenuIndex)
+    $sidebar.classList.toggle('hide-menu', hideMenuIndex)
   }
 
   // 初始化header
@@ -366,17 +365,17 @@ document.addEventListener('DOMContentLoaded', function () {
    */
   const scrollFn = () => {
     const $rightside = document.getElementById('rightside')
-    const innerHeight = window.innerHeight + 56
+    // const innerHeight = window.innerHeight + 56
     let initTop = 0
     const $header = document.getElementById('page-header')
     const isChatBtn = typeof chatBtn !== 'undefined'
     const isShowPercent = GLOBAL_CONFIG.percent.rightside
 
-    // 當滾動條小于 56 的時候
-    if (document.body.scrollHeight <= innerHeight) {
-      $rightside.classList.add('')
-      return
-    }
+    // // 當滾動條小于 56 的時候
+    // if (document.body.scrollHeight <= innerHeight) {
+    //   $rightside.classList.add('rightside-show')
+    //   return
+    // }
 
     // find the scroll direction
     const scrollDirection = currentTop => {
@@ -418,9 +417,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
       isShowPercent && rightsideScrollPercent(currentTop)
 
-      if (document.body.scrollHeight <= innerHeight) {
-        // $rightside.classList.add('rightside-show')
-      }
+      // if (document.body.scrollHeight <= innerHeight) {
+      //   $rightside.classList.add('rightside-show')
+      // }
     }, 300)
 
     btf.addEventListenerPjax(window, 'scroll', scrollTask, { passive: true })

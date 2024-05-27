@@ -10,13 +10,13 @@
     overflow: hidden
     height: 14rem  // original: 16.8em
 
-    +maxWidth768()
-      flex-direction: column
-      height: auto
+    // +maxWidth768()
+    //   flex-direction: column
+    //  height: auto
 
-    &:hover
-      img.post-bg
-        transform: scale(1.1)
+    // &:hover
+    //   img.post-bg
+    //     transform: scale(1.1)
 
     &.ads-wrap
       display: block !important
@@ -37,8 +37,8 @@
       &.right
         order: 1
 
-        +maxWidth768()
-          order: 0
+        // +maxWidth768()
+        //   order: 0
 
     & >.recent-post-info
       padding: 0 40px
@@ -51,8 +51,8 @@
       &.no-cover
         width: 100%
 
-        +maxWidth768()
-          padding: 30px 20px
+        // +maxWidth768()
+        //   padding: 30px 20px
 
       & > .article-title
         @extend .limit-more-line
