@@ -22,8 +22,8 @@ post:
   created: Created
   updated: Updated
   wordcount: Word Count
-  min2read: Reading Time
-  min2read_unit: mins
+  min2read: Reading
+  min2read_unit: " mins"
   page_pv: Post Views
   comments: Comments
   copyright:

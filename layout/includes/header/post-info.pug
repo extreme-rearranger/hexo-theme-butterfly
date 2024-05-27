@@ -28,20 +28,6 @@
               i.fa-fw.post-meta-icon(class=date_icon)
               span.post-meta-label= date_title
               time(datetime=date_xml(page[date_type]) title=date_title + ' ' + full_date(page[date_type], format=config.full_date_format))=date(page[date_type], config.date_format)
-      
-      if (theme.post_meta.post.categories && page.categories.data.length > 0)
-        span.post-meta-categories
-          if (theme.post_meta.post.date_type)
-            span.post-meta-separator |
-
-          each item, index in page.categories.data
-            i.fas.fa-inbox.fa-fw.post-meta-icon
-            if is_default_language(page.lang)
-              a(href=url_for_lang(item.path) lang-type='relative').post-meta-categories #[=item.name]
-            else
-              a(href=url_for_lang(item.path) lang-type='absolute').post-meta-categories #[=item.name]
-            if (index < page.categories.data.length - 1)
-              i.fas.fa-angle-right.post-meta-separator
     
     .meta-secondline
       - let postWordcount = theme.wordcount.enable && (theme.wordcount.post_wordcount || theme.wordcount.min2read)
@@ -53,9 +39,9 @@
             each langPrefix, lang in langPrefices
               span(lang-type='relative' language=lang).post-meta-label= _p(langPrefix+'post.wordcount') + ':'
             span.word-count= wordcount(page.content)
-            if theme.wordcount.min2read
-              span.post-meta-separator |
-          if theme.wordcount.min2read
+        if theme.wordcount.min2read
+          span.post-meta-separator |
+          span.post-meta-min2read
             i.far.fa-clock.fa-fw.post-meta-icon
             each langPrefix, lang in langPrefices
               span(lang-type='relative' language=lang).post-meta-label= _p(langPrefix+'post.min2read') + ':'
@@ -155,3 +141,12 @@
               a(href=url_for(page.path) + '#post-comment')
                 span#ArtalkCount
                   i.fa-solid.fa-spinner.fa-spin
+
+    .meta-thirdline
+      if (theme.post_meta.post.categories && page.categories.data.length > 0)
+        each langPrefix, lang in langPrefices
+          span.post-meta-categories(lang-type='relative' language=lang)
+            i.fas.fa-folder-open.fa-fw.post-meta-icon
+            span.post-meta-label= _p(langPrefix + 'page.category')
+        - let category_hier = list_categories(page.categories, {show_count:false})
+        !=category_hier

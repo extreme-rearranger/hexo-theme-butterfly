@@ -216,19 +216,11 @@
 
   #post-meta
     color: var(--light-grey)
-    font-size: 95%
+    font-size: 0.9rem  // original: 90%
 
-    +minWidth768()
-      > .meta-secondline
-        > span:first-child
-          display: none
-
-    +maxWidth768()
-      font-size: 0.875rem  // original: 90%
-
-      > .meta-firstline,
-      > .meta-secondline
-        display: inline
+    > .meta-firstline,
+    > .meta-secondline
+      display: inline
 
     .post-meta
       &-separator

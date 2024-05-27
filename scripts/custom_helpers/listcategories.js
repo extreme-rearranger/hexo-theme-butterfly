@@ -58,7 +58,7 @@ function listCategoriesHelper(categories, options) {
       }
       const additionalClassName = child && childrenIndicator ? ` ${childrenIndicator}` : '';
       result += `<li class="${className}-list-item${additionalClassName}">`;
-      result += `<a class="${className}-list-link${isCurrent ? ' current' : ''}" href="${hexo_util_1.url_for.call(this, cat_lang.path)}${suffix}">`;
+      result += `<a class="${className}-list-link${isCurrent ? ' current' : ''}" href="${hexo_util_1.url_for.call(this, cat_lang.path)}${suffix}" lang-type="relative">`;
       result += transform ? transform(cat_lang.name) : cat_lang.name;
       result += '</a>';
       if (showCount) {
@@ -78,7 +78,7 @@ function listCategoriesHelper(categories, options) {
       let cat_lang = cats_lang.find((e) => e._id === cat._id)
       if (i || level)
         result += separator;
-      result += `<a class="${className}-link" href="${hexo_util_1.url_for.call(this, cat_lang.path)}${suffix}">`;
+      result += `<a class="${className}-link" href="${hexo_util_1.url_for.call(this, cat_lang.path)}${suffix}" lang-type="relative">`;
       result += transform ? transform(cat_lang.name) : cat_lang.name;
       if (showCount) {
         result += `<span class="${className}-count">${cat_lang.length}</span>`;
@@ -93,13 +93,13 @@ function listCategoriesHelper(categories, options) {
 
   const categories_lang = categories.map(category => {
     // Filter posts by language considering. Posts without a language is considered of the default language.
-    const posts = category.posts.filter(postFilter(language));
+    const posts = (language === 'default') ? category.posts : category.posts.filter(postFilter(language));
     if (posts.length === 0) {
       return null;
     }
     return Object.assign({}, category, {
       posts: posts,
-      path: pathJoin(language, category.path),
+      path: (language === 'default') ? category.path : pathJoin(language, category.path),
       length: posts.length
     });
   }).filter(category => category !== null);

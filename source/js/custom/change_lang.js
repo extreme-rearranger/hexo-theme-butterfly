@@ -73,15 +73,6 @@ document.addEventListener('DOMContentLoaded', function () {
           card.classList.add('lang-hidden')
         else if (card.getAttribute('language') === post_lang) {
           card.classList.remove('lang-hidden')
-          if (is_left){
-            card.classList.add('card-left')
-            card.classList.remove('card-right')
-            is_left = false
-          } else {
-            card.classList.add('card-right')
-            card.classList.remove('card-left')
-            is_left = true
-          }
         }
       })
       relative_texts.forEach(function(text){
