@@ -14,14 +14,14 @@
     margin-top: 0
 
     +maxWidth900()
-      margin-top: 20px
+      margin-top: 1.2rem  // original: 20px
 
   .card-widget
     @extend .cardHover
     position: relative
     overflow: hidden
-    margin-top: 20px
-    padding: 20px 24px
+    margin-top: 1.2rem  // original: 20px
+    padding: 1.2rem 1.5rem 1.5rem  // original: 20px 24px
 
     if hexo-config('aside.mobile') == false
       +maxWidth768()
@@ -158,12 +158,12 @@
     a
       display: flex
       flex-direction: row
-      padding: 3px 10px
+      padding: 0.2rem 0.6rem  // original: 3px 10px
       color: var(--font-color)
       transition: all .4s
 
       &:hover
-        padding: 3px 17px
+        padding: 0.2rem 1rem  // original: 3px 17px
         background-color: var(--text-bg-hover)
 
       span
@@ -175,7 +175,8 @@
   .card-categories
     .card-category-list
       &.child
-        padding: 0 0 0 16px
+        // padding: 0 0 0 16px
+        padding-left: 1rem
 
       > .parent
         > a
@@ -188,16 +189,16 @@
 
           .card-category-list
             &-name
-              width: 70% !important
+              width: 75% !important  // original: 70% !important
 
             &-count
-              width: calc(100% - 70% - 20px)
+              width: calc(25% - 1.2rem)  // original: calc(100% - 70% - 20px)
               text-align: right
 
           i
             float: right
-            margin-right: -10px // original : -.5em
-            padding: 0.375em 10px // original : .5em
+            margin-right: -.6em  // original : -.5em
+            padding: 0.375em 0.6em  // original : .5em
             transition: transform .3s
             transform: rotate(0)
 
@@ -210,12 +211,12 @@
       .webinfo-item
         display: flex
         align-items: center
-        padding: 2px 10px 0
+        padding: 2px 0.5rem 0  // original: 2px 10px 0
 
         div
           &:not(:last-child)
             flex: 1
-            padding-right: 20px
+            // padding-right: 20px
 
   // toc
   #card-toc

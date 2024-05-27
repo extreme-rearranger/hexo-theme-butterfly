@@ -36,7 +36,10 @@
 
           each item, index in page.categories.data
             i.fas.fa-inbox.fa-fw.post-meta-icon
-            a(href=url_for_lang(item.path)).post-meta-categories #[=item.name]
+            if is_default_language(page.lang)
+              a(href=url_for_lang(item.path) lang-type='relative').post-meta-categories #[=item.name]
+            else
+              a(href=url_for_lang(item.path) lang-type='absolute').post-meta-categories #[=item.name]
             if (index < page.categories.data.length - 1)
               i.fas.fa-angle-right.post-meta-separator
     
