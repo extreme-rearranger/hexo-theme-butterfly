@@ -671,18 +671,17 @@ document.addEventListener('DOMContentLoaded', function () {
   const addCopyright = () => {
     let { limitCount, languages } = GLOBAL_CONFIG.copyright
 
-    const currentLanguage = document.documentElement.getAttribute('page-lang') === 'default' 
+    const handleCopy = (e) => {
+      let currentLanguage = document.documentElement.getAttribute('page-lang') === 'default' 
       ? document.documentElement.getAttribute('lang')
       : document.documentElement.getAttribute('page-lang')
 
-    languages = languages.find((item) => item.lang === currentLanguage)
-
-    const handleCopy = (e) => {
+      let lang = languages.find((item) => item.lang === currentLanguage)
       e.preventDefault()
       const copyFont = window.getSelection(0).toString()
       let textFont = copyFont
       if (copyFont.length > limitCount) {
-        textFont = `${copyFont}\n\n\n${languages.author}\n${languages.link}${window.location.href}\n${languages.source}\n${languages.info}`
+        textFont = `${copyFont}\n\n\n${lang.author}\n${lang.source}\n${lang.link}${window.location.href}\n${lang.info}`
       }
       if (e.clipboardData) {
         return e.clipboardData.setData('text', textFont)
@@ -901,6 +900,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const refreshFn = () => {
     initAdjust()
+    changeTagOrder()
 
     if (GLOBAL_CONFIG_SITE.isPost) {
       GLOBAL_CONFIG.noticeOutdate !== undefined && addPostOutdateNotice()
