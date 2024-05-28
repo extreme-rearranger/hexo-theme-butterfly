@@ -11,13 +11,15 @@
   .pagination-info
     position: absolute
     top: 50%
-    padding: 20px 40px
+    padding: 1rem 1.5rem  // original: 20px 40px
     width: 100%
     transform: translate(0, -50%)
 
   .prev_info,
   .next_info
-    @extend .limit-one-line
+    // @extend .limit-one-line
+    @extend .limit-more-line
+    -webkit-line-clamp: 2
     color: var(--white)
     font-weight: 450
 
@@ -39,14 +41,14 @@
     @extend .postImgHover
     width: 50%
 
-    +maxWidth768()
-      width: 100%
+    // +maxWidth768()
+    //   width: 100%
 
     a
       position: relative
       display: block
       overflow: hidden
-      height: 150px
+      height: 7.5rem  // original: 150px
 
   // &.pagination-post
   //   overflow: hidden

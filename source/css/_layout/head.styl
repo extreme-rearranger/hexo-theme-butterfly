@@ -36,10 +36,10 @@
   #site-title
     margin: 0
     color: var(--white)
-    font-size: 1.85em
+    font-size: 1.8em  // original: 1.85em
 
     +minWidth768()
-      font-size: 2.85em
+      font-size: 2em  // original: 2.85em
 
   #site-subtitle
     color: var(--light-grey)
@@ -76,19 +76,19 @@
 
   // page
   &.not-home-page
-    height: 400px
+    height: 20em  // original: 400px
 
     +maxWidth768()
-      height: 280px
+      height: 16em  // original: 280px
 
   #page-site-info
     position: absolute
-    top: 200px
+    top: 10em  // original: 200px
     padding: 0 10px
     width: 100%
 
     +maxWidth768()
-      top: 140px
+      top: 8em  // original: 140px
 
   // post
   &.post-bg
@@ -113,7 +113,7 @@
     background: 0
 
     #nav
-      background: var(--white80)
+      background: var(--nav-bg)
       box-shadow: 0 5px 6px -5px rgba(133, 133, 133, .6)
 
       a,
@@ -127,7 +127,7 @@
       position: fixed
       top: -3.75rem  // original: -60px
       z-index: 91
-      background: var(--white80)
+      background: var(--nav-bg)
       box-shadow: 0 5px 6px -5px var(--grey60)
       transition: transform .2s ease-in-out, opacity .2s ease-in-out
 
@@ -217,6 +217,7 @@
   #post-meta
     color: var(--light-grey)
     font-size: 0.9rem  // original: 90%
+    font-weight: 250
 
     > .meta-firstline,
     > .meta-secondline
@@ -227,11 +228,12 @@
         margin: 0 5px
 
       &-icon
-        margin-right: 4px
+        margin-right: 0.2rem  // original: 4px
 
       &-label
         if hexo-config('post_meta.post.label')
-          margin-right: 4px
+          margin-right: 0.3rem  // original: 4px
+          font-weight: 350
         else
           display: none
 
@@ -240,8 +242,8 @@
       transition: all .3s ease-out
 
       &:hover
-        color: var(--text-hover)
-        text-decoration: underline
+        color: var(--text-hover) !important
+        // text-decoration: underline
 
     if hexo-config('post_meta.post.date_format') == 'relative'
       time

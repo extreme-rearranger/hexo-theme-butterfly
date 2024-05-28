@@ -176,7 +176,7 @@
     .card-category-list
       &.child
         // padding: 0 0 0 16px
-        padding-left: 1rem
+        padding-left: 0.5rem
 
       > .parent
         > a
@@ -201,6 +201,9 @@
             padding: 0.375em 0.6em  // original : .5em
             transition: transform .3s
             transform: rotate(0)
+
+            &:hover
+              color: var(--text-hover)
 
         if hexo-config('aside.card_categories.expand') == false
           > .child

@@ -168,11 +168,11 @@ beautify()
 
       &__tags
         display: inline-block
-        margin: 8px 8px 8px 0
-        padding: 0 12px
+        // margin: 8px 8px 8px 0
+        padding: 0 0.5rem   // original: 0 12px
         width: fit-content
-        border: 1px solid var(--theme-color)
-        border-radius: 12px
+        // border: 1px solid var(--theme-color)
+        border-radius: 0.2rem  // original: 12px
         color: var(--theme-color)
         font-size: .85em
         transition: all .2s ease-in-out
@@ -203,6 +203,7 @@ beautify()
     padding: 10px 16px
     border: 1px solid var(--title-border-color)
     transition: box-shadow .3s ease-in-out
+    font-size: .9rem
 
     &::before
       @extend .fontawesomeIcon
@@ -217,6 +218,7 @@ beautify()
     //   box-shadow: 0 0 8px 0 rgba(232, 237, 250, .6), 0 2px 4px 0 rgba(232, 237, 250, .5)
 
     .post-copyright
+
       &-meta
         color: var(--theme-color)
         font-weight: 650
@@ -229,7 +231,7 @@ beautify()
 
         a
           text-decoration: underline
-          word-break: break-word
+          word-break: break-all
 
           &:hover
             text-decoration: none

@@ -27,8 +27,6 @@ document.addEventListener('DOMContentLoaded', function () {
   function setSiteLang() {
     if (pageLanguage !== languages[targetLanguage - 1])
       document.documentElement.setAttribute('lang', languages[targetLanguage - 1])
-    // else
-    //   document.documentElement.removeAttribute('lang')
 
     if (search_config) {
       document.querySelector('#local-search-input input').setAttribute('placeholder', 
@@ -68,7 +66,6 @@ document.addEventListener('DOMContentLoaded', function () {
         link.setAttribute('href', href.join('/'))
       })
       relative_divs.forEach(function(card){
-        let is_left = true
         if (card.getAttribute('language') === prev_lang)
           card.classList.add('lang-hidden')
         else if (card.getAttribute('language') === post_lang) {

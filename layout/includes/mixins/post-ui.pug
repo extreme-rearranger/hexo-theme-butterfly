@@ -29,7 +29,7 @@ mixin postUI(posts)
               div.post-bg(style=`background: ${post_cover}`)
       .recent-post-info(class=no_cover)
         a.article-title(href=url_for(link) title=title)
-          if (is_home() && (article.top || article.sticky > 0))
+          if (is_home() && (article.top || article.sticky > 0)) || (is_tag() && article.sticky_tags.includes(page.tag)) || (is_category() && article.sticky_categories.includes(page.category))
             i.fas.fa-thumbtack.sticky
           = title
         .article-meta-wrap
@@ -37,7 +37,7 @@ mixin postUI(posts)
             each langPrefix, lang in langPrefices
               span.post-meta-date(lang-type='relative' language=lang)
                 if (theme.post_meta.page.date_type === 'both')
-                  i.far.fa-calendar-alt
+                  i.fas.fa-calendar-plus
                   span.article-meta-label=_p(langPrefix+'post.created')
                   time.post-meta-date-created(datetime=date_xml(article.date) title=_p(langPrefix+'post.created') + ' ' + full_date(article.date, format=config.full_date_format))=date(article.date, config.date_format)
                   span.article-meta-separator |
@@ -47,7 +47,7 @@ mixin postUI(posts)
                 else
                   - let data_type_updated = theme.post_meta.page.date_type === 'updated'
                   - let date_type = data_type_updated ? 'updated' : 'date'
-                  - let date_icon = data_type_updated ? 'fas fa-history' :'far fa-calendar-alt'
+                  - let date_icon = data_type_updated ? 'fas fa-history' :'fas fa-calendar-plus'
                   - let date_title = data_type_updated ? _p(langPrefix+'post.updated') : _p(langPrefix+'post.created')
                   i(class=date_icon)
                   span.article-meta-label=date_title
@@ -57,7 +57,7 @@ mixin postUI(posts)
               span.article-meta-separator |
               each item, index in article.sticky_categories
                 - let item_path = article.categories.data.find((category) => category.name === item).path
-                i.fas.fa-inbox
+                i.fas.fa-folder-open
                 if is_default_language(article.lang)
                   a(href=url_for_lang(item_path) lang-type='relative').article-meta__categories #[=item]
                 else
@@ -93,21 +93,21 @@ mixin postUI(posts)
               when 'Disqusjs'
                 +countBlockInIndex
                   a.disqus-count(href=full_url_for(link) + '#post-comment')
-                    i.fa-solid.fa-spinner.fa-spin
+                    i.fas.fa-spinner.fa-spin
               when 'Valine'
                 +countBlockInIndex
                   a(href=url_for(link) + '#post-comment')
                     span.valine-comment-count(data-xid=url_for(link))
-                      i.fa-solid.fa-spinner.fa-spin
+                      i.fas.fa-spinner.fa-spin
               when 'Waline'
                 +countBlockInIndex
                   a(href=url_for(link) + '#post-comment')
                     span.waline-comment-count(data-path=url_for(link))
-                      i.fa-solid.fa-spinner.fa-spin
+                      i.fas.fa-spinner.fa-spin
               when 'Twikoo'
                 +countBlockInIndex
                   a.twikoo-count(href=url_for(link) + '#post-comment')
-                    i.fa-solid.fa-spinner.fa-spin
+                    i.fas.fa-spinner.fa-spin
               when 'Facebook Comments'
                 +countBlockInIndex
                   a(href=url_for(link) + '#post-comment')
@@ -116,12 +116,12 @@ mixin postUI(posts)
                 +countBlockInIndex
                   a(href=url_for(link) + '#post-comment')
                     span.remark42__counter(data-url=urlNoIndex(article.permalink))
-                      i.fa-solid.fa-spinner.fa-spin
+                      i.fas.fa-spinner.fa-spin
               when 'Artalk'
                 +countBlockInIndex
                   a(href=url_for(link) + '#post-comment')
                     span.artalk-count(data-page-key=url_for(link))
-                      i.fa-solid.fa-spinner.fa-spin
+                      i.fas.fa-spinner.fa-spin
 
         //- Display the article introduction on homepage
         case theme.index_post_content.method

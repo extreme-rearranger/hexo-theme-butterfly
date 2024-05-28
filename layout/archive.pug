@@ -2,6 +2,7 @@ extends includes/layout.pug
 
 block content
   include ./includes/mixins/article-sort.pug
+  #page
   #archive(class='card-widget')
     each langPrefix, lang in langPrefices
       - var archive_date = page.year ? page.year : _p(langPrefix+'page.all')

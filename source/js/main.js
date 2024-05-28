@@ -920,6 +920,19 @@ document.addEventListener('DOMContentLoaded', function () {
     openMobileMenu()
   }
 
+  const changeTagOrder = () => {
+    const $tags = document.getElementsByClassName('tags-random')
+    if (!$tags) return
+    Array.from($tags).forEach(item => {
+      children = [...item.children];
+      children.forEach(child => child.remove());
+      randomChildren = children.map((child) => ({ child, rand: Math.random() }));
+      randomChildren.sort((a, b) => b.rand - a.rand);
+      randomChildren.forEach(randomObj => item.appendChild(randomObj.child));
+      console.log('reorder tags');
+    })
+  }
+
   btf.addGlobalFn('pjaxComplete', refreshFn, 'refreshFn')
   refreshFn()
   unRefreshFn()

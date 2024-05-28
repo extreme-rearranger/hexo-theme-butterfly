@@ -13,7 +13,7 @@
         each langPrefix, lang in langPrefices
           span.post-meta-date(lang-type='relative' language=lang)
             if (theme.post_meta.post.date_type === 'both')
-              i.far.fa-calendar-alt.fa-fw.post-meta-icon
+              i.far.fa-calendar-plus.fa-fw.post-meta-icon
               span.post-meta-label= _p(langPrefix+'post.created')
               time.post-meta-date-created(datetime=date_xml(page.date) title=_p(langPrefix+'post.created') + ' ' + full_date(page.date, format=config.full_date_format))=date(page.date, config.date_format)
               span.post-meta-separator |
@@ -23,7 +23,7 @@
             else
               - let data_type_update = theme.post_meta.post.date_type === 'updated'
               - let date_type = data_type_update ? 'updated' : 'date'
-              - let date_icon = data_type_update ? 'fas fa-history' :'far fa-calendar-alt'
+              - let date_icon = data_type_update ? 'fas fa-history' :'far fa-calendar-plus'
               - let date_title = data_type_update ? _p(langPrefix+'post.updated') : _p(langPrefix+'post.created')
               i.fa-fw.post-meta-icon(class=date_icon)
               span.post-meta-label= date_title
@@ -37,14 +37,14 @@
           if theme.wordcount.post_wordcount
             i.far.fa-file-word.fa-fw.post-meta-icon
             each langPrefix, lang in langPrefices
-              span(lang-type='relative' language=lang).post-meta-label= _p(langPrefix+'post.wordcount') + ':'
+              span(lang-type='relative' language=lang).post-meta-label= _p(langPrefix+'post.wordcount')
             span.word-count= wordcount(page.content)
         if theme.wordcount.min2read
           span.post-meta-separator |
           span.post-meta-min2read
             i.far.fa-clock.fa-fw.post-meta-icon
             each langPrefix, lang in langPrefices
-              span(lang-type='relative' language=lang).post-meta-label= _p(langPrefix+'post.min2read') + ':'
+              span(lang-type='relative' language=lang).post-meta-label= _p(langPrefix+'post.min2read')
             // 참고 : https://www.jkos.org/upload/pdf/JKOS057-04-17.pdf
             each langPrefix, lang in langPrefices
               span(lang-type='relative' language=lang)= min2read(page.content, {cn: 350, en: 160, ko: 202}) + _p(langPrefix+'post.min2read_unit')
@@ -55,7 +55,7 @@
         span(class=parent_class id=parent_id data-flag-title=page.title)
           i.far.fa-eye.fa-fw.post-meta-icon
           each langPrefix, lang in langPrefices
-            span(lang-type='relative' language=lang).post-meta-label=_p(langPrefix+'post.page_pv') + ':'
+            span(lang-type='relative' language=lang).post-meta-label=_p(langPrefix+'post.page_pv')
           if block
             block
 
@@ -94,7 +94,7 @@
           span.post-meta-commentcount
             i.far.fa-comments.fa-fw.post-meta-icon
             each langPrefix, lang in langPrefices
-              span(lang-type='relative' language=lang).post-meta-label= _p(langPrefix+'post.comments') + ':'
+              span(lang-type='relative' language=lang).post-meta-label= _p(langPrefix+'post.comments')
             if block
               block
         
@@ -142,11 +142,14 @@
                 span#ArtalkCount
                   i.fa-solid.fa-spinner.fa-spin
 
+      if (theme.post_meta.post.categories && page.categories.data.length > 0)
+        span.post-meta-separator |
+
     .meta-thirdline
       if (theme.post_meta.post.categories && page.categories.data.length > 0)
         each langPrefix, lang in langPrefices
           span.post-meta-categories(lang-type='relative' language=lang)
-            i.fas.fa-folder-open.fa-fw.post-meta-icon
+            i.far.fa-folder-closed.fa-fw.post-meta-icon
             span.post-meta-label= _p(langPrefix + 'page.category')
         - let category_hier = list_categories(page.categories, {show_count:false})
         !=category_hier
