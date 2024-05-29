@@ -31,22 +31,40 @@ beautify()
         color: var(--theme-color)
 
   h1
-    headStyle(20)
+    padding-left: calc(1.25rem + 8px)
+    &::before
+      font-size: calc(1.25rem - 2px)
+    &:hover
+      padding-left: calc(1.25rem + 12px)
 
   h2
-    headStyle(18)
+    padding-left: calc(1.125rem + 8px)
+    &::before
+      font-size: calc(1.125rem - 2px)
+    &:hover
+      padding-left: calc(1.125rem + 12px)
 
   h3
-    headStyle(16)
+    padding-left: calc(1rem + 8px)
+    &::before
+      font-size: calc(1rem - 2px)
+    &:hover
+      padding-left: calc(1rem + 12px)
 
   h4
-    headStyle(14)
+    padding-left: calc(0.875rem + 8px)
+    &::before
+      font-size: calc(0.875rem - 2px)
+    &:hover
+      padding-left: calc(0.875rem + 12px)
 
-  h5
-    headStyle(12)
-
+  h5,
   h6
-    headStyle(12)
+    padding-left: calc(0.75rem + 8px)
+    &::before
+      font-size: calc(0.75rem - 2px)
+    &:hover
+      padding-left: calc(0.75rem + 12px)
 
   ol,
   ul

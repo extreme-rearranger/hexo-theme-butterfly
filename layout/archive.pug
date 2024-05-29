@@ -3,11 +3,11 @@ extends includes/layout.pug
 block content
   include ./includes/mixins/article-sort.pug
   #page
-  #archive(class='card-widget')
-    each langPrefix, lang in langPrefices
-      - var archive_date = page.year ? page.year : _p(langPrefix+'page.all')
-      - var archive_date = page.month ? (archive_date + '/' + page.month) : archive_date
-      - var archive_date = page.day ? (archive_date + '/' + page.day) : archive_date
-      .article-sort-title(lang-type='relative' language=lang)= `${_p(langPrefix+'page.archives')} -  ${archive_date} (${getArchiveLength()})`
-      +articleSort(page.posts)
-      !=partial('includes/pagination', {langPrefices: langPrefices}, {cache: false})
+    #archive(class='card-widget')
+      each langPrefix, lang in langPrefices
+        - var archive_date = page.year ? page.year : _p(langPrefix+'page.all')
+        - var archive_date = page.month ? (archive_date + '/' + page.month) : archive_date
+        - var archive_date = page.day ? (archive_date + '/' + page.day) : archive_date
+        .article-sort-title(lang-type='relative' language=lang)= `${_p(langPrefix+'page.archives')} -  ${archive_date} (${getArchiveLength()})`
+        +articleSort(page.posts)
+        !=partial('includes/pagination', {langPrefices: langPrefices}, {cache: false})

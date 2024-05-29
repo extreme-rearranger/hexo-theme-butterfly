@@ -12,6 +12,9 @@ else
     if showToc && tocStyleVal
       .sticky_layout
         !=partial('includes/widget/card_post_toc', {langPrefices:langPrefices}, {cache: false})
+        if page.series
+          !=partial('includes/widget/card_post_series', {langPrefices:langPrefices}, {cache: false})
+        !=partial('includes/widget/card_ad', {}, {cache: false})
     else
       //- changed to cache false since the content should be different among language settings
       !=partial('includes/widget/card_author', {langPrefices:langPrefices}, {cache: false})
@@ -23,7 +26,8 @@ else
         if page.series
           !=partial('includes/widget/card_post_series', {langPrefices:langPrefices}, {cache: false})
         //- changed to cache false since the content should be different among language settings
-        !=partial('includes/widget/card_recent_post', {langPrefices:langPrefices}, {cache: false})
+        if is_home() === false
+          !=partial('includes/widget/card_recent_post', {langPrefices:langPrefices}, {cache: false})
         !=partial('includes/widget/card_ad', {}, {cache: false})
   else
     //- page
@@ -36,7 +40,8 @@ else
       if showToc
         !=partial('includes/widget/card_post_toc', {langPrefices:langPrefices}, {cache: false})
       //- changed to cache false since the content should be different among language settings
-      !=partial('includes/widget/card_recent_post', {langPrefices:langPrefices}, {cache: false})
+      if is_home() === false
+        !=partial('includes/widget/card_recent_post', {langPrefices:langPrefices}, {cache: false})
       !=partial('includes/widget/card_ad', {}, {cache: false})
       !=partial('includes/widget/card_newest_comment', {langPrefices:langPrefices}, {cache: false})
       !=partial('includes/widget/card_categories', {langPrefices:langPrefices}, {cache: false})

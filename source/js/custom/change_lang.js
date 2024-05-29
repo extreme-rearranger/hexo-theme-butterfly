@@ -162,6 +162,11 @@ document.addEventListener('DOMContentLoaded', function () {
         is_left = true
       }
     })
+    if (displayed_cards.length % 2 === 1){
+      displayed_cards[displayed_cards.length-1].classList.remove('card-right')
+      displayed_cards[displayed_cards.length-1].classList.remove('card-left')
+      displayed_cards[displayed_cards.length-1].classList.add('card-full')
+    }
   }
 
   window.changeLangaugeFn = {
