@@ -14,6 +14,9 @@
 - var themeColorLight = theme.theme_color && theme.theme_color.enable && theme.theme_color.meta_theme_color_light || '#ffffff'
 - var themeColorDark = theme.theme_color && theme.theme_color.enable && theme.theme_color.meta_theme_color_dark || '#0d0d0d'
 - var themeColor = theme.display_mode === 'dark' ? themeColorDark : themeColorLight
+- var pageKeyword = ""
+each keyword in page.keywords || []
+  - pageKeyword += keyword + ', '
 
 meta(charset='UTF-8')
 meta(http-equiv="X-UA-Compatible" content="IE=edge")
@@ -23,6 +26,7 @@ meta(name="author" content=pageAuthor)
 meta(name="copyright" content=pageCopyright)
 meta(name ="format-detection" content="telephone=no")
 meta(name="theme-color" content=themeColor)
+meta(name="keyword" content=pageKeyword.slice(0, -2))
 
 //- Open_Graph
 include ./head/Open_Graph.pug
