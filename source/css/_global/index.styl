@@ -47,6 +47,7 @@ body
   line-height: $text-line-height
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
   scroll-behavior: smooth
+  min-width: 320px
 
   if !hexo-config('copy.enable')
     user-select: none
@@ -102,7 +103,7 @@ h6
 
 .table-wrap
   overflow-x: scroll
-  margin-bottom: 1.2rem  // original: margin: 0 0 20px
+  margin-bottom: 1rem  // original: margin: 0 0 20px
 
 table
   display: table
@@ -119,6 +120,10 @@ table
     padding: 0.375rem 0.75rem  // original: 6px 12px
     border: 1px solid var(--title-border-color)
     vertical-align: middle
+
+    &:empty
+      padding: 0
+    
 
 *::selection
   background: var(--text-select-bg)

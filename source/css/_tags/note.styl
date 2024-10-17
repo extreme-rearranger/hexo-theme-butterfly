@@ -1,8 +1,8 @@
 .note
   $note-icons = hexo-config('note.icons')
   position: relative
-  margin: 0 0 20px
-  padding: 15px
+  margin-bottom: 1.25em  // original: margin: 0 0 20px
+  padding: 1em  // original: 15px
 
   if hexo-config('note.border_radius') is a 'unit'
     border-radius: unit(hexo-config('note.border_radius'), px)
@@ -82,7 +82,7 @@
 
       &::before
         position: absolute
-        top: calc(50% - .95em)
+        top: calc(50% - .8em)  // original: calc(50% - .95em)
         left: .8em
         font-size: larger
         @extend .fontawesomeIcon

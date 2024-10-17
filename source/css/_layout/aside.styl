@@ -231,10 +231,10 @@
 
     +maxWidth900()
       position: fixed
-      right: 55px
+      right: 4rem  // original: 55px
       bottom: 30px
       z-index: 100
-      max-width: $toc-mobile-maxWidth
+      max-width: calc(min(60%, 380px))
       max-height: calc(100% - 60px)
       width: $toc-mobile-width
       transition: none
@@ -262,11 +262,11 @@
         max-height: calc(100vh - 140px)
 
       & > *
-        margin: 0 20px !important
+        margin: 0 1.5rem 0 1rem  // original: 0 20px !important
 
-        & > .toc-item > .toc-child
-          margin-left: 10px
-          padding-left: 10px
+        & > .toc-item .toc-child  // original: & > .toc-item > .toc-child
+          margin-left: 0.5rem  // original: 10px
+          padding-left: 0  // original: 10px
           border-left: 1px solid var(--dark-grey)
 
       &:not(.is-expand)
@@ -278,7 +278,7 @@
 
         .toc-item
           &.active
-            .toc-child
+            > .toc-child  // original: .toc-child
               display: block
 
       ol,
@@ -288,16 +288,17 @@
       > ol
         padding: 0 !important
 
-      ol
-        margin: 0
-        padding-left: 18px
+      // ol
+      //   margin: 0
+      //   padding-left: 18px
 
       .toc-link
         display: block
-        margin: 4px 0
-        padding: 1px 6px
+        margin: 0.25rem 0  // original: 4px 0
+        padding: 0 0.6rem  // original: 1px 6px
         color: var(--toc-link-color)
         transition: all .2s ease-in-out
+        @extend .limit-one-line
 
         &:hover
           color: var(--toc-link-hover)
