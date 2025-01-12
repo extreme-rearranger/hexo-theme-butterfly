@@ -1,26 +1,27 @@
-/**
- * Butterfly
- * Related Posts
- * According the tag
- */
-
 'use strict'
-const { isDefaultLanguage, getDisplayLanguages } = require('../custom_helpers/i18n')(hexo);
+
+const { postDesc } = require('../common/postDesc');
+
+const { isDefaultLanguage, getPageLanguage, getDisplayLanguages } = require('../custom_helpers/i18n')(hexo);
 
 hexo.extend.helper.register('related_posts', function (currentPost, allPosts) {
   let relatedPosts = []
-  currentPost.tags.forEach(function (tag) {
+  const tagsData = currentPost.tags
+  tagsData.length && tagsData.forEach(function (tag) {
     allPosts.forEach(function (post) {
-      if ((currentPost.lang === post.lang || isDefaultLanguage(post.lang))
+      if ((currentPost.lang === post.lang || isDefaultLanguage(getPageLanguage(post)) || isDefaultLanguage(getPageLanguage(currentPost)))
         && isTagRelated(tag.name, post.tags)) {
+        const getPostDesc = post.postDesc || postDesc(post, hexo)
         const relatedPost = {
+          post_lang: getPageLanguage(post),
           title: post.title,
           path: post.path,
           cover: post.cover,
           cover_type: post.cover_type,
           weight: 1,
           updated: post.updated,
-          created: post.date
+          created: post.date,
+          postDesc: getPostDesc
         }
         const index = findItem(relatedPosts, 'path', post.path)
         if (index !== -1) {
@@ -42,38 +43,60 @@ hexo.extend.helper.register('related_posts', function (currentPost, allPosts) {
 
   const limitNum = config.related_post.limit || 6
   const dateType = config.related_post.date_type || 'created'
-  const langPrefix = isDefaultLanguage(this.page.lang) ? `${getDisplayLanguages()[0]}.` : this.page.lang + '.'
-  const headlineLang = this._p(langPrefix+'post.recommend')
+  const defaultCover = config.related_post.default_cover || 'var(--default-bg-color)'
+  const setDesc = config.related_post.description || false
+
+  let langPrefices
+  if (isDefaultLanguage(getPageLanguage(currentPost)))
+    langPrefices = Array.from(getDisplayLanguages().map((lang) => [lang,`${lang}.`]))
+  else
+    langPrefices = Array.from([[this.page.lang, '']])
 
   relatedPosts = relatedPosts.sort(compare('weight'))
 
   if (relatedPosts.length > 0) {
-    result += '<div class="relatedPosts">'
-    result += `<div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>${headlineLang}</span></div>`
-    result += '<div class="relatedPosts-list">'
+    langPrefices.forEach(([lang, langPrefix]) => {
+      const headlineLang = this._p(langPrefix+'post.recommend')
+      let result_tmp = `<div class="card-widget relatedPosts" lang-type="relative" language="${lang}">`
+      result_tmp += `<div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>${headlineLang}</span></div>`
+      result_tmp += '<div class="relatedPosts-list">'
+      
+      let count = 0
+      for (let i = 0; i < relatedPosts.length; i++) {
+        let { post_lang, cover, title, path, cover_type, created, updated, postDesc } = relatedPosts[i]
+        if ((post_lang !== lang) && !isDefaultLanguage(post_lang)) continue
+        else count++
+        const { escape_html, url_for, date } = this
+        cover = cover || defaultCover
+        title = escape_html(title)
+        const className = (setDesc && postDesc) ? 'pagination-related' : 'pagination-related no-desc'
+        result_tmp += `<a class="${className}" href="${url_for(path)}" title="${title}">`
+        if (cover_type === 'img') {
+          result_tmp += `<img class="cover" src="${url_for(cover)}" alt="cover">`
+        } else {
+          result_tmp += `<div class="cover" style="background: ${cover}"></div>`
+        }
+        if (dateType === 'created') {
+          result_tmp += `<div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="fas fa-calendar-plus fa-fw"></i> ${date(created, hexoConfig.date_format)}</div>`
+        } else {
+          result_tmp += `<div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="fas fa-history fa-fw"></i> ${date(updated, hexoConfig.date_format)}</div>`
+        }
+        result_tmp += `<div class="info-item-2">${title}</div></div>`
 
-    for (let i = 0; i < Math.min(relatedPosts.length, limitNum); i++) {
-      const cover = relatedPosts[i].cover || 'var(--default-bg-color)'
-      const title = this.escape_html(relatedPosts[i].title)
-      result += `<div><a href="${this.url_for(relatedPosts[i].path)}" title="${title}">`
-      if (relatedPosts[i].cover_type === 'img') {
-        result += `<img class="cover" src="${this.url_for(cover)}" alt="cover">`
-      } else {
-        result += `<div class="cover" style="background: ${cover}"></div>`
+        if (setDesc && postDesc) {
+          result_tmp += `<div class="info-2"><div class="info-item-1">${postDesc}</div></div>`
+        }
+        
+        result_tmp += '</div></a>'
+        if (count >= limitNum) break
       }
-      if (dateType === 'created') {
-        result += `<div class="content is-center"><div class="date"><i class="fas fa-calendar-plus fa-fw"></i> ${this.date(relatedPosts[i].created, hexoConfig.date_format)}</div>`
-      } else {
-        result += `<div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> ${this.date(relatedPosts[i].updated, hexoConfig.date_format)}</div>`
-      }
-      result += `<div class="title">${title}</div>`
-      result += '</div></a></div>'
-    }
-
-    result += '</div></div>'
-    return result
+      result_tmp += '</div></div>'
+      if (count > 0) result += result_tmp
+    })
   }
+  return result
 })
+
 
 function isTagRelated (tagName, TBDtags) {
   let result = false

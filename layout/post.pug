@@ -6,7 +6,11 @@ block content
       if top_img === false
         !=partial('includes/header/post-info', {langPrefices: langPrefices}, {cache: false})
 
-      article#article-container!=page.content
+      article#article-container.container.post-content
+        if theme.noticeOutdate.enable && page.noticeOutdate !== false
+          !=partial('includes/post/outdate-notice', {langPrefices: langPrefices}, {cache: false})
+        else
+          !=page.content
       !=partial('includes/post/post-copyright', {langPrefices: langPrefices}, {cache: false})
       .tag_share
         if (theme.post_meta.post.tags)

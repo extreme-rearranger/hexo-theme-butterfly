@@ -93,8 +93,8 @@ else
     noticeOutdate = JSON.stringify({
       limitDay: theme.noticeOutdate.limit_day,
       position: theme.noticeOutdate.position,
-      messagePrev: theme.noticeOutdate.message_prev,
-      messageNext: theme.noticeOutdate.message_next,
+      messagePrev: langPrefices.map(([lang, langPrefix]) => [lang, _p(langPrefix+"post.notice_outdate.message_prev")]),
+      messageNext: langPrefices.map(([lang, langPrefix]) => [lang, _p(langPrefix+"post.notice_outdate.message_next")]),
     })
   }
 
@@ -161,7 +161,7 @@ script.
       buttonText: '!{langPrefices.map(([lang, langPrefix]) => [lang, _p(langPrefix+"load_more")])}',
     },
     isPhotoFigcaption: !{theme.photofigcaption},
-    islazyload: !{theme.lazyload.enable},
+    islazyloadPlugin: !{theme.lazyload.enable && !theme.lazyload.native},
     isAnchor: !{theme.anchor.auto_update || false},
     percent: {
       toc: !{theme.toc.scroll_percent},

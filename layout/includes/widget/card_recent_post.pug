@@ -26,8 +26,8 @@ if theme.aside.card_recent_post.enable
             .content
               a.title(href=url_for(link) title=title)= title
               if theme.aside.card_recent_post.sort === 'updated'
-                time(datetime=date_xml(article.updated) title=_p(langPrefix+'post.updated') + ' ' + full_date(article.updated, format=config.full_date_format)) #[=date(article.updated, config.date_format)]
+                time(datetime=date_xml(article.updated) title=_p(langPrefix+'post.updated') + ' ' + full_date(article.updated, format=config.full_date_format) language=lang) #[=date(article.updated, config.date_format)]
               else
-                time(datetime=date_xml(article.date) title=_p(langPrefix+'post.created') + ' ' + full_date(article.date, format=config.full_date_format)) #[=date(article.date, config.date_format)]
+                time(datetime=date_xml(article.date) title=_p(langPrefix+'post.created') + ' ' + full_date(article.date, format=config.full_date_format) language=lang) #[=date(article.date, config.date_format)]
 
         - })

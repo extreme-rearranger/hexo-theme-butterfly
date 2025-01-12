@@ -6,12 +6,16 @@ hexo.extend.filter.register('before_generate', () => {
       fixed: false
     },
     menu: null,
-    highlight_theme: 'light',
-    highlight_copy: true,
-    highlight_lang: true,
-    highlight_shrink: false,
-    highlight_height_limit: false,
-    code_word_wrap: false,
+    code_blocks: {
+      theme: 'light',
+      macStyle: false,
+      height_limit: false,
+      word_wrap: false,
+      copy: true,
+      language: true,
+      shrink: false,
+      fullpage: false
+    },
     social: null,
     favicon: '/img/favicon.png',
     avatar: {
@@ -19,18 +23,20 @@ hexo.extend.filter.register('before_generate', () => {
       effect: false
     },
     disable_top_img: false,
-    index_img: null,
     default_top_img: null,
+    index_img: null,
     archive_img: null,
     tag_img: null,
     tag_per_img: null,
     category_img: null,
     category_per_img: null,
+    footer_img: false,
+    background: null,
     cover: {
       index_enable: true,
       aside_enable: true,
       archives_enable: true,
-      position: 'both',
+      position: 'both', // 안쓰임
       default_cover: null
     },
     error_img: {
@@ -51,6 +57,7 @@ hexo.extend.filter.register('before_generate', () => {
         label: true
       },
       post: {
+        position: 'left',
         date_type: 'both',
         date_format: 'date',
         categories: true,
@@ -58,21 +65,19 @@ hexo.extend.filter.register('before_generate', () => {
         label: true
       }
     },
+    index_site_info_top: null,
+    index_top_img_height: null,
+    subtitle: {
+      enable: false,
+      effect: true,
+      typed_option: null,
+      source: false,
+      sub: null
+    },
+    index_layout: 3,
     index_post_content: {
       method: 3,
       length: 500
-    },
-    anchor: {
-      auto_update: false,
-      click_to_scroll: false
-    },
-    photofigcaption: false,
-    copy: {
-      enable: true,
-      copyright: {
-        enable: false,
-        limit_count: 50
-      }
     },
     toc: {
       post: true,
@@ -107,7 +112,7 @@ hexo.extend.filter.register('before_generate', () => {
     noticeOutdate: {
       enable: false,
       style: 'flat',
-      limit_day: 500,
+      limit_day: 365,
       position: 'top',
       message_prev: 'It has been',
       message_next: 'days since the last update, the content of the article may be outdated.'
@@ -115,7 +120,7 @@ hexo.extend.filter.register('before_generate', () => {
     footer: {
       owner: {
         enable: true,
-        since: 2020
+        since: 2019
       },
       custom_text: null,
       copyright: true
@@ -151,6 +156,13 @@ hexo.extend.filter.register('before_generate', () => {
         sort: 'date',
         sort_order: null
       },
+      card_newest_comments: {
+        enable: false,
+        sort_order: null,
+        limit: 6,
+        storage: 10,
+        avatar: true
+      },
       card_categories: {
         enable: true,
         limit: 8,
@@ -173,35 +185,21 @@ hexo.extend.filter.register('before_generate', () => {
         limit: 8,
         sort_order: null
       },
-      card_webinfo: {
-        enable: true,
-        post_count: true,
-        last_push_date: true,
-        sort_order: null
-      },
       card_post_series: {
         enable: true,
         series_title: false,
         orderBy: 'date',
         order: -1
-      }
+      },
+      card_webinfo: {
+        enable: true,
+        post_count: true,
+        last_push_date: true,
+        sort_order: null,
+        runtime_date: null
+      },
     },
-    busuanzi: {
-      site_uv: true,
-      site_pv: true,
-      page_pv: true
-    },
-    runtimeshow: {
-      enable: false,
-      publish_date: null
-    },
-    newest_comments: {
-      enable: false,
-      sort_order: null,
-      limit: 6,
-      storage: 10,
-      avatar: true
-    },
+    rightside_bottom: null,
     translate: {
       enable: false,
       default: '繁',
@@ -224,42 +222,68 @@ hexo.extend.filter.register('before_generate', () => {
       hide: null,
       show: null
     },
-    mathjax: {
-      enable: false,
-      per_page: false
+    anchor: {
+      auto_update: false,
+      click_to_scroll: false
     },
-    katex: {
-      enable: false,
-      per_page: false,
-      hide_scrollbar: true
-    },
-    algolia_search: {
-      enable: false,
-      hits: {
-        per_page: 6
+    photofigcaption: false,
+    copy: {
+      enable: true,
+      copyright: {
+        enable: false,
+        limit_count: 50
       }
     },
-    local_search: {
+    wordcount: {
       enable: false,
-      preload: false,
-      top_n_per_article: 1,
-      unescape: false,
-      CDN: null
+      post_wordcount: true,
+      min2read: true,
+      total_wordcount: true
     },
-    docsearch: {
-      enable: false,
-      appId: null,
-      apiKey: null,
-      indexName: null,
-      option: null
+    busuanzi: {
+      site_uv: true,
+      site_pv: true,
+      page_pv: true
     },
-    sharejs: {
-      enable: true,
-      sites: 'facebook,twitter,wechat,weibo,qq'
+    math: {
+      use: null,
+      per_page: true,
+      hide_scrollbar: false,
+      mathjax: {
+        enableMenu: true,
+        tags: 'none'
+      },
+      katex: {
+        copy_tex: false
+      }
     },
-    addtoany: {
-      enable: false,
-      item: 'facebook,twitter,wechat,sina_weibo,facebook_messenger,email,copy_link'
+    search: {
+      use: null,
+      placeholder: null,
+      algolia_search: {
+        hitsPerPage: 6
+      },
+      local_search: {
+        preload: false,
+        top_n_per_article: 1,
+        unescape: false,
+        CDN: null
+      },
+      docsearch: {
+        appId: null,
+        apiKey: null,
+        indexName: null,
+        option: null
+      }
+    },
+    share: {
+      use: 'sharejs',
+      sharejs: {
+        sites: 'facebook,twitter,wechat,weibo,qq'
+      },
+      addtoany: {
+        item: 'facebook,twitter,wechat,sina_weibo,facebook_messenger,email,copy_link'
+      }
     },
     comments: {
       use: null,
@@ -307,7 +331,9 @@ hexo.extend.filter.register('before_generate', () => {
       repo: null,
       issue_term: 'pathname',
       light_theme: 'github-light',
-      dark_theme: 'photon-dark'
+      dark_theme: 'photon-dark',
+      js: null,
+      option: null
     },
     facebook_comments: {
       app_id: null,
@@ -326,10 +352,13 @@ hexo.extend.filter.register('before_generate', () => {
       repo: null,
       repo_id: null,
       category_id: null,
-      theme: {
+      theme: {  // 안쓰임
         light: 'light',
         dark: 'dark'
       },
+      light_theme: 'light',
+      dark_theme: 'dark',
+      js: null,
       option: null
     },
     remark42: {
@@ -343,33 +372,39 @@ hexo.extend.filter.register('before_generate', () => {
       visitor: false,
       option: null
     },
-    chat_btn: false,
-    chat_hide_show: false,
+    chat: {
+      use: null,
+      rightside_button: false,
+      button_hide_show: false
+    },
     chatra: {
-      enable: false,
+      enable: false,  // 안쓰임
       id: null
     },
     tidio: {
-      enable: false,
+      enable: false,  // 안쓰임
       public_key: null
     },
-    daovoice: {
-      enable: false,
-      app_id: null
-    },
     crisp: {
-      enable: false,
+      enable: false,  // 안쓰임
       website_id: null
-    },
-    messenger: {
-      enable: false,
-      pageID: null,
-      lang: 'zh_TW'
     },
     baidu_analytics: null,
     google_analytics: null,
     cloudflare_analytics: null,
     microsoft_clarity: null,
+    umami_analytics: {
+      enable: false,
+      serverURL: null,
+      website_id: null,
+      option: null,
+      UV_PV: {
+        site_uv: false,
+        site_pv: false,
+        page_pv: false,
+        token: null
+      }
+    },
     google_adsense: {
       enable: false,
       auto_ads: true,
@@ -377,20 +412,48 @@ hexo.extend.filter.register('before_generate', () => {
       client: null,
       enable_page_level_ads: true
     },
+    ad: {
+      index: null,
+      aside: null,
+      post: null
+    },
     site_verification: null,
-    index_site_info_top: null,
-    index_top_img_height: null,
     category_ui: null,
     tag_ui: null,
+    rounded_corners_ui: true,
     text_align_justify: false,
-    background: null,
-    footer_bg: false,
     mask: {
       header: true,
       footer: true
     },
-    rightside_bottom: null,
+    preloader: {
+      enable: false,
+      source: 1,
+      pace_css_url: null
+    },
     enter_transitions: true,
+    display_mode: 'light',
+    beautify: {
+      enable: false,
+      field: 'post',
+      title_prefix_icon: null,
+      title_prefix_icon_color: null
+    },
+    font: {
+      global_font_size: null,
+      code_font_size: null,
+      font_family: null,
+      code_font_family: null
+    },
+    blog_title_font: {
+      font_link: null,
+      font_family: null
+    },
+    hr_icon: {
+      enable: true,
+      icon: null,
+      icon_top: null
+    },
     activate_power_mode: {
       enable: false,
       colorful: true,
@@ -433,48 +496,7 @@ hexo.extend.filter.register('before_generate', () => {
       random: false,
       mobile: false
     },
-    display_mode: 'light',
-    beautify: {
-      enable: false,
-      field: 'post',
-      'title-prefix-icon': null,
-      'title-prefix-icon-color': null
-    },
-    font: {
-      'global-font-size': null,
-      'code-font-size': null,
-      'font-family': null,
-      'code-font-family': null
-    },
-    blog_title_font: {
-      font_link: null,
-      'font-family': null
-    },
-    hr_icon: {
-      enable: true,
-      icon: null,
-      'icon-top': null
-    },
-    subtitle: {
-      enable: false,
-      effect: true,
-      typed_option: null,
-      source: false,
-      sub: null
-    },
-    preloader: {
-      enable: false,
-      source: 1,
-      pace_css_url: null
-    },
-    wordcount: {
-      enable: false,
-      post_wordcount: true,
-      min2read: true,
-      total_wordcount: true
-    },
-    medium_zoom: false,
-    fancybox: true,
+    lightbox: null,
     series: {
       enable: true,
       orderBy: 'title',
@@ -491,6 +513,21 @@ hexo.extend.filter.register('before_generate', () => {
       theme: {
         light: 'default',
         dark: 'dark'
+      }
+    },
+    chartjs: {
+      enable: false,
+      fontColor: {
+        light: 'rgba(0, 0, 0, 0.8)',
+        dark: 'rgba(255, 255, 255, 0.8)'
+      },
+      borderColor: {
+        light: 'rgba(0, 0, 0, 0.1)',
+        dark: 'rgba(255, 255, 255, 0.2)'
+      },
+      scale_ticks_backdropColor: {
+        light: 'transparent',
+        dark: 'transparent'
       }
     },
     note: {
@@ -514,20 +551,25 @@ hexo.extend.filter.register('before_generate', () => {
       bg_dark: '#1f1f1f'
     },
     instantpage: false,
-    pangu: {
-      enable: false,
-      field: 'site'
-    },
     lazyload: {
       enable: false,
       field: 'site',
       placeholder: null,
       blur: false
     },
+    pwa: {
+      enable: false,
+      manifest: null,
+      apple_touch_icon: null,
+      favicon_32_32: null,
+      favicon_16_16: null,
+      mask_icon: null
+    },
     Open_Graph_meta: {
       enable: true,
       option: null
     },
+    structured_data: true,
     css_prefix: true,
     inject: {
       head: null,
@@ -539,7 +581,80 @@ hexo.extend.filter.register('before_generate', () => {
       version: true,
       custom_format: null,
       option: null
-    }
+    },
+    // 안 쓰임
+    highlight_theme: 'light',
+    highlight_copy: true,
+    highlight_lang: true,
+    highlight_shrink: false,
+    highlight_height_limit: false,
+    code_word_wrap: false,
+    footer_bg: false,
+    runtimeshow: {
+      enable: false,
+      publish_date: null
+    },
+    newest_comments: {
+      enable: false,
+      sort_order: null,
+      limit: 6,
+      storage: 10,
+      avatar: true
+    },
+    mathjax: {
+      enable: false,
+      per_page: false
+    },
+    katex: {
+      enable: false,
+      per_page: false,
+      hide_scrollbar: true
+    },
+    algolia_search: {
+      enable: false,
+      hits: {
+        per_page: 6
+      }
+    },
+    local_search: {
+      enable: false,
+      preload: false,
+      top_n_per_article: 1,
+      unescape: false,
+      CDN: null
+    },
+    docsearch: {
+      enable: false,
+      appId: null,
+      apiKey: null,
+      indexName: null,
+      option: null
+    },
+    sharejs: {
+      enable: true,
+      sites: 'facebook,twitter,wechat,weibo,qq'
+    },
+    addtoany: {
+      enable: false,
+      item: 'facebook,twitter,wechat,sina_weibo,facebook_messenger,email,copy_link'
+    },
+    chat_btn: false,
+    chat_hide_show: false,
+    daovoice: {
+      enable: false,
+      app_id: null
+    },
+    messenger: {
+      enable: false,
+      pageID: null,
+      lang: 'zh_TW'
+    },
+    medium_zoom: false,
+    fancybox: true,
+    pangu: {
+      enable: false,
+      field: 'site'
+    },
   }
 
   hexo.theme.config = Object.assign(defaultConfig, hexo.theme.config)

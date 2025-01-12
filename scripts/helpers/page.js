@@ -1,7 +1,15 @@
 'use strict'
 
+const { truncateContent, postDesc } = require('../common/postDesc')
 const { stripHTML, escapeHTML, prettyUrls } = require('hexo-util')
 const crypto = require('crypto')
+const moment = require('moment-timezone')
+
+hexo.extend.helper.register('truncate', truncateContent)
+
+hexo.extend.helper.register('postDesc', data => {
+  return postDesc(data, hexo)
+})
 
 hexo.extend.helper.register('page_description', function () {
   const { config, page } = this
@@ -25,21 +33,25 @@ hexo.extend.helper.register('cloudTags', function (options = {}) {
     source = source.limit(limit)
   }
 
-  const sizes = []
-  source.sort('length').forEach(tag => {
-    const { length } = tag
-    if (sizes.includes(length)) return
-    sizes.push(length)
-  })
+  const sizes = [...new Set(source.map(tag => tag.length).sort((a, b) => a - b))]
+
+  const getRandomColor = () => {
+    const randomColor = () => Math.floor(Math.random() * 201)
+    const r = randomColor()
+    const g = randomColor()
+    const b = randomColor()
+    return `rgb(${Math.max(r, 50)}, ${Math.max(g, 50)}, ${Math.max(b, 50)})`
+  }
+
+  const generateStyle = (size, unit) =>
+    `font-size: ${parseFloat(size.toFixed(2)) + unit}; color: ${getRandomColor()};`
 
   const length = sizes.length - 1
   source.sort(orderby, order).forEach(tag => {
     const ratio = length ? sizes.indexOf(tag.length) / length : 0
     const size = min_font + ((max_font - min_font) * ratio)
-    let style = `font-size: ${parseFloat(size.toFixed(2))}${unit};`
-    const color = 'rgb(' + Math.floor(Math.random() * 201) + ', ' + Math.floor(Math.random() * 201) + ', ' + Math.floor(Math.random() * 201) + ')' // 0,0,0 -> 200,200,200
-    style += ` color: ${color}`
-    result += `<a href="${env.url_for(tag.path)}" style="${style}">${tag.name}</a>`
+    const style = generateStyle(size, unit)
+    result += `<a href="${env.url_for(tag.path)}" style="${style}">${tag.name})</a>`
   })
   return result
 })
@@ -53,8 +65,7 @@ hexo.extend.helper.register('md5', function (path) {
 })
 
 hexo.extend.helper.register('injectHtml', function (data) {
-  if (!data) return ''
-  return data.join('')
+  return data ? data.join('') : ''
 })
 
 hexo.extend.helper.register('findArchivesTitle', function (page, menu, date) {
@@ -70,7 +81,8 @@ hexo.extend.helper.register('findArchivesTitle', function (page, menu, date) {
   const loop = (m) => {
     for (const key in m) {
       if (typeof m[key] === 'object') {
-        loop(m[key])
+        const result = loop(m[key])
+        if (result) return result
       }
 
       if (/\/archives\//.test(m[key])) {
@@ -85,4 +97,69 @@ hexo.extend.helper.register('findArchivesTitle', function (page, menu, date) {
 hexo.extend.helper.register('isImgOrUrl', function (path) {
   const imgTestReg = /\.(png|jpe?g|gif|svg|webp)(\?.*)?$/i
   return path.indexOf('//') !== -1 || imgTestReg.test(path)
+})
+
+hexo.extend.helper.register('getBgPath', path => {
+  if (!path) return ''
+
+  const absoluteUrlPattern = /^(?:[a-z][a-z\d+.-]*:)?\/\//i
+  const relativeUrlPattern = /^(\.\/|\.\.\/|\/|[^/]+\/).*$/
+  const colorPattern = /^(#|rgb|rgba|hsl|hsla)/i
+
+  if (colorPattern.test(path)) {
+    return `background-color: ${path};`
+  } else if (absoluteUrlPattern.test(path) || relativeUrlPattern.test(path)) {
+    return `background-image: url(${path});`
+  } else {
+    return `background: ${path};`
+  }
+})
+
+hexo.extend.helper.register('shuoshuoFN', (data, page) => {
+  const { limit } = page
+  let finalResult = ''
+
+  // Check if limit.value is a valid date
+  const isValidDate = date => !isNaN(Date.parse(date))
+
+  // order by date
+  const orderByDate = data => data.sort((a, b) => Date.parse(b.date) - Date.parse(a.date))
+
+  // Apply number limit or time limit conditionally
+  const limitData = data => {
+    if (limit && limit.type === 'num' && limit.value > 0) {
+      return data.slice(0, limit.value)
+    } else if (limit && limit.type === 'date' && isValidDate(limit.value)) {
+      const limitDate = Date.parse(limit.value)
+      return data.filter(item => Date.parse(item.date) >= limitDate)
+    }
+
+    return data
+  }
+
+  orderByDate(data)
+  finalResult = limitData(data)
+
+  // This is a hack method, because hexo treats time as UTC time
+  // so you need to manually convert the time zone
+  finalResult.forEach(item => {
+    const utcDate = moment.utc(item.date).format('YYYY-MM-DD HH:mm:ss')
+    item.date = moment.tz(utcDate, hexo.config.timezone).format('YYYY-MM-DD HH:mm:ss')
+  })
+
+  return finalResult
+})
+
+hexo.extend.helper.register('getPageType', (page, isHome) => {
+  const { layout, tag, category, type, archive } = page
+  if (layout) return layout
+  if (tag) return 'tag'
+  if (category) return 'category'
+  if (archive) return 'archive'
+  if (type) {
+    if (type === 'tags' || type === 'categories') return type
+    else return 'page'
+  }
+  if (isHome) return 'home'
+  return 'post'
 })

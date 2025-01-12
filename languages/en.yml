@@ -4,14 +4,14 @@ footer:
 
 copy:
   success: Copy Successful
-  error: Copy Error
+  error: Copy Failed
   noSupport: Browser Not Supported
 
 page:
   articles: Articles
   tag: Tag
   category: Category
-  archives: Archive
+  archives: Archives
   all: All
 
 card_post_count: comments
@@ -30,28 +30,32 @@ post:
     author: Author
     link: Link
     copyright_notice: Copyright
-    copyright_content: 'All articles are licensed under <a href="%s">%s</a> unless stating additionally.'
+    copyright_content: 'All articles on this blog are licensed under <a href="%s">%s</a> unless otherwise stated.'
   recommend: Related Articles
   edit: Edited on
+  notice_outdate:
+    message_prev: "It has been "
+    message_next: " days since the last update. Thus, the information might be outdated."
 
 search:
   title: Search
   load_data: Loading the Database
+  input_placeholder: Search for Posts
   algolia_search:
     input_placeholder: Search for Posts
-    hits_empty: "We didn't find any results for the search: ${query}."
+    hits_empty: 'No results found for: ${query}'
     hits_stats: '${hits} results found in ${time} ms'
 
   local_search:
     input_placeholder: Search for Posts
-    hits_empty: "We didn't find any results for the search: ${query}"
+    hits_empty: 'No results found for: ${query}'
     hits_stats: '${hits} results found'
 
 pagination:
   prev: Previous
   next: Next
 
-comment: Comment
+comment: Comments
 
 aside:
   articles: Articles
@@ -61,36 +65,36 @@ aside:
   card_categories: Categories
   card_tags: Tags
   card_archives: Archives
-  card_recent_post: Recent Post
+  card_recent_post: Recent Posts
   card_webinfo:
-    headline: Info
-    article_name: Article
+    headline: Website Info
+    article_name: Article Count
     runtime:
       name: Runtime
       unit: days
     last_push_date:
       name: Last Update
-    site_wordcount: Total Count
-    site_uv_name: UV
-    site_pv_name: PV
+    site_wordcount: Total Word Count
+    site_uv_name: Unique Visitors
+    site_pv_name: Page Views
   more_button: View More
   card_newest_comments:
     headline: Latest Comments
-    loading_text: loading...
+    loading_text: Loading...
     error: Unable to retrieve comments, please check the configuration
     zero: No comments
-    image: image
-    link: link
-    code: code
+    image: Image
+    link: Link
+    code: Code
   card_toc: Contents
   card_post_series: Series
 
 date_suffix:
-  just: Just now
-  min: minutes ago
-  hour: hours ago
-  day: days ago
-  month: months ago
+  just: 'Just now'
+  min: ' minutes ago'
+  hour: ' hours ago'
+  day: ' days ago'
+  month: ' months ago'
 
 donate: Sponsor
 share: Share
@@ -102,7 +106,7 @@ rightside:
   night_mode_title: Toggle Between Light And Dark Mode
   back_to_top: Back To Top
   move_to_bottom: Move To Bottom
-  toc: Table Of Contents
+  toc: Table of Contents
   scroll_to_comment: Scroll To Comments
   setting: Setting
   aside: Toggle between Single-column and Double-column

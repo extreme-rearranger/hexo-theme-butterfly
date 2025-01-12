@@ -31,7 +31,7 @@
   .card-info
     .author-info
       &__name
-        font-weight: 450
+        font-weight: 500
         font-size: 1.57em
 
       &__description
@@ -166,7 +166,7 @@
       transition: all .4s
 
       &:hover
-        padding: 0.2rem 1rem  // original: 3px 17px
+        padding: 0.2rem 0.8rem  // original: 3px 17px
         background-color: var(--text-bg-hover)
 
       span
@@ -201,7 +201,7 @@
           i
             float: right
             margin-right: -.6em  // original : -.5em
-            padding: 0.375em 0.6em  // original : .5em
+            padding: 0.3em 0.5em 0.3em 0.4em  // original : .5em
             transition: transform .3s
             transform: rotate(0)
 
@@ -313,7 +313,7 @@
 
   .card-more-btn
     float: right
-    color: inherit
+    // color: inherit  // a hover를 위해 주석처리
 
     &:hover
       animation: more-btn-move 1s infinite

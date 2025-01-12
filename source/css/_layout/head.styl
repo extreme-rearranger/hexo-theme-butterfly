@@ -203,7 +203,7 @@
     @extend .limit-more-line
     margin-bottom: 8px
     color: var(--white)
-    font-weight: 350
+    font-weight: bold  // original: 350
     font-size: 2em  // original: 2.5em
     line-height: 1.5
     -webkit-line-clamp: 3
@@ -217,7 +217,7 @@
   #post-meta
     color: var(--light-grey)
     font-size: 0.9rem  // original: 90%
-    font-weight: 250
+    font-weight: 300 // original: 250
 
     > .meta-firstline,
     > .meta-secondline
@@ -233,7 +233,7 @@
       &-label
         if hexo-config('post_meta.post.label')
           margin-right: 0.3rem  // original: 4px
-          font-weight: 350
+          font-weight: 400  // original: 350
         else
           display: none
 
@@ -298,7 +298,7 @@
 
   .site-name
     text-shadow: 2px 2px 4px var(--dark-black15)
-    font-weight: 650
+    font-weight: bold
 
   .menus_items
     display: inline

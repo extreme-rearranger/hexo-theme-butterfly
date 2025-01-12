@@ -5,14 +5,14 @@ en:
 
   copy:
     success: Copy Successful
-    error: Copy Error
+    error: Copy Failed
     noSupport: Browser Not Supported
 
   page:
     articles: Articles
     tag: Tag
     category: Category
-    archives: Archive
+    archives: Archives
     all: All
 
   card_post_count: comments
@@ -31,28 +31,32 @@ en:
       author: Author
       link: Link
       copyright_notice: Copyright
-      copyright_content: 'All articles are licensed under <a href="%s">%s</a> unless stating additionally.'
+      copyright_content: 'All articles on this blog are licensed under <a href="%s">%s</a> unless otherwise stated.'
     recommend: Related Articles
     edit: Edited on
+    notice_outdate:
+      message_prev: "It has been "
+      message_next: " days since the last update. Thus, the information might be outdated."
 
   search:
     title: Search
     load_data: Loading the Database
+    input_placeholder: Search for Posts
     algolia_search:
       input_placeholder: Search for Posts
-      hits_empty: "We didn't find any results for the search: ${query}."
+      hits_empty: 'No results found for: ${query}'
       hits_stats: '${hits} results found in ${time} ms'
 
     local_search:
       input_placeholder: Search for Posts
-      hits_empty: "We didn't find any results for the search: ${query}"
+      hits_empty: 'No results found for: ${query}'
       hits_stats: '${hits} results found'
 
   pagination:
     prev: Previous
     next: Next
 
-  comment: Comment
+  comment: Comments
 
   aside:
     articles: Articles
@@ -62,36 +66,36 @@ en:
     card_categories: Categories
     card_tags: Tags
     card_archives: Archives
-    card_recent_post: Recent Post
+    card_recent_post: Recent Posts
     card_webinfo:
-      headline: Info
-      article_name: Article
+      headline: Website Info
+      article_name: Article Count
       runtime:
         name: Runtime
         unit: days
       last_push_date:
         name: Last Update
-      site_wordcount: Total Count
-      site_uv_name: UV
-      site_pv_name: PV
+      site_wordcount: Total Word Count
+      site_uv_name: Unique Visitors
+      site_pv_name: Page Views
     more_button: View More
     card_newest_comments:
       headline: Latest Comments
-      loading_text: loading...
+      loading_text: Loading...
       error: Unable to retrieve comments, please check the configuration
       zero: No comments
-      image: image
-      link: link
-      code: code
+      image: Image
+      link: Link
+      code: Code
     card_toc: Contents
     card_post_series: Series
 
   date_suffix:
-    just: Just now
-    min: minutes ago
-    hour: hours ago
-    day: days ago
-    month: months ago
+    just: 'Just now'
+    min: ' minutes ago'
+    hour: ' hours ago'
+    day: ' days ago'
+    month: ' months ago'
 
   donate: Sponsor
   share: Share
@@ -103,7 +107,7 @@ en:
     night_mode_title: Toggle Between Light And Dark Mode
     back_to_top: Back To Top
     move_to_bottom: Move To Bottom
-    toc: Table Of Contents
+    toc: Table of Contents
     scroll_to_comment: Scroll To Comments
     setting: Setting
     aside: Toggle between Single-column and Double-column
@@ -134,7 +138,7 @@ ko:
 
   copy:
     success: 복사 성공!
-    error: 복사 에러ㅜㅜ
+    error: 복사 실패ㅜㅜ
     noSupport: 이 브라우저는 해당 기능을 지원하지 않습니다
 
   page:
@@ -144,12 +148,12 @@ ko:
     archives: 아카이브
     all: 전체
 
-  card_post_count: comments
+  card_post_count: 댓글 수
 
   no_title: 제목 없음
 
   post:
-    created: 게시일
+    created: 작성일
     updated: 업데이트
     wordcount: 단어수
     min2read: 독해시간
@@ -163,10 +167,14 @@ ko:
       copyright_content: "모든 게시물 내용은 별도의 언급이 없는 한 <a href='%s'>%s</a> 라이센스를 따릅니다."
     recommend: 관련 게시물
     edit: 편집
+    notice_outdate:
+      message_prev: "마지막 업데이트로부터 "
+      message_next: 일이 지난 게시물입니다. 따라서, 최신 정보가 아닐 수 있습니다.
 
   search:
     title: Search
-    load_data: 로딩 중...
+    load_data: 로딩 중 ...
+    input_placeholder: 검색 문장
     algolia_search:
       input_placeholder: 검색 문장
       hits_empty: "'${query}'에 대한 검색 결과를 찾을 수 없습니다."
@@ -205,9 +213,9 @@ ko:
       site_pv_name: 전체 조회 수
     more_button: 더보기
     card_newest_comments:
-      headline: 최근 댓글
+      headline: 최신 댓글
       loading_text: 로딩 중 ...
-      error: 데이터를 가져올 수 없습니다. 설정이 올바른지 확인하십시오.
+      error: 댓글을 가져올 수 없습니다. 설정을 확인해 주세요.
       zero: 댓글 없음
       image: 이미지
       link: 링크
@@ -216,14 +224,14 @@ ko:
     card_post_series: 시리즈
 
   date_suffix:
-    just: 방금 전
-    min: 분 전
-    hour: 시간 전
-    day: 일 전
-    month: 개월 전
+    just: '방금 전'
+    min: '분 전'
+    hour: '시간 전'
+    day: '일 전'
+    month: '개월 전'
 
-  donate: Donate
-  share: Share
+  donate: 후원
+  share: 공유
 
   rightside:
     langmode_title: 한/영 사이트 전환
@@ -233,13 +241,13 @@ ko:
     back_to_top: 맨위로
     move_to_bottom: 맨아래로
     toc: 목차
-    scroll_to_comment: 댓글 창으로 이동
+    scroll_to_comment: 댓글로 이동
     setting: 화면 설정 (다크 모드 등)
     aside: 1단 / 2단 전환
     chat: 채팅
 
   copy_copyright:
-    author: 저자
+    author: 작성자
     link: 링크
     source: 출처
     info: 저작자표시-동일조건변경허락 (https://creativecommons.org/licenses/by-sa/4.0/deed.ko)
@@ -251,6 +259,7 @@ ko:
     night_to_day: 라이트 모드로 전환되었습니다
     readmode_on: "읽기 모드가 활성화되었습니다<br>(나가기 버튼을 클릭하면 해제됩니다)"
 
-  loading: 로딩 중...
+  loading: 로딩 중 ...
+  load_more: 더 보기
 
-  error404: 페이지를 표시할 수 없습니다
+  error404: 페이지를 찾을 수 없습니다

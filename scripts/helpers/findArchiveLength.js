@@ -4,72 +4,54 @@ const {
 
 hexo.extend.helper.register('getArchiveLength', function () {
   const lang = toMomentLocale(this.page.lang || this.page.language || config.language)
+  
+  const archiveGenerator = hexo.config.archive_generator
   const posts = this.site.posts.sort('date').filter(postFilter(lang))
 
-  const { archive_generator: archiveGenerator } = hexo.config
-  if (archiveGenerator && archiveGenerator.enable === false) return posts.length
   const { yearly, monthly, daily } = archiveGenerator
   const { year, month, day } = this.page
-  if (yearly === false || !year) return posts.length
 
-  const compareFunc = (type, y1, m1, d1, y2, m2, d2) => {
-    switch (type) {
-      case 'year':
-        return y1 === y2
-      case 'month':
-        return y1 === y2 && m1 === m2
-      case 'day':
-        return y1 === y2 && m1 === m2 && d1 === d2
-      default:
-        return false
-    }
+  // Archives Page
+  if (!year) return posts.length
+
+  // Function to generate a unique key based on the granularity
+  const getKey = (post, type) => {
+    const date = post.date.clone()
+    const y = date.year()
+    const m = date.month() + 1
+    const d = date.date()
+    if (type === 'year') return `${y}`
+    if (type === 'month') return `${y}-${m}`
+    if (type === 'day') return `${y}-${m}-${d}`
   }
 
-  const generateDateObj = (type) => {
-    return posts.reduce((dateObj, post) => {
-      const date = post.date.clone()
-      const year = date.year()
-      const month = date.month() + 1
-      const day = date.date()
-      const lastData = dateObj[dateObj.length - 1]
+  // Create a map to count posts per period
+  const mapData = this.fragment_cache('createArchiveObj', () => {
+    const map = new Map()
+    posts.forEach(post => {
+      const keyYear = getKey(post, 'year')
+      const keyMonth = getKey(post, 'month')
+      const keyDay = getKey(post, 'day')
 
-      if (!lastData || !compareFunc(type, lastData.year, lastData.month, lastData.day, year, month, day)) {
-        const name = type === 'year' ? year : type === 'month' ? `${year}-${month}` : `${year}-${month}-${day}`
-        dateObj.push({
-          name,
-          year,
-          month,
-          day,
-          count: 1
-        })
-      } else {
-        lastData.count++
-      }
-
-      return dateObj
-    }, [])
-  }
-
-  const data = this.fragment_cache('createArchiveObj', () => {
-    const dateObjs = []
-    if (yearly) dateObjs.push(...generateDateObj('year'))
-    if (monthly) dateObjs.push(...generateDateObj('month'))
-    if (daily) dateObjs.push(...generateDateObj('day'))
-    return dateObjs
+      if (yearly) map.set(keyYear, (map.get(keyYear) || 0) + 1)
+      if (monthly) map.set(keyMonth, (map.get(keyMonth) || 0) + 1)
+      if (daily) map.set(keyDay, (map.get(keyDay) || 0) + 1)
+    })
+    return map
   })
 
-  const name = month ? (day ? `${year}-${month}-${day}` : `${year}-${month}`) : year
-  return data.find(item => item.name === name).count
+  // Determine the appropriate key to fetch based on current page context
+  let key
+  if (yearly && year) key = `${year}`
+  if (monthly && month) key = `${year}-${month}`
+  if (daily && day) key = `${year}-${month}-${day}`
+
+  // Return the count for the current period or default to the total posts
+  return mapData.get(key) || posts.length
 })
 
 const toMomentLocale = function (lang) {
-  if (lang === undefined) {
-    return 'default'
-  }
-
-  // moment.locale('') equals moment.locale('en')
-  // moment.locale(null) equals moment.locale('en')
-  if (!lang || lang === 'default') {
+  if (!lang || lang === undefined || lang === 'default') {
     return 'default'
   }
   return lang.toLowerCase().replace('_', '-')

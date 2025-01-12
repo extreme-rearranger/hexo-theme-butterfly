@@ -5,11 +5,15 @@ if theme.aside.card_tags.enable
         .item-headline
           i.fas.fa-tags
           span= _p(langPrefix+'aside.card_tags')
+          if theme.aside.force_more_button
+            a.card-more-btn(href=url_for_lang(lang+'/tags/') title=_p(langPrefix+'aside.more_button'))
+              = ` ${_p(langPrefix+'aside.more_button')} `
+              i.fas.fa-angle-right
 
         - let { limit, orderby, order } = theme.aside.card_tags
         - limit = limit === 0 ? 0 : limit || 40
 
         if theme.aside.card_tags.color
-          .card-tag-cloud!= tagcloud({lang: lang, source: site.tags, orderby: orderby, order: order, min_font: 0.9, max_font: 1, limit: limit, unit: 'rem', color: true, start_color: '#999', end_color: '#99a9bf'})
+          .card-tag-cloud!= tagcloud({lang: lang, source: site.tags, orderby: orderby, order: order, min_font: 0.9, max_font: 0.95, limit: limit, unit: 'rem', color: true, start_color: '#999', end_color: '#99a9bf'})
         else
-          .card-tag-cloud!= tagcloud({lang: lang, source: site.tags, orderby: orderby, order: order, min_font: 0.9, max_font: 1, amount: limit, unit: 'rem'})
+          .card-tag-cloud!= tagcloud({lang: lang, source: site.tags, orderby: orderby, order: order, min_font: 0.9, max_font: 0.95, amount: limit, unit: 'rem'})

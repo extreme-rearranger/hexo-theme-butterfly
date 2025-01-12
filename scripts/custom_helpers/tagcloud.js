@@ -9,7 +9,7 @@ const {
 hexo.extend.helper.register('tagcloud', function (options = {}) {
   // class, level, show_count, count_class params are not available compare to original function.
   const env = this
-  let { source, min_font, max_font, unit, orderby, order } = options
+  let { source, min_font, max_font, unit, orderby, order, show_size } = options
   let limit = options.limit ? options.limit : options.amount
   let language = options.lang 
   ? options.lang 
@@ -34,7 +34,8 @@ hexo.extend.helper.register('tagcloud', function (options = {}) {
     }
     return Object.assign({}, tag, {
       posts: posts,
-      path: pathJoin(language, tag.path)
+      path: pathJoin(language, tag.path),
+      length: posts.length
     });
   }).filter(category => category !== null);
   
@@ -44,7 +45,7 @@ hexo.extend.helper.register('tagcloud', function (options = {}) {
   }
   
   const sizes = []
-  source.sort('length').forEach(tag => {
+  tags.sort((a, b) => a.length - b.length).forEach(tag => {
     const { length } = tag
     if (sizes.includes(length)) return
     sizes.push(length)
@@ -77,7 +78,11 @@ hexo.extend.helper.register('tagcloud', function (options = {}) {
         style += ` color: ${midColor}`
       }
     }
-    result += `<a href="${env.url_for(tag.path)}" style="${style}">${tag.name}</a>`
+    if (show_size) {
+      result += `<a href="${env.url_for(tag.path)}" style="${style}">${tag.name} (${tag.length})</a>`
+    } else {
+      result += `<a href="${env.url_for(tag.path)}" style="${style}">${tag.name}</a>`
+    }
   })
   return result
 })

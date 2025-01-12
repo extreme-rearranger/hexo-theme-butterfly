@@ -6,8 +6,8 @@ block content
     #archive(class='card-widget')
       each langPrefix, lang in langPrefices
         - var archive_date = page.year ? page.year : _p(langPrefix+'page.all')
-        - var archive_date = page.month ? (archive_date + '/' + page.month) : archive_date
-        - var archive_date = page.day ? (archive_date + '/' + page.day) : archive_date
+        - var archive_date = page.month ? (`${archive_date}/${page.month.toString().padStart(2, "0")}`) : archive_date
+        - var archive_date = page.day ? (`${archive_date}/${page.day.toString().padStart(2, "0")}`) : archive_date
         .article-sort-title(lang-type='relative' language=lang)= `${_p(langPrefix+'page.archives')} -  ${archive_date} (${getArchiveLength()})`
         +articleSort(page.posts)
         !=partial('includes/pagination', {langPrefices: langPrefices}, {cache: false})

@@ -1,0 +1,70 @@
+.relatedPosts
+  margin-top: 40px
+
+  & > .headline
+    margin-bottom: 5px
+    font-weight: 700
+    font-size: 1.43em
+
+  & > .relatedPosts-list
+    & > a
+      position: relative
+      display: inline-block
+      overflow: hidden
+      margin: 3px
+      width: calc(50% - 6px)  // original: calc(33.333% - 6px)
+      height: 7.5rem  // original: 200px
+      // background: var(--dark-black)
+      vertical-align: bottom
+      @extend .postImgHover
+
+      +maxWidth768()
+        margin: 2px
+        width: calc(50% - 4px)
+        height: 6rem  // original: 150px
+
+      +maxWidth600()
+        width: calc(100% - 4px)
+
+    .info
+      position: absolute
+      top: 50%
+      width: 100%
+      transform: translate(0, -50%)
+
+      > .info-1
+        @extend .verticalCenter
+        padding: 20px 40px
+        transition: transform .3s, opacity .3s
+        
+        > .info-item-1  // date
+          color: var(--light-grey)
+          font-size: 90%
+          text-transform: uppercase
+
+        > .info-item-2  // title
+          @extend .limit-more-line
+          color: var(--white)
+          -webkit-line-clamp: 2
+          font-weight: 500
+        
+      > .info-2
+        @extend .verticalCenter
+        padding: 20px 40px
+        transition: transform .3s, opacity .3s
+        opacity: 0
+        transform: translate(0, 0)
+
+        > .info-item-1  // description
+          @extend .limit-more-line
+          color: var(--white)
+          -webkit-line-clamp: 3
+
+      &:not(.no-desc):hover
+        .info-1
+          opacity: 0
+          transform: translate(0, -100%)
+
+        .info-2
+          opacity: 1
+          transform: translate(0, -50%)
