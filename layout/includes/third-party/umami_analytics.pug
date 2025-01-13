@@ -14,8 +14,9 @@ script.
 
     const loadUmamiJS = () => {
       btf.getScript('!{baseURL}/script.js', {
+        'defer': '',
         'data-website-id': '!{website_id}',
-        'data-auto-track': 'false',
+        //- 'data-auto-track': 'false',
         ...option
       }).then(runTrack)
     }
