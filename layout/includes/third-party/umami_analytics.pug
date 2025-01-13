@@ -25,12 +25,14 @@ script.
       const now = Date.now()
       const keyUrl = isPost ? `&url=${window.location.pathname}` : ''
       const headerList = { 'Accept': 'application/json' }
-      if (!{isServerURL}) headerList['Authorization'] = `Bearer ${config.token}`
+      if (!'!{isServerURL}') headerList['Authorization'] = `Bearer ${config.token}`
       else headerList['x-umami-api-key'] = config.token
-      const res = await fetch(`!{apiUrl}/websites/!{website_id}/stats?startAt=0000000000&endAt=${now}${keyUrl}`, {
-        method: "GET",
-        headers: headerList
-      })
+      const res = await fetch(
+        `!{apiUrl}/websites/!{website_id}/stats?startAt=0000000000&endAt=${now}${keyUrl}`, 
+        {
+          method: "GET",
+          headers: headerList
+        })
       return await res.json()
     }
 

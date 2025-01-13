@@ -18,6 +18,8 @@ html(lang=htmlLang site-lang=display_languages() page-lang=pageLang data-theme=t
   head
     include ./head.pug
   body
+    if theme.inject.body_top
+      !=theme.inject.body_top
     if theme.preloader.enable
       //- changed to cache false since the content should be different among language settings
       !=partial('includes/loading/index', {langPrefices: langPrefices}, {cache: false})
