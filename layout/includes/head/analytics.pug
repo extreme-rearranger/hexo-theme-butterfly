@@ -15,9 +15,9 @@ if theme.google_analytics
   script(async src=`https://www.googletagmanager.com/gtag/js?id=${theme.google_analytics}`)
   script.
     window.dataLayer = window.dataLayer || []
-    function gtag(){dataLayer.push(arguments)}
-    gtag('js', new Date())
-    gtag('config', '!{theme.google_analytics}')
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '!{theme.google_analytics}');
     btf.addGlobalFn('pjaxComplete', () => {
       gtag('config', '!{theme.google_analytics}', {'page_path': window.location.pathname})
     }, 'google_analytics')
