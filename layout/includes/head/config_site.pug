@@ -19,10 +19,7 @@
 script#config-diff.
   var GLOBAL_CONFIG_SITE = {
     title: '!{titleVal}',
-    isPost: !{is_post()},
-    isHome: !{is_home()},
     isHighlightShrink: !{isHighlightShrink},
     isToc: !{showToc},
-    postUpdate: '!{full_date(page.updated, format=theme.full_date_format)}',
     pageType: '!{page.type == 'shuoshuo' ? 'shuoshuo' : globalPageType}'
   }

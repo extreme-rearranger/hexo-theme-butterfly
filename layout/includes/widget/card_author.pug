@@ -1,13 +1,13 @@
 if theme.aside.card_author.enable
   .card-widget.card-info
-    .is-center
+    .text-center
       .avatar-img
         img(src=url_for(theme.avatar.img) onerror=`this.onerror=null;this.src='` + url_for(theme.error_img.flink) + `'` alt="avatar")
       //- .author-info__name= config.author  //- removed since it's not necessary in my own case
       .author-info__description!= theme.aside.card_author.description || config.description
 
     each langPrefix, lang in langPrefices
-      .card-info-data.site-data.is-center(lang-type='relative' language=lang)
+      .card-info-data.site-data.text-center(lang-type='relative' language=lang)
         a(href=url_for(`${lang}/${config.archive_dir}/`))
           .headline= _p(langPrefix+'aside.articles')
           .length-num= site.posts.length
@@ -24,6 +24,6 @@ if theme.aside.card_author.enable
         span=theme.aside.card_author.button.text
   
     if(theme.social)
-        .card-info-social-icons.is-center
+        .card-info-social-icons.text-center
           //- changed to cache false since the content should be different among language settings
           !=partial('includes/header/social', {}, {cache: false})

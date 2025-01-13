@@ -11,11 +11,11 @@ if theme.aside.card_recent_post.enable
         - let postLimit = theme.aside.card_recent_post.limit === 0 ? site.posts.length : theme.aside.card_recent_post.limit || 5
         - let sort = theme.aside.card_recent_post.sort === 'updated' ? 'updated' : 'date'
         - posts.sort(sort, -1).limit(postLimit).each(function(article){
-          - let link = article.link || article.path
-          - let title = article.title || _p(langPrefix+'no_title')
+          - const link = article.link || article.path
+          - const title = article.title || _p(langPrefix+'no_title')
           - const post_cover = (article.cover === false) ? theme.cover.default_cover_aside : article.cover
           - const cover_type = (article.cover === false) ? 'img' : article.cover_type
-          - let no_cover = !theme.cover.aside_enable ? 'no-cover' : ''
+          - const no_cover = !theme.cover.aside_enable ? 'no-cover' : ''
           .aside-list-item(class=no_cover)
             if post_cover && theme.cover.aside_enable
               a.thumbnail(href=url_for(link) title=title)

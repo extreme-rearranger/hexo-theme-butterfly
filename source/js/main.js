@@ -866,19 +866,16 @@ document.addEventListener('DOMContentLoaded', function () {
       let { messagePrev, messageNext } = GLOBAL_CONFIG.noticeOutdate
       if (pageLang === 'default') {
         let message = ''
-        console.log(GLOBAL_CONFIG.noticeOutdate)
         const langs = messagePrev.map(i => i[0])
         langs.forEach(lang => {
           message += `<span lang-type="relative" language=${lang}>${messagePrev.find(i => i[0] === lang)[1]}${diffDay}${messageNext.find(i => i[0] === lang)[1]}</span>`
         })
         ele.innerHTML = message
-        console.log(message)
         
       } else {
         messagePrev = messagePrev.find(i => i.lang === pageLang).messagePrev
         messageNext = messageNext.find(i => i.lang === pageLang).messageNext
         ele.textContent = `${messagePrev}${diffDay}${messageNext}`
-        console.log(ele.textContent)
       }
       ele.hidden = false
     }
@@ -961,7 +958,7 @@ document.addEventListener('DOMContentLoaded', function () {
     justifiedIndexPostUI()
     changeTagOrder()  // 추가된 항목 : 태그 순서 매번 랜덤하게 변경
 
-    if (GLOBAL_CONFIG_SITE.isPost) {
+    if (GLOBAL_CONFIG_SITE.pageType === 'post') {
       GLOBAL_CONFIG.noticeOutdate !== undefined && addPostOutdateNotice()
       GLOBAL_CONFIG.relativeDate.post && relativeDate(document.querySelectorAll('#post-meta time'))
     } else {

@@ -46,16 +46,12 @@ hexo.extend.helper.register('related_posts', function (currentPost, allPosts) {
   const defaultCover = config.related_post.default_cover || 'var(--default-bg-color)'
   const setDesc = config.related_post.description || false
 
-  let langPrefices
-  if (isDefaultLanguage(getPageLanguage(currentPost)))
-    langPrefices = Array.from(getDisplayLanguages().map((lang) => [lang,`${lang}.`]))
-  else
-    langPrefices = Array.from([[this.page.lang, '']])
+  const langPreficesArray = Object.entries(langPrefices)
 
   relatedPosts = relatedPosts.sort(compare('weight'))
 
   if (relatedPosts.length > 0) {
-    langPrefices.forEach(([lang, langPrefix]) => {
+    langPreficesArray.forEach(([lang, langPrefix]) => {
       const headlineLang = this._p(langPrefix+'post.recommend')
       let result_tmp = `<div class="card-widget relatedPosts" lang-type="relative" language="${lang}">`
       result_tmp += `<div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>${headlineLang}</span></div>`

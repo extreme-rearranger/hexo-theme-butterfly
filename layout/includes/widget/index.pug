@@ -1,51 +1,44 @@
-- let langPrefices
-if is_default_language(page_language())
-  - langPrefices = Object.fromEntries(display_languages().map((lang) => [lang,`${lang}.`]))
-else
-  - langPrefices = Object.fromEntries([[page_language(), '']])
-
+//- changed to cache false since the content should be different among language settings
 #aside-content.aside-content
   //- post
-  if is_post()
+  if globalPageType === 'post'
     - const tocStyle = page.toc_style_simple
     - const tocStyleVal = tocStyle === true || tocStyle === false ? tocStyle : theme.toc.style_simple
     if showToc && tocStyleVal
       .sticky_layout
-        !=partial('includes/widget/card_post_toc', {langPrefices:langPrefices}, {cache: false})
+        include ./card_post_toc.pug
         if page.series
-          !=partial('includes/widget/card_post_series', {langPrefices:langPrefices}, {cache: false})
-        !=partial('includes/widget/card_ad', {}, {cache: false})
+          include ./card_post_series.pug
+        include ./card_ad.pug
     else
       //- changed to cache false since the content should be different among language settings
-      !=partial('includes/widget/card_author', {langPrefices:langPrefices}, {cache: false})
-      !=partial('includes/widget/card_announcement', {langPrefices:langPrefices}, {cache: false})
-      !=partial('includes/widget/card_top_self', {}, {cache: false})
+      include ./card_author.pug
+      include ./card_announcement.pug
+      include ./card_top_self.pug
       .sticky_layout
         if showToc
-          !=partial('includes/widget/card_post_toc', {langPrefices:langPrefices}, {cache: false})
+          include ./card_post_toc.pug
         if page.series
-          !=partial('includes/widget/card_post_series', {langPrefices:langPrefices}, {cache: false})
-        //- changed to cache false since the content should be different among language settings
-        if is_home() === false
-          !=partial('includes/widget/card_recent_post', {langPrefices:langPrefices}, {cache: false})
-        !=partial('includes/widget/card_ad', {}, {cache: false})
+          include ./card_post_series.pug
+        include ./card_recent_post.pug
+        include ./card_ad.pug
   else
     //- page
-    //- changed to cache false since the content should be different among language settings
-    !=partial('includes/widget/card_author', {langPrefices:langPrefices}, {cache: false})
-    !=partial('includes/widget/card_announcement', {langPrefices:langPrefices}, {cache: false})
-    !=partial('includes/widget/card_top_self', {}, {cache: false})
+    include ./card_author.pug
+    include ./card_announcement.pug
+    include ./card_top_self.pug
 
     .sticky_layout
       if showToc
-        !=partial('includes/widget/card_post_toc', {langPrefices:langPrefices}, {cache: false})
-      //- changed to cache false since the content should be different among language settings
-      if is_home() === false
-        !=partial('includes/widget/card_recent_post', {langPrefices:langPrefices}, {cache: false})
-      !=partial('includes/widget/card_ad', {}, {cache: false})
-      !=partial('includes/widget/card_newest_comment', {langPrefices:langPrefices}, {cache: false})
-      !=partial('includes/widget/card_categories', {langPrefices:langPrefices}, {cache: false})
-      !=partial('includes/widget/card_tags', {langPrefices:langPrefices}, {cache: false})
-      !=partial('includes/widget/card_archives', {langPrefices:langPrefices}, {cache: false})
-      !=partial('includes/widget/card_webinfo', {langPrefices:langPrefices}, {cache: false})
-      !=partial('includes/widget/card_bottom_self', {}, {cache: false})
+        include ./card_post_toc.pug
+      if page.type !== 'categories'
+        include ./card_categories.pug
+      if page.type !== 'tags'
+        include ./card_tags.pug
+      if globalPageType !== 'home'
+        include ./card_recent_post.pug
+      include ./card_ad.pug
+      include ./card_newest_comment.pug
+      include ./card_archives.pug
+      include ./card_webinfo.pug
+      include ./card_bottom_self.pug

@@ -10,4 +10,4 @@ block content
         - var archive_date = page.day ? (`${archive_date}/${page.day.toString().padStart(2, "0")}`) : archive_date
         .article-sort-title(lang-type='relative' language=lang)= `${_p(langPrefix+'page.archives')} -  ${archive_date} (${getArchiveLength()})`
         +articleSort(page.posts)
-        !=partial('includes/pagination', {langPrefices: langPrefices}, {cache: false})
+        !=partial('includes/pagination', {langPrefices: langPrefices, globalPageType: globalPageType}, {cache: false})

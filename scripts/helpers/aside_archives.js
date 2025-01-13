@@ -26,15 +26,16 @@ hexo.extend.helper.register('aside_archives', function (options = {}) {
   const lang = toMomentLocale(options.lang || page.lang || page.language || language)
   
   // Memoize comparison function to improve performance
+  // yearly에서 에러 발생하는 부분 수정
   const compareFunc = type === 'monthly'
     ? (yearA, monthA, yearB, monthB) => yearA === yearB && monthA === monthB
-    : (yearA, yearB) => yearA === yearB
+    : (yearA, monthA, yearB, monthB) => yearA === yearB
 
   // Set langPrefix (if it is 'default' page)
   let langPrefix = this.is_default_language(this.page_language()) ? `${lang}.` : ''
   
   // Use postFilter to filter posts by language
-  const posts = site.posts.sort('date', order).filter(postFilter(lang))
+  const posts = site.posts.filter(postFilter(lang)).sort('date', order)
   
   if (!posts.length) return ''
 

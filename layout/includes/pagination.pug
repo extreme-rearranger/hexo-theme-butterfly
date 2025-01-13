@@ -1,8 +1,8 @@
-- let langPrefices
-if is_default_language(page_language())
-  - langPrefices = Object.fromEntries(display_languages().map((lang) => [lang,`${lang}.`]))
-else
-  - langPrefices = Object.fromEntries([[page_language(), '']])
+//- - let langPrefices
+//- if is_default_language(page_language())
+//-   - langPrefices = Object.fromEntries(display_languages().map((lang) => [lang,`${lang}.`]))
+//- else
+//-   - langPrefices = Object.fromEntries([[page_language(), '']])
 
 -
   var options = {
@@ -12,35 +12,33 @@ else
     escape: false
   }
 
-if is_post()
-  - let prev = theme.post_pagination === 1 ? page.prev : page.next
-  - let next = theme.post_pagination === 1 ? page.next : page.prev
+if globalPageType === 'post'
+  - let paginationOrder = theme.post_pagination === 1 ? { prev: page.prev, next: page.next } : { prev: page.next, next: page.prev }
   - card_class = is_card_widget ? 'card-widget' : ''
   nav#pagination.pagination-post(class=card_class)
-    each langPrefix, lang in langPrefices
-      if(prev[lang])
-        - var hasPageNext = next ? 'pull-left' : 'pull-full'
-        .prev-post(class=hasPageNext lang-type='relative' language=lang)
-          a(href=url_for(prev[lang].path) title=prev[lang].title)
-            if prev[lang].cover_type === 'img'
-              img.cover(src=url_for(prev[lang].cover) onerror=`onerror=null;src='${url_for(theme.error_img.post_page)}'` alt='cover of previous post')
+    each direction, key in paginationOrder
+      each langPrefix, lang in langPrefices
+        if direction[lang]
+          - const getPostDesc = direction[lang].postDesc || postDesc(direction[lang])
+          - let className = key === 'prev' ? (paginationOrder.next ? '' : 'full-width') : (paginationOrder.prev ? '' : 'full-width')
+          - className = (getPostDesc && theme.pagination.description) ? className : className + ' no-desc'
+          - className += ` ${key}-post`
+          - const cover = direction[lang].cover || theme.pagination.default_cover || 'var(--default-bg-color)'
+
+          //- span(lang-type='relative' language=lang)
+          a.pagination-related(class=className href=url_for(direction[lang].path) title=direction[lang].title)
+            if direction[lang].cover_type === 'img'
+              img.cover(src=url_for(direction[lang].cover) onerror=`onerror=null;src='${url_for(theme.error_img.post_page)}'` alt=`cover of ${key === 'prev' ? 'previous' : 'next'} post`)
             else
-              .cover(style=`background: ${prev[lang].cover || 'none'}`)
-            .pagination-info
-              .label=_p(langPrefix+'pagination.prev')
-              .prev_info=prev[lang].title
-          
-      if(next[lang])
-        - var hasPagePrev = prev ? 'pull-right' : 'pull-full'
-        .next-post(class=hasPagePrev lang-type='relative' language=lang)
-          a(href=url_for(next[lang].path) title=next[lang].title)
-            if next[lang].cover_type === 'img'
-              img.cover(src=url_for(next[lang].cover) onerror=`onerror=null;src='${url_for(theme.error_img.post_page)}'` alt='cover of next post')
-            else
-              .cover(style=`background: ${next[lang].cover || 'none'}`)
-            .pagination-info
-              .label=_p(langPrefix+'pagination.next')
-              .next_info=next[lang].title
+              .cover(style=`background: ${cover}`)
+
+            .info(class=key === 'prev' ? '' : 'text-right')
+              .info-1
+                .info-item-1=_p(`pagination.${key}`)
+                .info-item-2!=direction[lang].title
+              if (getPostDesc && theme.post_pagination.description)
+                .info-2
+                  .info-item-1!=getPostDesc
 else
   nav#pagination
     .pagination

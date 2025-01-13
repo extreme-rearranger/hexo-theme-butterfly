@@ -1,35 +1,34 @@
 - let { use } = theme.comments
-- let langPrefix
-if is_default_language(page_language())
-  - langPrefix = `${display_languages()[0]}.`
-else
-  - langPrefix = ''
 
 if use
-  - let forum,apiKey,userRepo
+  -
+    let forum,apiKey,userRepo
+    let { limit:newestCommentsLimit } = theme.aside.card_newest_comments
+    if (newestCommentsLimit > 10 || newestCommentsLimit < 1) newestCommentsLimit = 6
+
   case use[0]
     when 'Valine'
-      != partial("includes/third-party/newest-comments/valine", {langPrefix: langPrefix}, { cache: false })
+      include ./valine.pug
     when 'Waline'
-      != partial("includes/third-party/newest-comments/waline", {langPrefix: langPrefix}, { cache: false })
+      include ./waline.pug
     when 'Twikoo'
-      != partial("includes/third-party/newest-comments/twikoo-comment", {langPrefix: langPrefix}, { cache: false })
+      include ./twikoo-comment.pug
     when 'Disqus'
       - forum = theme.disqus.shortname
       - apiKey = theme.disqus.apikey
-      != partial("includes/third-party/newest-comments/disqus-comment", {langPrefix: langPrefix}, { cache: false })
+      include ./disqus-comment.pug
     when 'Disqusjs'
       - forum = theme.disqusjs.shortname
       - apiKey = theme.disqusjs.apikey
-      != partial("includes/third-party/newest-comments/disqus-comment", {langPrefix: langPrefix}, { cache: false })
+      include ./disqus-comment.pug
     when 'Gitalk'
       - let { repo,owner } = theme.gitalk
       - userRepo = owner + '/' + repo
-      != partial("includes/third-party/newest-comments/github-issues", {langPrefix: langPrefix}, { cache: false })
+      include ./github-issues.pug
     when 'Utterances'
       - userRepo = theme.utterances.repo
-      != partial("includes/third-party/newest-comments/github-issues", {langPrefix: langPrefix}, { cache: false })
+      include ./github-issues.pug
     when 'Remark42'
-      != partial("includes/third-party/newest-comments/remark42", {langPrefix: langPrefix}, { cache: false })
+      include ./remark42.pug
     when 'Artalk'
-      != partial("includes/third-party/newest-comments/artalk", {langPrefix: langPrefix}, { cache: false })
+      include ./artalk.pug

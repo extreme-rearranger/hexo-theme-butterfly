@@ -1,24 +1,19 @@
 mixin articleSort(posts)
-  - let langPrefices
-  if is_default_language(page_language())
-    - langPrefices = Object.fromEntries(display_languages().map((lang) => [lang,`${lang}.`]))
-  else
-    - langPrefices = Object.fromEntries([[page_language(), '']])
 
   each langPrefix, lang in langPrefices
     .article-sort(lang-type='relative' language=lang)
-      - var year
-      - posts.each(function (article) {
-        - let tempYear = date(article.date, 'YYYY')
+      - let year
+      - posts.forEach(article => {
+        - const tempYear = date(article.date, 'YYYY')
+        - const noCoverClass = (!theme.cover.default_cover_aside && article.cover === false) || !theme.cover.archives_enable ? 'no-article-cover' : ''
+        - let title = article.title || _p(langPrefix+'no_title')
         - const post_cover = (article.cover === false) ? theme.cover.default_cover_aside : article.cover
         - const cover_type = (article.cover === false) ? 'img' : article.cover_type
-        - let no_cover = !theme.cover.archives_enable ? 'no-article-cover' : ''
-        - let title = article.title || _p(langPrefix+'no_title')
         if tempYear !== year
           - year = tempYear
           .article-sort-item.year= year
-        .article-sort-item(class=no_cover)
-          if theme.cover.archives_enable
+        .article-sort-item(class=noCoverClass)
+          if post_cover && theme.cover.archives_enable
             a.article-sort-item-img(href=url_for(article.path) title=title)
               if cover_type === 'img'
                 img(src=url_for(post_cover) alt=title onerror=`this.onerror=null;this.src='${url_for(theme.error_img.post_page)}'`)

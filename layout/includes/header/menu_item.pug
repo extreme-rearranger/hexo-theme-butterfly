@@ -3,42 +3,43 @@ if theme.menu
     each value, label in theme.menu
       if typeof value !== 'object'
         .menus_item
-          - const valueArray = value.split('||')
-          - if (trim(valueArray[2]) === 'url_for'){
-            - var href = url_for(trim(valueArray[0]))
+          - const [link, icon, url_type] = value.split('||').map(part => trim(part))
+          - if (url_type === 'url_for'){
+            - var href = url_for(link)
             - var type = 'absolute'
           - }
           - else {
-            - var href = url_for_lang(trim(valueArray[0]))
+            - var href = url_for_lang(link)
             - var type = 'relative'
           - }
             a.site-page(href=href lang-type=type)
-              if valueArray[1]
-                i.fa-fw(class=trim(valueArray[1]))
+              if icon
+                i.fa-fw(class=icon)
               span=' '+label
       
       else
         .menus_item
-          - const labelArray = label.split('||')
-          - const hideClass = labelArray[2] && trim(labelArray[2]) === 'hide' ? 'hide' : ''
+          - const [groupLabel, groupIcon, groupClass] = label.split('||').map(part => trim(part))
+          - const hideClass = groupClass === 'hide' ? 'hide' : ''
           span.site-page.group(class=`${hideClass}`)
-            if labelArray[1]
-              i.fa-fw(class=trim(labelArray[1]))
-            span=' '+ trim(labelArray[0])
+            if groupIcon
+              i.fa-fw(class=groupIcon)
+            span=' '+ groupLabel
             i.fas.fa-chevron-down
           ul.menus_item_child
             each val,lab in value
+              - const [childLink, childIcon, childUrlType] = val.split('||').map(part => trim(part))
               - const valArray = val.split('||')
-              - if (trim(valArray[2]) === 'url_for'){
-                - var href = url_for(trim(valArray[0]))
+              - if (childUrlType === 'url_for'){
+                - var href = url_for(childLink)
                 - var type = 'absolute'
               - }
               - else {
-                - var href = url_for_lang(trim(valArray[0]))
+                - var href = url_for_lang(childLink)
                 - var type = 'relative'
               - }
               li
                 a.site-page.child(href=href lang-type=type)
-                  if valArray[1]
-                    i.fa-fw(class=trim(valArray[1]))
+                  if childIcon
+                    i.fa-fw(class=childIcon)
                   span=' '+ lab

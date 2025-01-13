@@ -1,10 +1,15 @@
 - var pageTitle
-- var langprefix = is_default_language(page.lang) ? `${display_languages()[0]}.` : `${page.lang}.`
-- is_archive() ? page.title = findArchivesTitle(page, theme.menu, date) : ''
-- if (is_tag()) pageTitle = _p(langprefix+'page.tag') + ': ' + page.tag
-- else if (is_category()) pageTitle = _p(langprefix+'page.category') + ': ' + page.category
-- else if (is_current('/404.html', [strict])) pageTitle = _p(langprefix+'error404')
-- else pageTitle = page.title || config.title || ''
+- var langPrefixDefault = is_default_language(page.lang) ? `${display_languages()[0]}.` : `${page.lang}.`
+- globalPageType === 'archive' ? page.title = findArchivesTitle(page, theme.menu, date) : ''
+case globalPageType
+  when 'tag'
+    - pageTitle = _p(langPrefixDefault+'page.tag') + ': ' + page.tag
+  when 'category'
+    - pageTitle = _p(langPrefixDefault+'page.category') + ': ' + page.category
+  when '404'
+    - pageTitle = _p(langPrefixDefault+'error404')
+  default
+    - pageTitle = page.title || config.title || ''
 
 - var isSubtitle = config.subtitle ? ' - ' + config.subtitle : ''
 - var tabTitle = is_home() || !pageTitle ? config.title + isSubtitle : pageTitle + ' | ' + config.title
@@ -31,6 +36,9 @@ meta(name="keyword" content=pageKeyword.slice(0, -2))
 //- Open_Graph
 include ./head/Open_Graph.pug
 
+//- Structured Data
+include ./head/structured_data.pug
+
 !=favicon_tag(theme.favicon || config.favicon)
 link(rel="canonical" href=urlNoIndex(null,config.pretty_urls.trailing_index,config.pretty_urls.trailing_html))
 
@@ -54,7 +62,7 @@ link(rel='stylesheet', href=url_for(theme.asset.fontawesome))
 if (theme.snackbar && theme.snackbar.enable)
   link(rel='stylesheet', href=url_for(theme.asset.snackbar_css) media="print" onload="this.media='all'")
 
-if theme.fancybox
+if theme.lightbox === 'fancybox'
   link(rel='stylesheet' href=url_for(theme.asset.fancybox_css) media="print" onload="this.media='all'")
 
 !=fragment_cache('injectHeadJs', function(){return inject_head_js()})
@@ -73,7 +81,7 @@ if theme.blog_title_font && theme.blog_title_font.font_link
 
 //- global config
 //- changed to cache false since the content should be different among language settings
-!=partial('includes/head/config', {}, {cache: false})
+!=partial('includes/head/config', {langPrefices: langPrefices}, {cache: false})
 
 include ./head/config_site.pug
 

@@ -7,14 +7,15 @@
       button.search-close-button
         i.fas.fa-times
 
-    #loading-database.is-center
+    #loading-database.text-center
       i.fas.fa-spinner.fa-pulse
-      span= '  ' + _p(langPrefix+"search.load_data")
+      each langPrefix, lang in langPrefices
+        span(lang-type='relative' language=lang)= '  ' + _p(langPrefix+'search.loading_data')
 
     .search-wrap
       #local-search-input
         .local-search-box
-          input(placeholder="" type="text").local-search-box--input
+          input(placeholder=theme.search.placeholder || _p("search.input_placeholder") type="text").local-search-box--input
       hr
       #local-search-results
       #local-search-stats-wrap

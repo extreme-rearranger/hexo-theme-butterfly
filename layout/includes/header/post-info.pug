@@ -45,8 +45,8 @@
             i.far.fa-clock.fa-fw.post-meta-icon
             each langPrefix, lang in langPrefices
               span(lang-type='relative' language=lang).post-meta-label= _p(langPrefix+'post.min2read')
-            // 참고 : https://www.jkos.org/upload/pdf/JKOS057-04-17.pdf
             each langPrefix, lang in langPrefices
+              //- 참고 : https://www.jkos.org/upload/pdf/JKOS057-04-17.pdf
               span(lang-type='relative' language=lang)= min2read(page.content, {cn: 350, en: 160, ko: 202}) + _p(langPrefix+'post.min2read_unit')
     
       //- for pv and count
@@ -59,32 +59,38 @@
           if block
             block
 
-      - const commentUse = comments.use
-      if page.comments !== false && commentUse && !comments.lazyload
-        if commentUse[0] === 'Valine' && theme.valine.visitor
-          +pvBlock(url_for(page.path),'leancloud_visitors',page.title)
-            span.leancloud-visitors-count
-              i.fa-solid.fa-spinner.fa-spin
-        else if commentUse[0] === 'Waline' && theme.waline.pageview
-          +pvBlock('','','')
-            span.waline-pageview-count(data-path=url_for(page.path))
-              i.fa-solid.fa-spinner.fa-spin
-        else if commentUse[0] === 'Twikoo' && theme.twikoo.visitor
-          +pvBlock('','','')
-            span#twikoo_visitors
-              i.fa-solid.fa-spinner.fa-spin
-        else if commentUse[0] === 'Artalk' && theme.artalk.visitor
-          +pvBlock('','','')
-            span#ArtalkPV
+      mixin otherPV()
+        if theme.umami_analytics.enable && theme.umami_analytics.UV_PV.page_pv
+          +pvBlock('', '', '')
+            span#umamiPV(data-path=url_for(page.path))
               i.fa-solid.fa-spinner.fa-spin
         else if theme.busuanzi.page_pv
-          +pvBlock('','post-meta-pv-cv','')
+          +pvBlock('', 'post-meta-pv-cv', '')
             span#busuanzi_value_page_pv
               i.fa-solid.fa-spinner.fa-spin
-      else if theme.busuanzi.page_pv
-        +pvBlock('','post-meta-pv-cv','')
-          span#busuanzi_value_page_pv
-            i.fa-solid.fa-spinner.fa-spin
+
+      - const commentUse = comments.use && comments.use[0]
+      if page.comments !== false && commentUse && !comments.lazyload
+        if commentUse === 'Valine' && theme.valine.visitor
+          +pvBlock(url_for(page.path), 'leancloud_visitors', page.title)
+            span.leancloud-visitors-count
+              i.fa-solid.fa-spinner.fa-spin
+        else if commentUse === 'Waline' && theme.waline.pageview
+          +pvBlock('', '', '')
+            span.waline-pageview-count(data-path=url_for(page.path))
+              i.fa-solid.fa-spinner.fa-spin
+        else if commentUse === 'Twikoo' && theme.twikoo.visitor
+          +pvBlock('', '', '')
+            span#twikoo_visitors
+              i.fa-solid.fa-spinner.fa-spin
+        else if commentUse === 'Artalk' && theme.artalk.visitor
+          +pvBlock('', '', '')
+            span#ArtalkPV
+              i.fa-solid.fa-spinner.fa-spin
+        else
+          +otherPV()
+      else
+        +otherPV()
 
       if comments.count && !comments.lazyload && page.comments !== false && comments.use
         - var whichCount = comments.use[0]
@@ -94,10 +100,10 @@
           span.post-meta-commentcount
             i.far.fa-comments.fa-fw.post-meta-icon
             each langPrefix, lang in langPrefices
-              span(lang-type='relative' language=lang).post-meta-label= _p(langPrefix+'post.comments')
+              span(lang-type='relative' language=lang).post-meta-label= _p(langPrefix+'post.comments') + ':'
             if block
               block
-        
+
         case whichCount
           when 'Disqus'
             +countBlock

@@ -1,47 +1,44 @@
-- let langPrefices
-if is_default_language(page_language())
-  - langPrefices = display_languages().map((lang) => [lang,`${lang}.`])
-else
-  - langPrefices = [[page_language(), '']]
-
+- const langPreficesArray = Object.entries(langPrefices)
 -
   let algolia = 'undefined';
-  let env = process.env;
-  if (theme.algolia_search.enable) {
+  if (theme.search.use === 'algolia_search') {
+    const { ALGOLIA_APP_ID, ALGOLIA_API_KEY, ALGOLIA_INDEX_NAME } = process.env
+    const { appId, applicationID, apiKey, indexName } = config.algolia
     let algolia_language = [];
-    langPrefices.forEach(([lang, langPrefix]) => {
+    langPreficesArray.forEach(([lang, langPrefix]) => {
       algolia_language.push({
         lang: lang,
-        input_placeholder: _p(langPrefix+"search.algolia_search.input_placeholder"),
+        input_placeholder: _p(langPrefix+"search.input_placeholder"),
         hits_empty: _p(langPrefix+"search.algolia_search.hits_empty"),
         hits_stats: _p(langPrefix+"search.algolia_search.hits_stats"),
       }) 
     })
     algolia = JSON.stringify({
-      appId: env.ALGOLIA_APP_ID || config.algolia.appId || config.algolia.applicationID,
-      apiKey: env.ALGOLIA_API_KEY || config.algolia.apiKey,
-      indexName: env.ALGOLIA_INDEX_NAME || config.algolia.indexName,
-      hits: theme.algolia_search.hits,
+      appId: ALGOLIA_APP_ID || appId || applicationID,
+      apiKey: ALGOLIA_API_KEY || apiKey,
+      indexName: ALGOLIA_INDEX_NAME || indexName,
+      hitsPerPage: theme.search.algolia_search.hitsPerPage,
       languages: algolia_language
     })
   }
 
   let localSearch = 'undefined';
-  if (theme.local_search && theme.local_search.enable) {
+  if (theme.search.use === 'local_search') {
+    const { CDN, preload, top_n_per_article, unescape } = theme.search.local_search
     let localsearch_language = [];
-    langPrefices.forEach(([lang, langPrefix]) => {
+    langPreficesArray.forEach(([lang, langPrefix]) => {
       localsearch_language.push({
         lang: lang,
-        input_placeholder: _p(langPrefix+"search.local_search.input_placeholder"),
+        input_placeholder: _p(langPrefix+"search.input_placeholder"),
         hits_empty: _p(langPrefix+"search.local_search.hits_empty"),
         hits_stats: _p(langPrefix+"search.local_search.hits_stats"),
       }) 
     })
     localSearch = JSON.stringify({
-      path: theme.local_search.CDN ? theme.local_search.CDN : config.root + config.search.path,
-      preload: theme.local_search.preload,
-      top_n_per_article: theme.local_search.top_n_per_article,
-      unescape: theme.local_search.unescape,
+      path: CDN || config.root + config.search.path,
+      preload,
+      top_n_per_article,
+      unescape,
       languages: localsearch_language
     })
   }
@@ -59,7 +56,7 @@ else
   let copyright = 'undefined';
   if (theme.copy.enable && theme.copy.copyright.enable){
     let copy_language = [];
-    langPrefices.forEach(([lang, langPrefix]) => {
+    langPreficesArray.forEach(([lang, langPrefix]) => {
       copy_language.push({
         lang: lang,
         author: _p(langPrefix+"copy_copyright.author") + ': ' + config.author,
@@ -77,11 +74,11 @@ else
   let Snackbar = 'undefined';
   if (theme.snackbar && theme.snackbar.enable) {
     Snackbar = JSON.stringify({
-      chs_to_cht: langPrefices.map(([lang, langPrefix]) =>  [lang, _p(langPrefix+"Snackbar.chs_to_cht")]),
-      cht_to_chs: langPrefices.map(([lang, langPrefix]) => [lang, _p(langPrefix+"Snackbar.cht_to_chs")]),
-      day_to_night: langPrefices.map(([lang, langPrefix]) => [lang, _p(langPrefix+"Snackbar.day_to_night")]),
-      night_to_day: langPrefices.map(([lang, langPrefix]) => [lang, _p(langPrefix+"Snackbar.night_to_day")]),
-      readmode_on: langPrefices.map(([lang, langPrefix]) => [lang, _p(langPrefix+"Snackbar.readmode_on")]),
+      chs_to_cht: langPreficesArray.map(([lang, langPrefix]) =>  [lang, _p(langPrefix+"Snackbar.chs_to_cht")]),
+      cht_to_chs: langPreficesArray.map(([lang, langPrefix]) => [lang, _p(langPrefix+"Snackbar.cht_to_chs")]),
+      day_to_night: langPreficesArray.map(([lang, langPrefix]) => [lang, _p(langPrefix+"Snackbar.day_to_night")]),
+      night_to_day: langPreficesArray.map(([lang, langPrefix]) => [lang, _p(langPrefix+"Snackbar.night_to_day")]),
+      readmode_on: langPreficesArray.map(([lang, langPrefix]) => [lang, _p(langPrefix+"Snackbar.readmode_on")]),
       bgLight: theme.snackbar.bg_light,
       bgDark: theme.snackbar.bg_dark,
       position: theme.snackbar.position,
@@ -93,25 +90,28 @@ else
     noticeOutdate = JSON.stringify({
       limitDay: theme.noticeOutdate.limit_day,
       position: theme.noticeOutdate.position,
-      messagePrev: langPrefices.map(([lang, langPrefix]) => [lang, _p(langPrefix+"post.notice_outdate.message_prev")]),
-      messageNext: langPrefices.map(([lang, langPrefix]) => [lang, _p(langPrefix+"post.notice_outdate.message_next")]),
+      messagePrev: langPreficesArray.map(([lang, langPrefix]) => [lang, _p(langPrefix+"post.notice_outdate.message_prev")]),
+      messageNext: langPreficesArray.map(([lang, langPrefix]) => [lang, _p(langPrefix+"post.notice_outdate.message_next")]),
     })
   }
 
-  let highlight = 'undefined';
-  let syntaxHighlighter = config.syntax_highlighter;
-  let highlightEnable = syntaxHighlighter ? ['highlight.js', 'prismjs'].includes(syntaxHighlighter) : (config.highlight.enable || config.prismjs.enable);
+  let highlight = 'undefined'
+  let syntaxHighlighter = config.syntax_highlighter
+  let highlightEnable = syntaxHighlighter ? ['highlight.js', 'prismjs'].includes(syntaxHighlighter) : (config.highlight.enable || config.prismjs.enable)
   if (highlightEnable) {
+    const { copy, language, height_limit, fullpage, macStyle } = theme.code_blocks
     highlight = JSON.stringify({
       plugin: syntaxHighlighter ? syntaxHighlighter : config.highlight.enable ? 'highlight.js' : 'prismjs',
-      highlightCopy: theme.highlight_copy,
-      highlightLang: theme.highlight_lang,
-      highlightHeightLimit: theme.highlight_height_limit
+      highlightCopy: copy,
+      highlightLang: language,
+      highlightHeightLimit: height_limit,
+      highlightFullpage: fullpage,
+      highlightMacStyle: macStyle
     })
   }
 
   const copy = JSON.stringify(
-    langPrefices.map(([lang, langPrefix]) => {
+    langPreficesArray.map(([lang, langPrefix]) => {
       return {
         lang: lang,
         success: _p(langPrefix+"copy.success"),
@@ -121,12 +121,12 @@ else
     })
   )
 
-  const runtime = theme.runtimeshow.enable ? 
-    JSON.stringify(langPrefices.map(([lang, langPrefix]) => [lang, _p(langPrefix+"aside.card_webinfo.runtime.unit")])) : 
+  const runtime = theme.aside.card_webinfo.runtime_date ? 
+    JSON.stringify(langPreficesArray.map(([lang, langPrefix]) => [lang, _p(langPrefix+"aside.card_webinfo.runtime.unit")])) : 
     ""
 
   const date_suffix = JSON.stringify(
-    langPrefices.map(([lang, langPrefix]) => {
+    langPreficesArray.map(([lang, langPrefix]) => {
       return {
         lang: lang,
         just: _p(langPrefix+"date_suffix.just"),
@@ -154,11 +154,11 @@ script.
     runtime: !{runtime},
     dateSuffix: !{date_suffix},
     copyright: !{copyright},
-    lightbox: '!{ theme.medium_zoom ? "mediumZoom" : (theme.fancybox ? "fancybox" : "null" )}',
+    lightbox: '!{ theme.lightbox || 'null' }',
     Snackbar: !{Snackbar},
     infinitegrid: {
       js: '!{url_for(theme.asset.egjs_infinitegrid)}',
-      buttonText: '!{langPrefices.map(([lang, langPrefix]) => [lang, _p(langPrefix+"load_more")])}',
+      buttonText: '!{langPreficesArray.map(([lang, langPrefix]) => [lang, _p(langPrefix+"load_more")])}',
     },
     isPhotoFigcaption: !{theme.photofigcaption},
     islazyloadPlugin: !{theme.lazyload.enable && !theme.lazyload.native},

@@ -1,9 +1,9 @@
 #sidebar
   #menu-mask
   #sidebar-menus
-    .avatar-img.is-center
+    .avatar-img.text-center
       img(src=url_for(theme.avatar.img) onerror=`onerror=null;src='${theme.error_img.flink}'` alt="avatar")
-    .sidebar-site-data.site-data.is-center
+    .site-data.text-center
       a(href=url_for_lang(config.archive_dir) + '/')
         each langPrefix, lang in langPrefices
           .headline(lang-type='relative' language=lang)= _p(langPrefix+'aside.articles') 
