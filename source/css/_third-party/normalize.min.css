@@ -40,7 +40,7 @@ abbr[title] {
 
 b,
 strong {
-  font-weight: bolder
+  font-weight: 600;  /* original: bolder */
 }
 
 code,

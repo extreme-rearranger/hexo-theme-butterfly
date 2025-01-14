@@ -16,7 +16,8 @@ script.
       btf.getScript('!{baseURL}/script.js', {
         'defer': '',
         'data-website-id': '!{website_id}',
-        //- 'data-auto-track': 'false',
+        'data-auto-track': 'true',
+        'data-tag': GLOBAL_CONFIG_SITE.pageType,
         ...option
       }).then(runTrack)
     }
@@ -27,12 +28,14 @@ script.
       const headerList = { 'Accept': 'application/json' }
       if (!'!{isServerURL}') headerList['Authorization'] = `Bearer ${config.token}`
       else headerList['x-umami-api-key'] = config.token
+      
       const res = await fetch(
         `!{apiUrl}/websites/!{website_id}/stats?startAt=0000000000&endAt=${now}${keyUrl}`, 
         {
           method: "GET",
           headers: headerList
         })
+
       return await res.json()
     }
 
