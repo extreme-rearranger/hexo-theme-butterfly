@@ -53,8 +53,7 @@
   display: none
   background: --dark-black50
 
-if hexo-config('algolia_search.enable')
+if hexo-config('search.use') == 'algolia_search'
   @require 'algolia'
-
-if hexo-config('local_search.enable')
+else if hexo-config('search.use') == 'local_search'
   @require 'local-search'

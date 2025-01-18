@@ -75,7 +75,7 @@ en:
         unit: days
       last_push_date:
         name: Last Update
-      site_wordcount: Total Word Count
+      site_wordcount: Word Count
       site_uv_name: Unique Visitors
       site_pv_name: Page Views
     more_button: View More
