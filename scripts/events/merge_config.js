@@ -1,3 +1,5 @@
+const { deepMerge } = require('hexo-util')
+
 hexo.extend.filter.register('before_generate', () => {
   const defaultConfig = {
     nav: {
@@ -19,7 +21,7 @@ hexo.extend.filter.register('before_generate', () => {
     social: null,
     favicon: '/img/favicon.png',
     avatar: {
-      img: 'https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png',
+      img: '/img/butterfly-icon.png',
       effect: false
     },
     disable_top_img: false,
@@ -36,7 +38,6 @@ hexo.extend.filter.register('before_generate', () => {
       index_enable: true,
       aside_enable: true,
       archives_enable: true,
-      position: 'both', // 안쓰임
       default_cover: null
     },
     error_img: {
@@ -46,7 +47,7 @@ hexo.extend.filter.register('before_generate', () => {
     error_404: {
       enable: false,
       subtitle: 'Page Not Found',
-      background: 'https://i.loli.net/2020/05/19/aKOcLiyPl2JQdFD.png'
+      background: '/img/error-page.png'
     },
     post_meta: {
       page: {
@@ -197,7 +198,7 @@ hexo.extend.filter.register('before_generate', () => {
         last_push_date: true,
         sort_order: null,
         runtime_date: null
-      },
+      }
     },
     rightside_bottom: null,
     translate: {
@@ -231,7 +232,7 @@ hexo.extend.filter.register('before_generate', () => {
       enable: true,
       copyright: {
         enable: false,
-        limit_count: 50
+        limit_count: 150
       }
     },
     wordcount: {
@@ -340,7 +341,7 @@ hexo.extend.filter.register('before_generate', () => {
       user_id: null,
       pageSize: 10,
       order_by: 'social',
-      lang: 'zh_TW'
+      lang: 'en_US'
     },
     twikoo: {
       envId: null,
@@ -352,10 +353,6 @@ hexo.extend.filter.register('before_generate', () => {
       repo: null,
       repo_id: null,
       category_id: null,
-      theme: {  // 안쓰임
-        light: 'light',
-        dark: 'dark'
-      },
       light_theme: 'light',
       dark_theme: 'dark',
       js: null,
@@ -378,15 +375,12 @@ hexo.extend.filter.register('before_generate', () => {
       button_hide_show: false
     },
     chatra: {
-      enable: false,  // 안쓰임
       id: null
     },
     tidio: {
-      enable: false,  // 안쓰임
       public_key: null
     },
     crisp: {
-      enable: false,  // 안쓰임
       website_id: null
     },
     baidu_analytics: null,
@@ -498,7 +492,7 @@ hexo.extend.filter.register('before_generate', () => {
     },
     lightbox: null,
     series: {
-      enable: true,
+      enable: false,
       orderBy: 'title',
       order: 1,
       number: true
@@ -553,6 +547,7 @@ hexo.extend.filter.register('before_generate', () => {
     instantpage: false,
     lazyload: {
       enable: false,
+      native: false,
       field: 'site',
       placeholder: null,
       blur: false
@@ -578,84 +573,11 @@ hexo.extend.filter.register('before_generate', () => {
     CDN: {
       internal_provider: 'local',
       third_party_provider: 'jsdelivr',
-      version: true,
+      version: false,
       custom_format: null,
       option: null
-    },
-    // 안 쓰임
-    highlight_theme: 'light',
-    highlight_copy: true,
-    highlight_lang: true,
-    highlight_shrink: false,
-    highlight_height_limit: false,
-    code_word_wrap: false,
-    footer_bg: false,
-    runtimeshow: {
-      enable: false,
-      publish_date: null
-    },
-    newest_comments: {
-      enable: false,
-      sort_order: null,
-      limit: 6,
-      storage: 10,
-      avatar: true
-    },
-    mathjax: {
-      enable: false,
-      per_page: false
-    },
-    katex: {
-      enable: false,
-      per_page: false,
-      hide_scrollbar: true
-    },
-    algolia_search: {
-      enable: false,
-      hits: {
-        per_page: 6
-      }
-    },
-    local_search: {
-      enable: false,
-      preload: false,
-      top_n_per_article: 1,
-      unescape: false,
-      CDN: null
-    },
-    docsearch: {
-      enable: false,
-      appId: null,
-      apiKey: null,
-      indexName: null,
-      option: null
-    },
-    sharejs: {
-      enable: true,
-      sites: 'facebook,twitter,wechat,weibo,qq'
-    },
-    addtoany: {
-      enable: false,
-      item: 'facebook,twitter,wechat,sina_weibo,facebook_messenger,email,copy_link'
-    },
-    chat_btn: false,
-    chat_hide_show: false,
-    daovoice: {
-      enable: false,
-      app_id: null
-    },
-    messenger: {
-      enable: false,
-      pageID: null,
-      lang: 'zh_TW'
-    },
-    medium_zoom: false,
-    fancybox: true,
-    pangu: {
-      enable: false,
-      field: 'site'
-    },
+    }
   }
 
-  hexo.theme.config = Object.assign(defaultConfig, hexo.theme.config)
+  hexo.theme.config = deepMerge(defaultConfig, hexo.theme.config)
 }, 1)

@@ -30,20 +30,13 @@ hexo.extend.filter.register('before_generate', () => {
       version
     },
     local_search: {
-      // name: 'hexo-theme-butterfly',
-      // file: 'js/search/local-search.js',
-      name: 'custom-search-db-generator',
-      file: 'js/custom/hexo-generator-searchdb-custom/dist/local-search.js',
+      name: 'hexo-theme-butterfly',
+      file: 'js/search/local-search.js',
       version
     },
     algolia_js: {
       name: 'hexo-theme-butterfly',
       file: 'js/search/algolia.js',
-      version
-    },
-    change_lang: {
-      name: 'hexo-theme-butterfly',
-      file: 'js/custom/change_lang.js',
       version
     }
   }
