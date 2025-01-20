@@ -129,7 +129,7 @@
       z-index: 91
       background: var(--nav-bg)
       box-shadow: 0 5px 6px -5px var(--grey60)
-      transition: transform .2s ease-in-out, opacity .2s ease-in-out
+      transition: transform .2s ease-in-out, position .2s ease-in-out
 
       #blog-info
         color: var(--font-color)
@@ -152,11 +152,11 @@
     &.fixed
       #nav
         top: 0
-        transition: all .5s
+        transition: top .5s
 
   &.nav-visible:not(.fixed)
     #nav
-      transition: all .5s
+      transition: transform .5s, top .5s
       transform: translate3d(0, 100%, 0)
 
     & + .layout
@@ -239,7 +239,7 @@
 
     a
       color: var(--light-grey)
-      transition: all .3s ease-out
+      transition: color .3s ease-out
 
       &:hover
         color: var(--text-hover) !important
@@ -260,7 +260,7 @@
   height: 3.75rem  // original: 60px
   font-size: 1.3rem
   opacity: 0
-  transition: all .5s
+  transition: transform .5s, top .5s, opacity .5s
 
   +maxWidth768()
     padding: 0 1rem  // original: 0 16px
@@ -394,7 +394,7 @@
         height: 3px
         background-color: var(--sub-theme-color-light30)
         content: ''
-        transition: all .3s ease-in-out
+        transition: width .3s ease-in-out
 
       &:hover
         &::after

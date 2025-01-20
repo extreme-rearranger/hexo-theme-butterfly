@@ -27,6 +27,8 @@
     color: var(--search-color)
     font-size: 1.4em
     line-height: 1
+    // additionals
+    font-weight: 600
 
     .search-dialog-title
       margin-right: 10px
@@ -51,7 +53,7 @@
   left: 0
   z-index: 1000
   display: none
-  background: --dark-black50
+  background: var(--mask-bg)  // original: --dark-black50
 
 if hexo-config('search.use') == 'algolia_search'
   @require 'algolia'

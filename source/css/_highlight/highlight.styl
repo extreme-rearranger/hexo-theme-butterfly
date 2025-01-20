@@ -51,8 +51,8 @@ $code-block
 
   code
     padding: 2px 5px
-    background: $code-background
-    color: $code-foreground
+    background: var(--code-bg)
+    color: var(--code-color)
 
   pre
     @extend $code-block
@@ -113,7 +113,7 @@ $code-block
 
     i
       cursor: pointer
-      transition: all .3s
+      transition: color .3s
 
       &:hover
         color: $theme-color

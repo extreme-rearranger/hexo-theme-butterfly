@@ -13,7 +13,6 @@ case globalPageType
 
 - var isSubtitle = config.subtitle ? ' - ' + config.subtitle : ''
 - var tabTitle = is_home() || !pageTitle ? config.title + isSubtitle : pageTitle + ' | ' + config.title
-- tabTitle = page.series ? page.series + ' - ' + tabTitle : tabTitle
 - var pageAuthor = config.email ? config.author + ',' + config.email : config.author
 - var pageCopyright = config.copyright || config.author
 - var themeColorLight = theme.theme_color && theme.theme_color.enable && theme.theme_color.meta_theme_color_light || '#ffffff'
@@ -85,4 +84,19 @@ if theme.blog_title_font && theme.blog_title_font.font_link
 
 include ./head/config_site.pug
 
-!=fragment_cache('injectHead', function(){return injectHtml(theme.inject.head)})
+
+- let injectList = theme.inject.head || []
+if globalPageType === 'home'
+  //- inject home css if given
+  if theme.inject.head_home
+    - injectList = injectList.concat(theme.inject.head_home)
+else
+  //- inject page or post css from markdown frontmatter if given
+  if page.inject_head
+    - injectList = injectList.concat(page.inject_head)
+  if globalPageType === 'post' && theme.inject.head_post
+    - injectList = injectList.concat(theme.inject.head_post)
+  if globalPageType === '404' && theme.inject.head_404
+    - injectList = injectList.concat(theme.inject.head_404)
+
+!=injectHtml(injectList)

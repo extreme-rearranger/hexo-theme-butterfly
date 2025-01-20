@@ -2,8 +2,8 @@ if hexo-config('readmode')
   .read-mode
     --font-color: #4c4948
     --readmode-light-color: #fff
-    --white: #4c4948
-    --light-grey: #4c4948
+    // --white: #4c4948
+    // --light-grey: #4c4948
     --gray: #d6dbdf
     --hr-border: #d6dbdf
     --hr-before-color: darken(#d6dbdf, 10)
@@ -11,7 +11,7 @@ if hexo-config('readmode')
     --exit-btn-bg: #C0C0C0
     --exit-btn-color: #fff
     --exit-btn-hover: darken(#C0C0C0, 20)
-    --pseudo-hover: none
+    --pseudo-hover: #C0C0C0 // original: none
 
   [data-theme='dark']
     .read-mode
@@ -73,7 +73,7 @@ if hexo-config('readmode')
     & > canvas
       display: none !important
 
-    .highlight-tools,
+    .highlight-tools .macStyle  // original: .highlight-tools,
     #footer,
     #post > *:not(#post-info):not(.post-content),
     #nav,
@@ -176,7 +176,7 @@ if hexo-config('readmode')
       .note
         border: 2px solid var(--gray)
         border-left-color: var(--gray) !important
-        filter: none
+        // filter: none
         background-color: var(--readmode-light-color) !important
         color: var(--font-color)
 

@@ -476,6 +476,47 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /**
+   * Footnotes
+  */
+  const addFootnotesScroll = () => {
+
+    // scroll to footnotes
+    const $footnotes_backref = document.querySelectorAll('a.footnote-backref')
+    if ($footnotes_backref.length) {
+      const scrollToNotes = e => {
+        e.preventDefault()
+        const target = document.getElementById(decodeURI(e.currentTarget.getAttribute('href')).replace('#', ''))
+        target.focus()
+        btf.scrollToDest(btf.getEleTop(target), 300)
+      }
+
+      $footnotes_backref.forEach(item => {
+        btf.addEventListenerPjax(item, 'click', scrollToNotes)
+      })
+    }
+
+    // scroll to footnotes
+    const $footnotes = document.querySelectorAll('.footnote-ref a')
+    if ($footnotes.length) {
+      const scrollToFootnotes = e => {
+        e.preventDefault()
+        const target = document.getElementById(decodeURI(e.currentTarget.getAttribute('href')).replace('#', ''))
+        target.setAttribute('tabindex','0')
+        target.focus()
+        btf.scrollToDest(btf.getEleTop(target.parentElement) - 60, 300)
+      }
+
+      $footnotes.forEach(item => {
+        btf.addEventListenerPjax(item, 'click', scrollToFootnotes)
+      })
+    }
+
+    
+
+  }
+
+
+  /**
   * toc,anchor
   */
   const scrollFnToDo = () => {
@@ -947,6 +988,7 @@ document.addEventListener('DOMContentLoaded', function () {
     addPhotoFigcaption()
     addJustifiedGallery(document.querySelectorAll('#article-container .gallery-container'))
     runLightbox()
+    addFootnotesScroll()
     scrollFnToDo()
     addTableWrap()
     clickFnOfTagHide()

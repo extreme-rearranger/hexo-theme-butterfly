@@ -7,13 +7,19 @@
     display: inline-block
     margin: 0 4px 6px
     padding: 0 15px
+    line-height: 2
+
     background-color: var(--btn-beautify-color, $btn-default-color)
     color: $btn-color
-    line-height: 2
+    +darkmode()
+      background-color: var(--btn-beautify-color, $btn-default-color-dark)
+      color: $btn-color-dark
 
     for $type in $color-types
       &.{$type}
         --btn-beautify-color: lookup('$tagsP-' + $type + '-color')
+        +darkmode()
+          --btn-beautify-color: lookup('$tagsP-' + $type + '-color-dark')
 
     &:hover
       background-color: var(--btn-hover-color)
@@ -44,12 +50,18 @@
 
     &.outline
       border: 1px solid transparent
-      border-color: var(--btn-beautify-color, $btn-default-color)
       background-color: transparent
+
+      border-color: var(--btn-beautify-color, $btn-default-color)
       color: var(--btn-beautify-color, $btn-default-color)
+      +darkmode()
+        border-color: var(--btn-beautify-color, $btn-default-color-dark)
+        color: var(--btn-beautify-color, $btn-default-color-dark)
 
       &:hover
         background-color: var(--btn-beautify-color, $btn-default-color)
+        +darkmode()
+          background-color: var(--btn-beautify-color, $btn-default-color-dark)
 
       &:hover
         color: white !important

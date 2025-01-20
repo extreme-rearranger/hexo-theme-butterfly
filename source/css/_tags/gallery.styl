@@ -33,7 +33,7 @@
       height: 250px
       backface-visibility: hidden
       opacity: .8
-      transition: all .3s, ease-in .2s  // remove filter 375ms
+      transition: transform .3s // all .3s, filter 375ms ease-in .2s
       transform: translate3d(-10px, 0, 0)
       object-fit: cover
 
@@ -44,7 +44,7 @@
       padding: 30px
       width: 100%
       height: 100%
-      color: $gallery-color
+      color: var(--white)
       text-transform: uppercase
       backface-visibility: hidden
 
@@ -85,7 +85,7 @@
         left: 0
         width: 100%
         height: 2px
-        background: $gallery-color
+        background: var(--white)
         content: ''
         transition: transform .35s
         transform: translate3d(-100%, 0, 0)
@@ -116,10 +116,11 @@
       color: var(--btn-color)
       font-weight: 600  // original: bold
       font-size: 1.1em
-      transition: all .3s
+      transition: background .2s
 
       &:hover
         background: var(--btn-hover-color)
+        transition: background .3s
 
   .loading-container
     display: inline-block

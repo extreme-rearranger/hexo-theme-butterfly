@@ -41,12 +41,12 @@ html(lang=htmlLang site-lang=display_languages() page-lang=pageLang data-theme=t
           if theme.aside.enable && page.aside !== false
             include widget/index.pug
 
-      - var footerBg = theme.footer_bg
+      - var footerBg = theme.footer_img
       if (footerBg)
         if (footerBg === true)
           - var footer_bg = bg_img
         else
-          - var footer_bg = isImgOrUrl(theme.footer_bg) ? `background-image: url('${url_for(footerBg)}')` : `background: ${footerBg}`
+          - var footer_bg = isImgOrUrl(theme.footer_img) ? `background-image: url('${url_for(footerBg)}')` : `background: ${footerBg}`
       else
         - var footer_bg = ''
 

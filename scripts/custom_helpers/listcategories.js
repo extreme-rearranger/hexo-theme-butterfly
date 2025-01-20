@@ -25,14 +25,8 @@ function listCategoriesHelper(categories, options) {
   let language = options.lang ? options.lang : this.page.lang
     
   const prepareQuery = parent => {
-    const query = {};
-    if (parent) {
-      query.parent = parent;
-    }
-    else {
-      query.parent = { $exists: false };
-    }
-    return categories.find(query).sort(orderby, order);
+    const query = parent ? { parent } : { parent: { $exists: false } }
+    return categories.find(query).sort(orderby, order).filter(cat => cat.length)
     // return categories_lang.find(query).sort(orderby, order);  // doesn't working
   };
 
@@ -40,6 +34,7 @@ function listCategoriesHelper(categories, options) {
     let result = '';
     prepareQuery(parent).forEach(cat => {
       let cat_lang = cats_lang.find((e) => e._id === cat._id)
+      if (!cat_lang) return
       let child;
       if (!depth || level + 1 < depth) {
         child = hierarchicalList(cats_lang, level + 1, cat_lang._id);

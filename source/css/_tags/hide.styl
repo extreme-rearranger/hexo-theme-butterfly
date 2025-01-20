@@ -4,7 +4,7 @@
   & > .hide-button
     display: inline-block
     padding: 5px 18px
-    background: $tag-hide-bg
+    background: var(--theme-color)
     color: var(--white)
 
     &:hover
@@ -34,13 +34,13 @@
 
 .toggle
   margin-bottom: 20px
-  border: 1px solid $tag-hide-toggle-bg
+  // border: 1px solid $tag-hide-toggle-bg
 
   & > .toggle-button
     padding: 6px 15px
-    background: $tag-hide-toggle-bg
-    color: #1F2D3D
+    background: var(--light-grey)  // original: $tag-hide-toggle-bg
+    color: #363636  // original: #1F2D3D
     cursor: pointer
 
   & > .toggle-content
-    margin: 30px 24px
+    margin: 1em 0.5em  // original: margin: 30px 24px

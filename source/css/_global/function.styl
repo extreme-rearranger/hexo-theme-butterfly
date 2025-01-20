@@ -27,7 +27,7 @@ addBorderRadius(x = 6, hide = false)
   border-radius: 8px
   background: var(--card-bg)
   box-shadow: 0 3px 8px 6px var(--card-box-shadow)
-  transition: all .3s
+  transition: box-shadow .3s
 
   &:hover
     box-shadow-color: var(--card-hover-box-shadow)
@@ -35,7 +35,7 @@ addBorderRadius(x = 6, hide = false)
 .imgHover
   width: 100%
   height: 100%
-  transition: ease-in .2s, transform .6s  // remove filter 375ms
+  transition: transform .6s // all .6s, filter 375ms ease-in .2s
   object-fit: cover
 
   &:hover
@@ -52,7 +52,7 @@ addBorderRadius(x = 6, hide = false)
     width: 100%
     height: 100%
     opacity: .1 // original: .4
-    transition: all .6s, ease-in .2s  // remove filter 375ms
+    transition: transform .6s // all .6s, filter 375ms ease-in .2s
     object-fit: cover
 
 .list-beauty
@@ -77,7 +77,7 @@ addBorderRadius(x = 6, hide = false)
       background: transparent
       content: ''
       cursor: pointer
-      transition: all .3s ease-out
+      transition: border-color .3s ease-out
 
 .verticalCenter
   position: absolute
@@ -106,7 +106,7 @@ addBorderRadius(x = 6, hide = false)
       content: $hr-icon
       font-size: 20px
       line-height: 1
-      transition: all 1s ease-in-out
+      transition: left 1s ease-in-out
       @extend .fontawesomeIcon
 
 maxWidth600()
@@ -140,6 +140,23 @@ minWidth900()
 minWidth2000()
   @media screen and (min-width: 2001px)
     {block}
+
+// additionals
+darkmode()
+  if hexo-config('darkmode.enable') || hexo-config('display_mode') == 'dark'
+    [data-theme='dark'] &
+      {block}
+
+lightmode()
+  if hexo-config('darkmode.enable') || hexo-config('display_mode') == 'light'
+    [data-theme='light'] &
+      {block}
+
+readmode()
+  if hexo-config('readmode')
+    body.read-mode &
+      {block}
+
 
 // animation
 if hexo-config('enter_transitions')

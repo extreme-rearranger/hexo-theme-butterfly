@@ -27,6 +27,12 @@
       +maxWidth768()
         &:not(#card-toc)
           display: none
+    
+    // additionals
+    > :nth-child(2)
+      max-height: 15em
+      overflow-x: hidden
+      overflow-y: auto
 
   .card-info
     .author-info
@@ -36,6 +42,11 @@
 
       &__description
         margin-top: 1em  // original : -.42em
+        // additionals
+        overflow: hidden
+        text-overflow: ellipsis
+        white-space: nowrap
+        -webkit-line-clamp: 1
 
     .card-info-data
       margin: 14px 0 4px
@@ -49,7 +60,7 @@
         font-size: 1.4em
 
       i
-        transition: all .3s
+        transition: transform .3s
 
         &:hover
           transform: rotate(360deg)
@@ -70,7 +81,11 @@
 
   .item-headline
     padding-bottom: 6px
-    font-size: 1.2em
+    font-size: 1.1rem  // original: 1.2em
+    // additionals
+    display: table
+    width: 100%
+    font-weight: 400
 
     span
       margin-left: 6px
@@ -81,6 +96,24 @@
       position: -webkit-sticky
       top: 20px
       transition: top .3s
+    
+    // additionals
+    +maxWidth900()
+      display: flex
+      flex-direction: row
+      flex-wrap: wrap
+
+      > .card-widget
+        margin-top: 0
+        margin-bottom: 1.2rem
+        width: 100%
+
+      > .card-left,
+      > .card-right
+        width: calc(50% - 0.5rem)
+      
+      > .card-left
+        margin-right: 1rem
 
   .card-tag-cloud
     a
@@ -115,7 +148,7 @@
 
       .thumbnail
         overflow: hidden
-        width: w = 4.2em
+        width: w = 3em // original: 4.2em
         height: w
 
         :first-child
@@ -142,7 +175,7 @@
           color: var(--font-color)
           font-size: 95%
           line-height: 1.5
-          -webkit-line-clamp: 2
+          -webkit-line-clamp: 1  // original: 2
 
           &:hover
             color: var(--text-hover)
@@ -163,7 +196,7 @@
       flex-direction: row
       padding: 0.2rem 0.6rem  // original: 3px 10px
       color: var(--font-color)
-      transition: all .4s
+      transition: background-color .3s, padding .4s
 
       &:hover
         padding: 0.2rem 0.8rem  // original: 3px 17px
@@ -218,6 +251,8 @@
         display: flex
         align-items: center
         padding: 2px 0.5rem 0  // original: 2px 10px 0
+        // additionals
+        font-size: calc(1rem - 1.5px)
 
         div
           &:not(:last-child)
@@ -297,7 +332,7 @@
         margin: 0.25rem 0  // original: 4px 0
         padding: 1px 0.6rem  // original: 1px 6px
         color: var(--toc-link-color)
-        transition: all .2s ease-in-out
+        transition: background-color .2s ease-in-out
         @extend .limit-one-line
 
         &:hover
@@ -314,6 +349,9 @@
   .card-more-btn
     float: right
     // color: inherit  // a hover를 위해 주석처리
+    // additionals
+    padding: 0.4rem 0.5rem 0.3rem 0.5rem
+    font-size: 0.6rem
 
     &:hover
       animation: more-btn-move 1s infinite
@@ -333,7 +371,7 @@
   img
     width: 100%
     height: 100%
-    transition: ease-in .2s, transform .3s  // remove filter 375ms
+    transition: transform .3s //, filter 375ms ease-in .2s
     object-fit: cover
 
     &:hover
@@ -348,7 +386,7 @@
     display: table-cell
 
     div
-      transition: all .3s
+      transition: color .3s
 
     &:hover
       div

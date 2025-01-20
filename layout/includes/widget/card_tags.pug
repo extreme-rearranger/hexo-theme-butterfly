@@ -5,7 +5,7 @@ if theme.aside.card_tags.enable
         .item-headline
           i.fas.fa-tags
           span= _p(langPrefix+'aside.card_tags')
-          if theme.aside.force_more_button
+          if theme.aside.force_more_button || site.tags.length > theme.aside.card_tags.limit
             a.card-more-btn(href=url_for_lang(lang+'/tags/') title=_p(langPrefix+'aside.more_button'))
               = ` ${_p(langPrefix+'aside.more_button')} `
               i.fas.fa-angle-right

@@ -27,7 +27,7 @@
       background: var(--card-bg)
       content: ''
       line-height: h
-      transition: all .2s ease-in-out
+      transition: border-color .2s ease-in-out
 
     &::after
       position: absolute
@@ -60,7 +60,7 @@
       border-radius: w
       background: var(--card-bg)
       content: ''
-      transition: all .2s ease-in-out
+      transition: border-color .2s ease-in-out
 
     &.no-article-cover
       height: 80px
@@ -90,7 +90,7 @@
       @extend .limit-more-line
       color: var(--font-color)
       font-size: 1.1em
-      transition: all .3s
+      transition: transform .3s
       -webkit-line-clamp: 2
 
       &:hover
@@ -108,3 +108,5 @@
     &-info
       flex: 1
       padding: 0 16px
+      // additional
+      word-break: break-all

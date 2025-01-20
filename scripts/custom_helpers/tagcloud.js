@@ -41,7 +41,7 @@ hexo.extend.helper.register('tagcloud', function (options = {}) {
   
   let result = ''
   if (limit > 0) {
-    source = source.limit(limit)
+    tags = tags.sort((a, b) => b.length - a.length).slice(0, limit)
   }
   
   const sizes = []

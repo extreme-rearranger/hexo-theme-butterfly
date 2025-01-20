@@ -14,7 +14,7 @@ beautify()
   h4,
   h5,
   h6
-    transition: all .2s ease-out
+    transition: padding .2s ease-out
 
     &::before
       position: absolute
@@ -23,7 +23,7 @@ beautify()
       content: $title-prefix-icon
       left: 0
       line-height: 1
-      transition: all .2s ease-out
+      // transition: all .2s ease-out
       @extend .fontawesomeIcon
 
     &:hover
@@ -104,7 +104,7 @@ beautify()
     display: block
     margin: 0 auto 20px
     max-width: 100%
-    transition: ease-in .2s  // remove filter 375ms
+    // transition: filter 375ms ease-in .2s 
 
   p
     margin: 0 0 1rem  // original: margin: 0 0 16px
@@ -112,19 +112,19 @@ beautify()
   iframe
     margin-bottom: 1.25rem  // original: margin: 0 0 20px
 
-  kbd
-    margin: 0 3px
-    padding: 3px 5px
-    border: 1px solid #b4b4b4
-    border-radius: 3px
-    background-color: #f8f8f8
-    box-shadow: 0 1px 3px rgba(0, 0, 0, .25), 0 2px 1px 0 rgba(255, 255, 255, .6) inset
-    color: #34495e
-    white-space: nowrap
-    font-weight: 600
-    font-size: .9em
-    font-family: Monaco, 'Ubuntu Mono', monospace
-    line-height: 1em
+  // kbd
+  //   margin: 0 3px
+  //   padding: 3px 5px
+  //   border: 1px solid #b4b4b4
+  //   border-radius: 3px
+  //   background-color: #f8f8f8
+  //   box-shadow: 0 1px 3px rgba(0, 0, 0, .25), 0 2px 1px 0 rgba(255, 255, 255, .6) inset
+  //   color: #34495e
+  //   white-space: nowrap
+  //   font-weight: 600
+  //   font-size: .9em
+  //   font-family: Monaco, 'Ubuntu Mono', monospace
+  //   line-height: 1em
 
   if hexo-config('anchor.click_to_scroll')
     h1,
@@ -220,7 +220,7 @@ beautify()
     margin: 40px 0 10px
     padding: 10px 16px
     border: 1px solid var(--title-border-color)
-    transition: box-shadow .3s ease-in-out
+    // transition: box-shadow .3s ease-in-out
     font-size: .9rem
 
     &::before

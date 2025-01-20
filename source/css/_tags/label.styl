@@ -2,10 +2,16 @@
   padding: 2px 4px
   border-radius: 3px
   color: $btn-color
+  +darkmode()
+    color: $btn-color-dark
 
   &.default
     background-color: $btn-default-color
+    +darkmode()
+      background-color: $btn-default-color-dark
 
   for $type in $color-types
     &.{$type}
       background-color: lookup('$tagsP-' + $type + '-color')
+      +darkmode()
+        background-color: lookup('$tagsP-' + $type + '-color-dark')

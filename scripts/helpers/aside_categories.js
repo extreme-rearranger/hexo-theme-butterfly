@@ -1,6 +1,9 @@
+const { ca } = require('../custom_helpers/rfc5646');
+
 const {
   pathJoin,
   postFilter,
+  getPageLanguage,
 } = require('../custom_helpers/i18n')(hexo);
 
 'use strict'
@@ -43,16 +46,17 @@ hexo.extend.helper.register('aside_categories', function (categories, options = 
     if (remaining > 0) {
       prepareQuery(parent).forEach(cat => {
         let cat_lang = cats_lang.find((e) => e._id === cat._id)
+        if (!cat_lang) return
         if (remaining > 0) {
           remaining -= 1
           let child = ''
           if (!depth || level + 1 < depth) {
-            const childList = hierarchicalList(categories_lang, remaining, level + 1, cat_lang._id)
+            const childList = hierarchicalList(cats_lang, remaining, level + 1, cat_lang._id)
             child = childList.result
             remaining = childList.remaining
           }
 
-          const parentClass = isExpand && !parent && child ? 'parent' : ''
+          const parentClass = isExpand && child ? 'parent' : ''
           result += `<li class="card-category-list-item ${parentClass}">`
           result += `<a class="card-category-list-link" href="${this.url_for_lang(cat_lang.path)}">`
           result += `<span class="card-category-list-name">${cat_lang.name}</span>`
@@ -61,7 +65,7 @@ hexo.extend.helper.register('aside_categories', function (categories, options = 
             result += `<span class="card-category-list-count">${cat_lang.length}</span>`
           }
 
-          if (isExpand && !parent && child) {
+          if (isExpand && child) {
             result += `<i class="fas fa-caret-left ${expandClass}"></i>`
           }
 
@@ -85,8 +89,10 @@ hexo.extend.helper.register('aside_categories', function (categories, options = 
       return null;
     }
     return Object.assign({}, category, {
+      parent: category.parent,
       posts: posts,
       path: pathJoin(lang, category.path),
+      permalink: pathJoin(this.config.url, lang, category.path),
       length: posts.length
     });
   }).filter(category => category !== null);
