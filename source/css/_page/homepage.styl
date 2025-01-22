@@ -50,7 +50,7 @@ $indexEnable = hexo-config('cover.index_enable')
         //   height: 230px
 
       if (($indexLayout == 1) || ($indexLayout == 2) || ($indexLayout == 3))
-        width: calc(max(16em, 35%))  // original: 42%
+        width: calc(max(14rem, 30%))  // original: 42%
         height: 100%
 
         // additionals
@@ -113,7 +113,7 @@ $indexEnable = hexo-config('cover.index_enable')
 
       if (($indexLayout == 1) || ($indexLayout == 2) || ($indexLayout == 3))
         padding: 0 40px
-        width: calc(min(100% - 16em, 65%)) // original: 58%
+        width: calc(min(100% - 14rem, 70%)) // original: 58%
 
       if (($indexLayout == 4) || ($indexLayout == 5) || ($indexLayout == 6) || ($indexLayout == 7))
         padding: 30px 30px 25px
@@ -142,7 +142,7 @@ $indexEnable = hexo-config('cover.index_enable')
       & > .article-title
         @extend .limit-more-line
         color: var(--text-highlight-color)
-        font-size: 1.55em
+        font-size: 1.45em  // original: 1.55em
         line-height: 1.4
         transition: color .2s ease-in-out
         -webkit-line-clamp: 2
@@ -156,7 +156,7 @@ $indexEnable = hexo-config('cover.index_enable')
           font-size: 0.9em
 
         +maxWidth768()
-          font-size: 1.43em
+          font-size: 1.3em  // original: 1.43em
 
         &:hover
           color: var(--text-hover)

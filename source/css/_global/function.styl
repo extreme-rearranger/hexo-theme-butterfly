@@ -44,7 +44,7 @@ addBorderRadius(x = 6, hide = false)
 .postImgHover
   &:hover
     .cover
-      opacity: .8
+      opacity: .7 // original: .8
       transform: scale(1.1)
 
   .cover
@@ -60,7 +60,7 @@ addBorderRadius(x = 6, hide = false)
 
   li
     position: relative
-    padding: .12em .4em .12em 1.4em
+    padding: .12em .4em 0 1.4em  // original: .12em .4em .12em 1.4em
 
     &:hover
       &::before
@@ -68,7 +68,7 @@ addBorderRadius(x = 6, hide = false)
 
     &::before
       position: absolute
-      top: .67em
+      top: .43em
       left: 0
       width: w = .43em
       height: h = w

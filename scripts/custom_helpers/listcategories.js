@@ -13,7 +13,7 @@ function listCategoriesHelper(categories, options) {
   if (!categories || !categories.length)
     return ''
   options = options || {};
-  const { style = 'list', transform, separator = ', ', suffix = '' } = options;
+  const { style = 'list', transform, separator = ', ', suffix = '', add_icon } = options;
   const showCount = Object.prototype.hasOwnProperty.call(options, 'show_count') ? options.show_count : true;
   const className = options.class || 'category';
   const depth = options.depth ? parseInt(options.depth, 10) : 0;
@@ -52,7 +52,10 @@ function listCategoriesHelper(categories, options) {
         isCurrent = isCurrent || (this.page.base && this.page.base.startsWith(cat_lang.path));
       }
       const additionalClassName = child && childrenIndicator ? ` ${childrenIndicator}` : '';
-      result += `<li class="${className}-list-item${additionalClassName}"><i class="fa-solid fa-caret-right"></i>`;
+      result += `<li class="${className}-list-item${additionalClassName}">`;
+      if (add_icon) {
+        result += `<i class="fa-solid fa-caret-right"></i>`;
+      }
       result += `<a class="${className}-list-link${isCurrent ? ' current' : ''}" href="${hexo_util_1.url_for.call(this, cat_lang.path)}${suffix}" lang-type="relative">`;
       result += transform ? transform(cat_lang.name) : cat_lang.name;
       result += '</a>';

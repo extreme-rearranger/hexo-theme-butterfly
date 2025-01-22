@@ -157,5 +157,5 @@
           span.post-meta-categories(lang-type='relative' language=lang)
             i.far.fa-folder-closed.fa-fw.post-meta-icon
             span.post-meta-label= _p(langPrefix + 'page.category')
-        - let category_hier = list_categories(page.categories, {show_count:false})
+        - let category_hier = list_categories(page.categories, {show_count: false, add_icon: true})
         !=category_hier
