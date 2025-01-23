@@ -30,41 +30,12 @@ beautify()
       &::before
         color: var(--theme-color)
 
-  h1
-    padding-left: calc(1.25rem + 8px)
+  h1, h2, h3, h4, h5, h6
+    padding-left: calc(1em + 8px)  // original: calc(1.25em + 8px)
     &::before
-      font-size: calc(1.25rem - 2px)
+      font-size: calc(1em - 2px)  // original: calc(1.25em - 2px)
     &:hover
-      padding-left: calc(1.25rem + 12px)
-
-  h2
-    padding-left: calc(1.125rem + 8px)
-    &::before
-      font-size: calc(1.125rem - 2px)
-    &:hover
-      padding-left: calc(1.125rem + 12px)
-
-  h3
-    padding-left: calc(1rem + 8px)
-    &::before
-      font-size: calc(1rem - 2px)
-    &:hover
-      padding-left: calc(1rem + 12px)
-
-  h4
-    padding-left: calc(0.875rem + 8px)
-    &::before
-      font-size: calc(0.875rem - 2px)
-    &:hover
-      padding-left: calc(0.875rem + 12px)
-
-  h5,
-  h6
-    padding-left: calc(0.75rem + 8px)
-    &::before
-      font-size: calc(0.75rem - 2px)
-    &:hover
-      padding-left: calc(0.75rem + 12px)
+      padding-left: calc(1em + 12px)  // original: calc(1.25em + 12px)
 
   ol,
   ul
@@ -107,10 +78,10 @@ beautify()
     // transition: filter 375ms ease-in .2s 
 
   p
-    margin: 0 0 1rem  // original: margin: 0 0 16px
+    margin: 0 0 1em  // original: margin: 0 0 16px
 
   iframe
-    margin-bottom: 1.25rem  // original: margin: 0 0 20px
+    margin-bottom: 1.25em  // original: margin: 0 0 20px
 
   // kbd
   //   margin: 0 3px
@@ -133,7 +104,7 @@ beautify()
     h4,
     h5,
     h6
-      width: fit-content
+      // width: fit-content
 
       a:not(.headerlink)
         position relative
@@ -174,85 +145,85 @@ beautify()
         beautify()
 
 #post
-  .tag_share
-    &::after
-      display: block
-      clear: both
-      content: ''
+.tag_share
+  &::after
+    display: block
+    clear: both
+    content: ''
 
-    .post-meta
-      &__tag-list
-        display: inline-block
-
-      &__tags
-        display: inline-block
-        // margin: 8px 8px 8px 0
-        padding: 0 0.5rem   // original: 0 12px
-        width: fit-content
-        // border: 1px solid var(--theme-color)
-        border-radius: 0.2rem  // original: 12px
-        color: var(--theme-color)
-        font-size: .85em
-        transition: all .2s ease-in-out
-
-        &:hover
-          background: var(--theme-color80)
-          color: var(--white)
-
-    .post_share
+  .post-meta
+    &__tag-list
       display: inline-block
-      float: right
-      margin: 8px 0 0
+
+    &__tags
+      display: inline-block
+      // margin: 8px 8px 8px 0
+      padding: 0 0.5em   // original: 0 12px
       width: fit-content
+      // border: 1px solid var(--theme-color)
+      border-radius: 0.2em  // original: 12px
+      color: var(--theme-color)
+      font-size: .85em
+      transition: all .2s ease-in-out, font-size .0s
 
-      .social-share
-        font-size: .85em
+      &:hover
+        background: var(--theme-color80)
+        color: var(--white)
 
-        .social-share-icon
-          margin: 0 4px
-          width: w = 1.85em
-          height: w
-          font-size: 1.2em
-          line-height: w
+  .post_share
+    display: inline-block
+    float: right
+    margin: 8px 0 0
+    width: fit-content
+
+    .social-share
+      font-size: .85em
+
+      .social-share-icon
+        margin: 0 4px
+        width: w = 1.85em
+        height: w
+        font-size: 1.2em
+        line-height: w
+
+.post-copyright
+  position: relative
+  margin: 40px 0 10px
+  padding: 10px 16px
+  border: 1px solid var(--title-border-color)
+  // transition: box-shadow .3s ease-in-out
+  font-size: .9em
+
+  &::before
+    @extend .fontawesomeIcon
+    position: absolute
+    top: 2px
+    right: 12px
+    color: var(--theme-color)
+    content: '\f1f9'
+    font-size: 1.3em
+
+  // &:hover
+  //   box-shadow: 0 0 8px 0 rgba(232, 237, 250, .6), 0 2px 4px 0 rgba(232, 237, 250, .5)
 
   .post-copyright
-    position: relative
-    margin: 40px 0 10px
-    padding: 10px 16px
-    border: 1px solid var(--title-border-color)
-    // transition: box-shadow .3s ease-in-out
-    font-size: .9rem
 
-    &::before
-      @extend .fontawesomeIcon
-      position: absolute
-      top: 2px
-      right: 12px
+    &-meta
       color: var(--theme-color)
-      content: '\f1f9'
-      font-size: 1.3em
+      font-weight: 600  // original: bold
 
-    // &:hover
-    //   box-shadow: 0 0 8px 0 rgba(232, 237, 250, .6), 0 2px 4px 0 rgba(232, 237, 250, .5)
+      i
+        margin-right: 3px
 
-    .post-copyright
+    &-info
+      padding-left: 6px
 
-      &-meta
-        color: var(--theme-color)
-        font-weight: 600  // original: bold
+      a
+        text-decoration: underline
+        word-break: break-all
 
-        i
-          margin-right: 3px
-
-      &-info
-        padding-left: 6px
-
-        a
-          text-decoration: underline
-          word-break: break-all
-
-          &:hover
-            text-decoration: none
+        &:hover
+          text-decoration: none
 
   #post-outdate-notice
     position: relative

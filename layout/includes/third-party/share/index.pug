@@ -1,9 +1,10 @@
 - const { use } = theme.share
 
 if use
-  .post-share
-    case use
-      when 'addtoany'
-        include ./addtoany.pug
-      when 'sharejs'
-        include ./share-js.pug
+  .tag_share
+    .post-share
+      case use
+        when 'addtoany'
+          include ./addtoany.pug
+        when 'sharejs'
+          include ./share-js.pug

@@ -17,7 +17,7 @@ doctype html
 html(lang=htmlLang site-lang=display_languages() page-lang=pageLang data-theme=theme.display_mode class=htmlClassHideAside)
   head
     include ./head.pug
-  body
+  body(style="min-width: 350px;")
     if theme.inject.body_top
       !=theme.inject.body_top
     if theme.preloader.enable

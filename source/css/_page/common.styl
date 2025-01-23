@@ -7,30 +7,30 @@
   display: flex
   flex: 1 auto
   margin: 0 auto
-  padding: 40px 15px
-  max-width: 1200px
+  padding: 20px 15px // original: 40px 15px
+  max-width: 1400px // original: 1200px
   width: 100%
 
   +maxWidth900()
     flex-direction: column
 
-  +maxWidth900()
-    padding: 20px 15px
+  +maxWidth768()
+    padding: 10px 5px  // original: 20px 5px
 
   +minWidth2000()
     max-width: 70%
 
-  // & > div:first-child:not(.recent-posts)
+  // & > div:first-child:not(.nc)
   //   @extend .cardHover
   //   align-self: flex-start
   //   padding: 50px 40px
-  // 
+
   //   +maxWidth768()
   //     padding: 36px 14px
 
   & > div:first-child
     width: 74%
-    transition: all .3s, color .0s
+    transition: all .3s, color .0s, font-size .0s
 
     +maxWidth900()
       width: 100% !important

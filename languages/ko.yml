@@ -30,7 +30,7 @@ post:
     author: 작성자
     link: 링크
     copyright_notice: 저작권
-    copyright_content: "모든 게시물 내용은 별도의 언급이 없는 한 <a href='%s'>%s</a> 라이센스를 따릅니다."
+    copyright_content: "모든 게시물은 별도의 언급이 없는 한 <a href='%s'>%s</a> 라이선스를 따릅니다."
   recommend: 관련 게시물
   edit: 편집
   notice_outdate:

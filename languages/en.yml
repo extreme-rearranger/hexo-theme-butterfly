@@ -30,7 +30,7 @@ post:
     author: Author
     link: Link
     copyright_notice: Copyright
-    copyright_content: 'All articles on this blog are licensed under <a href="%s">%s</a> unless otherwise stated.'
+    copyright_content: 'All articles are licensed under <a href="%s">%s</a> unless otherwise stated.'
   recommend: Related Articles
   edit: Edited on
   notice_outdate:
@@ -75,7 +75,7 @@ aside:
     last_push_date:
       name: Last Update
     site_wordcount: Word Count
-    site_uv_name: Unique Visitors
+    site_uv_name: Unique Visits
     site_pv_name: Page Views
   more_button: View More
   card_newest_comments:

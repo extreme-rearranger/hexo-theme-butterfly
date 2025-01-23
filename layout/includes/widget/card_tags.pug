@@ -14,6 +14,6 @@ if theme.aside.card_tags.enable
         - limit = limit === 0 ? 0 : limit || 40
 
         if theme.aside.card_tags.color
-          .card-tag-cloud!= tagcloud({lang: lang, source: site.tags, orderby: orderby, order: order, min_font: 0.9, max_font: 0.9, limit: limit, unit: 'rem', color: true, start_color: '#999', end_color: '#99a9bf'})
+          .card-tag-cloud!= tagcloud({lang: lang, source: site.tags, orderby: orderby, order: order, min_font: 0.95, max_font: 0.95, limit: limit, unit: 'em', color: true, start_color: '#999', end_color: '#99a9bf'})
         else
-          .card-tag-cloud!= tagcloud({lang: lang, source: site.tags, orderby: orderby, order: order, min_font: 0.9, max_font: 0.9, amount: limit, unit: 'rem'})
+          .card-tag-cloud!= tagcloud({lang: lang, source: site.tags, orderby: orderby, order: order, min_font: 0.95, max_font: 0.95, amount: limit, unit: 'em'})

@@ -65,7 +65,7 @@ hexo.extend.helper.register('tagcloud', function (options = {}) {
   tags.forEach(tag => {
     const ratio = length ? sizes.indexOf(tag.length) / length : 0
     const size = min_font + ((max_font - min_font) * ratio)
-    let style = `font-size: ${parseFloat(size.toFixed(2))}${unit}; vertical-align: middle;`
+    let style = `font-size: ${parseFloat(size.toFixed(2))}${unit}; vertical-align: middle; min-height: 24px;`
     let midColor
     if (color) {
       if (!randomColor){
