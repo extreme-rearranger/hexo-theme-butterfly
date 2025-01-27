@@ -7,13 +7,13 @@
     else
       padding-right: 15px
 
-  +maxWidth900()
+  +maxWidth1024()  // original: +maxWidth900()
     width: 100%
 
   > .card-widget:first-child
     margin-top: 0
 
-    +maxWidth900()
+    +maxWidth1024()  // +maxWidth900()
       margin-top: 1.2em  // original: 20px
 
   .card-widget
@@ -30,7 +30,7 @@
     
     // additionals
     > :nth-child(2)
-      max-height: 15em
+      max-height: 240px
       overflow-x: hidden
       overflow-y: auto
 
@@ -98,7 +98,7 @@
       transition: top .3s
     
     // additionals
-    +maxWidth900()
+    +minWidth600maxWidth900()
       display: flex
       flex-direction: row
       flex-wrap: wrap
@@ -117,15 +117,30 @@
 
   .card-tag-cloud
     a
-      display: inline-block
-      padding: 0.3em 0.4em  //original: 0 4px
+      display: inline-flex
+      // padding: 0 4px
       border-radius: 0.2em
       line-height: 1
-      color: var(--font-color);
+      color: var(--font-color)
+
+      // additionals
+      margin: 3px
+      border: 1px solid rgba(136, 136, 136, 0.2)
+      line-clamp: 1
+      word-break: break-all
+      min-height: 24px
 
       &:hover
-        background: var(--sub-theme-color-light30)
-        color: var(--white) !important
+        background: var(--theme-color30)
+
+      span
+        padding: 0.23em 0.4em 0.2em
+        margin: auto
+
+        &:first-child
+          border-right: 1px solid rgba(136, 136, 136, 0.2)
+          line-clamp: 1
+          -webkit-line-clamp: 1
 
   .aside-list
     & > span
@@ -262,15 +277,16 @@
 
   // toc
   #card-toc
-    +minWidth900()
-      right: 0 !important
+    // +minWidth900()
+    //   right: 0 !important
 
-    +maxWidth900()
+    +maxWidth1024()  // +maxWidth900()
       position: fixed
       right: 4em  // original: 55px
-      bottom: 30px
+      bottom: 15px  // original: 30px
+      margin-bottom: 0
       z-index: 100
-      max-width: calc(min(60%, 380px))
+      max-width: calc(min(100%, 380px))
       max-height: calc(100% - 60px)
       width: $toc-mobile-width
       transition: none
@@ -294,7 +310,7 @@
       max-height: calc(60vh - 120px)
       width: calc(100% + 48px)
 
-      +maxWidth900()
+      +maxWidth1024()  // +maxWidth900()
         max-height: calc(100vh - 140px)
 
       & > *
@@ -309,7 +325,7 @@
         .toc-child
           display: none
 
-          +maxWidth900()
+          +maxWidth1024()  // +maxWidth900()
             display: block !important
 
         .toc-item

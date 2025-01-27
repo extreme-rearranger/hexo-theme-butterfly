@@ -41,7 +41,7 @@ $indexEnable = hexo-config('cover.index_enable')
       display: block !important
       height: auto !important
 
-    .post_cover
+    .post-cover
       overflow: hidden
 
       if (($indexLayout != 5) && ($indexLayout != 7))
@@ -60,10 +60,10 @@ $indexEnable = hexo-config('cover.index_enable')
 
           &:not(.no-cover)
             right: 0
-            mask-image: linear-gradient(to left, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.2) 20%, transparent 100%);
+            mask-image: linear-gradient(to left, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.2) 20%, transparent 100%);
           // &.left
           //   left: 0
-          //   mask-image: linear-gradient(to right, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.2) 20%, transparent 100%);
+          //   mask-image: linear-gradient(to right, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.2) 20%, transparent 100%)
 
         &.right
           order: 1
@@ -94,9 +94,13 @@ $indexEnable = hexo-config('cover.index_enable')
         @extend .imgHover
 
     & >.recent-post-info
-      +maxWidth768()
-        padding: 0 1.4em // original: 20px 20px 30px
-        // width: 100%
+      // +maxWidth768()
+      //   padding: 20px 20px 30px
+      //   width: 100%
+      
+      // additionals
+      +maxWidth900()
+        padding: 0 1.4em
       
       // additionals
       +maxWidth768()
@@ -143,7 +147,7 @@ $indexEnable = hexo-config('cover.index_enable')
         color: var(--text-highlight-color)
         font-size: 1.4em  // original: 1.55em
         line-height: 1.4
-        transition: color .2s ease-in-out
+        transition: font-size .2s
         -webkit-line-clamp: 2
         // additionals
         font-weight: 400
@@ -163,6 +167,8 @@ $indexEnable = hexo-config('cover.index_enable')
 
         &:hover
           color: var(--text-hover)
+          // additionals
+          transition: color .2s ease-in-out
 
       & > .article-meta-wrap
         margin: 0.4em 2px 0.6em  //original: 6px 0

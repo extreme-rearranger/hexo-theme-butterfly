@@ -39,33 +39,36 @@ hexo.extend.helper.register('tagcloud', function (options = {}) {
     });
   }).filter(category => category !== null);
   
-  let result = ''
-  if (limit > 0) {
-    tags = tags.sort((a, b) => b.length - a.length).slice(0, limit)
-  }
-  
-  const sizes = []
-  tags.sort((a, b) => a.length - b.length).forEach(tag => {
-    const { length } = tag
-    if (sizes.includes(length)) return
-    sizes.push(length)
-  })
-  
   // Sort the tags
   if (orderby === 'random' || orderby === 'rand') {
     tags = tags.map(value => ({ value, sort: Math.random() }))
     .sort((a, b) => a.sort - b.sort)
     .map(({ value }) => value)
   }
-  else {
-    tags = tags.sort(orderby, order);
+  else if (orderby === 'name') {
+    tags = tags.sort((a, b) => a.name.localeCompare(b.name))
   }
+  else if (orderby === 'length') {
+    tags = tags.sort((a, b) => a.length - b.length)
+  }
+  if (order === -1) {
+    tags = tags.reverse()
+  }
+
+  let result = ''
+  if (limit > 0) {
+    tags = tags.slice(0, limit)
+  }
+  
+  const sizes = tags.map(tag => tag.length)
+    .filter((value, index, self) => self.indexOf(value) === index)
+    .sort((a, b) => a - b);
   
   const length = sizes.length - 1
   tags.forEach(tag => {
     const ratio = length ? sizes.indexOf(tag.length) / length : 0
     const size = min_font + ((max_font - min_font) * ratio)
-    let style = `font-size: ${parseFloat(size.toFixed(2))}${unit}; vertical-align: middle; min-height: 24px;`
+    let style = `font-size: ${parseFloat(size.toFixed(2))}${unit};`
     let midColor
     if (color) {
       if (!randomColor){
@@ -79,7 +82,7 @@ hexo.extend.helper.register('tagcloud', function (options = {}) {
       }
     }
     if (show_size) {
-      result += `<a href="${env.url_for(tag.path)}" style="${style}">${tag.name} (${tag.length})</a>`
+      result += `<a href="${env.url_for(tag.path)}" style="${style}"><span>${tag.name}</span><span>${tag.length}</span></a>`
     } else {
       result += `<a href="${env.url_for(tag.path)}" style="${style}">${tag.name}</a>`
     }

@@ -11,7 +11,10 @@
   max-width: 1400px // original: 1200px
   width: 100%
 
-  +maxWidth900()
+  // additionals
+  transition: padding .2s
+
+  +maxWidth1024()  // +maxWidth900()
     flex-direction: column
 
   +maxWidth768()
@@ -30,9 +33,9 @@
 
   & > div:first-child
     width: 74%
-    transition: all .3s, color .0s, font-size .0s
+    transition: all .3s, color .0s, font-size .2s
 
-    +maxWidth900()
+    +maxWidth1024()  // +maxWidth900()
       width: 100% !important
 
     if hexo-config('aside.position') == 'left'

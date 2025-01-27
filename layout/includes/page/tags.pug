@@ -1,2 +1,6 @@
-.tag-cloud-list.text-center.tags-random
-  !=tagcloud({lang: page.lang, source: site.tags, orderby: page.orderby || 'random', order: page.order || 1, min_font: 1, max_font: 1.3, limit: 0, unit: 'em', color: true, show_size: true})
+- let classList = ['tag-cloud-list', 'color-random']
+if page.orderby === 'random'
+  - classList.push('tags-random')
+
+div(class=classList.join(' '))
+  !=tagcloud({lang: page.lang, source: site.tags, orderby: page.orderby, order: page.order || 1, min_font: 1, max_font: 1.2, limit: 0, unit: 'em', color: true, show_size: true})

@@ -999,6 +999,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initAdjust()
     justifiedIndexPostUI()
     changeTagOrder()  // 추가된 항목 : 태그 순서 매번 랜덤하게 변경
+    changeTagColor()  // 추가된 항목 : 태그 색상 매번 랜덤하게 변경
 
     if (GLOBAL_CONFIG_SITE.pageType === 'post') {
       GLOBAL_CONFIG.noticeOutdate !== undefined && addPostOutdateNotice()
@@ -1029,6 +1030,16 @@ document.addEventListener('DOMContentLoaded', function () {
       randomChildren.sort((a, b) => b.rand - a.rand);
       randomChildren.forEach(randomObj => item.appendChild(randomObj.child));
       console.log('reorder tags');
+    })
+  }
+
+  // 추가된 항목 : 태그 색상 매번 랜덤하게 변경
+  const changeTagColor = () => {
+    const $tags = document.getElementsByClassName('color-random')
+    if (!$tags) return
+    Array.from($tags).forEach(item => {
+      midColor = 'rgb(' + Math.floor(Math.random() * 100+100) + ', ' + Math.floor(Math.random() * 100+100) + ', ' + Math.floor(Math.random() * 100+100) + ')' // 0,0,0 -> 155,155,155
+      item.style.color = midColor
     })
   }
 

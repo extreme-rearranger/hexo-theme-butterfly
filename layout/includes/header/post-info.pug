@@ -1,4 +1,5 @@
 - let comments = theme.comments
+- let postWordcount = theme.wordcount.enable && (theme.wordcount.post_wordcount || theme.wordcount.min2read)
 #post-info
   each langPrefix, lang in langPrefices
     div(lang-type='relative' language=lang)
@@ -13,11 +14,11 @@
         each langPrefix, lang in langPrefices
           span.post-meta-date(lang-type='relative' language=lang)
             if (theme.post_meta.post.date_type === 'both')
-              i.far.fa-calendar-plus.fa-fw.post-meta-icon
+              i.far.fa-calendar-plus.post-meta-icon
               span.post-meta-label= _p(langPrefix+'post.created')
               time.post-meta-date-created(datetime=date_xml(page.date) title=_p(langPrefix+'post.created') + ' ' + full_date(page.date, format=config.full_date_format) language=lang)=date(page.date, config.date_format)
               span.post-meta-separator |
-              i.fas.fa-history.fa-fw.post-meta-icon
+              i.fas.fa-history.post-meta-icon
               span.post-meta-label= _p(langPrefix+'post.updated')
               time.post-meta-date-updated(datetime=date_xml(page.updated) title=_p(langPrefix+'post.updated') + ' ' + full_date(page.updated, format=config.full_date_format) language=lang)=date(page.updated, config.date_format)
             else
@@ -25,24 +26,24 @@
               - let date_type = data_type_update ? 'updated' : 'date'
               - let date_icon = data_type_update ? 'fas fa-history' :'far fa-calendar-plus'
               - let date_title = data_type_update ? _p(langPrefix+'post.updated') : _p(langPrefix+'post.created')
-              i.fa-fw.post-meta-icon(class=date_icon)
+              i.post-meta-icon(class=date_icon)
               span.post-meta-label= date_title
               time(datetime=date_xml(page[date_type]) title=date_title + ' ' + full_date(page[date_type], format=config.full_date_format) language=lang)=date(page[date_type], config.date_format)
-    
-    .meta-secondline
-      - let postWordcount = theme.wordcount.enable && (theme.wordcount.post_wordcount || theme.wordcount.min2read)
       if (postWordcount)
         span.post-meta-separator |
+    
+    .meta-secondline
+      if (postWordcount)
         span.post-meta-wordcount
           if theme.wordcount.post_wordcount
-            i.far.fa-file-word.fa-fw.post-meta-icon
+            i.far.fa-file-word.post-meta-icon
             each langPrefix, lang in langPrefices
               span(lang-type='relative' language=lang).post-meta-label= _p(langPrefix+'post.wordcount')
             span.word-count= wordcount(page.content)
         if theme.wordcount.min2read
           span.post-meta-separator |
           span.post-meta-min2read
-            i.far.fa-clock.fa-fw.post-meta-icon
+            i.far.fa-clock.post-meta-icon
             each langPrefix, lang in langPrefices
               span(lang-type='relative' language=lang).post-meta-label= _p(langPrefix+'post.min2read')
             each langPrefix, lang in langPrefices
@@ -53,7 +54,7 @@
       mixin pvBlock(parent_id,parent_class,parent_title)
         span.post-meta-separator |
         span(class=parent_class id=parent_id data-flag-title=page.title)
-          i.far.fa-eye.fa-fw.post-meta-icon
+          i.far.fa-eye.post-meta-icon
           each langPrefix, lang in langPrefices
             span(lang-type='relative' language=lang).post-meta-label=_p(langPrefix+'post.page_pv')
           if block
@@ -98,7 +99,7 @@
         mixin countBlock
           span.post-meta-separator |
           span.post-meta-commentcount
-            i.far.fa-comments.fa-fw.post-meta-icon
+            i.far.fa-comments.post-meta-icon
             each langPrefix, lang in langPrefices
               span(lang-type='relative' language=lang).post-meta-label= _p(langPrefix+'post.comments') + ':'
             if block
@@ -148,21 +149,36 @@
                 span#ArtalkCount
                   i.fa-solid.fa-spinner.fa-spin
 
-      if (theme.post_meta.post.categories && page.categories.data.length > 0)
-        span.post-meta-separator |
-
     .meta-thirdline
       if (theme.post_meta.post.categories && page.categories.data.length > 0)
         each langPrefix, lang in langPrefices
           span.post-meta-categories(lang-type='relative' language=lang)
-            i.far.fa-folder-closed.fa-fw.post-meta-icon
+            i.far.fa-folder-closed.post-meta-icon
             span.post-meta-label= _p(langPrefix + 'page.category')
         - let category_hier = list_categories(page.categories, {show_count: false, add_icon: true})
         !=category_hier
+        if page.sticky_categories.length > 0
+          div.category-list.sticky
+            each item, index in page.sticky_categories
+              - let item_path = page.categories.data.find((category) => category.name === item).path
+              a.category-list-link(href=url_for_lang(item_path) lang-type='relative') #[=item]
+              if (index < page.sticky_categories.length - 1)
+                span #[='•']
+            if (theme.post_meta.post.tags && page.tags.length > 0)
+              span.post-meta-separator |
     
     .tag_share
-      if (page.tags.length > 0 && theme.post_meta.post.tags)
+      if (theme.post_meta.post.tags && page.tags.length > 0)
+        each langPrefix, lang in langPrefices
+          span.post-meta-tags(lang-type='relative' language=lang)
+            i.fas.fa-hashtag.post-meta-icon
+            span.post-meta-label= _p(langPrefix + 'page.tag')
         .post-meta__tag-list
           each item, index in page.tags.data
-            a(href=url_for_lang(item.path) lang-type='relative' language=lang).post-meta__tags #[='# ' + item.name]
+            if page.sticky_tags.includes(item.name)
+              a.sticky(href=url_for_lang(item_path) lang-type='relative' language=lang).post-meta__tags #[=item.name]
+              span.tag-separator.sticky #[='•']
+            else
+              a.not-sticky(href=url_for_lang(item.path) lang-type='relative' language=lang).post-meta__tags #[=item.name]
+              span.tag-separator.not-sticky #[='•']
       
