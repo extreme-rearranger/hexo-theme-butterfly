@@ -176,7 +176,7 @@
         .post-meta__tag-list
           each item, index in page.tags.data
             if page.sticky_tags.includes(item.name)
-              a.sticky(href=url_for_lang(item_path) lang-type='relative' language=lang).post-meta__tags #[=item.name]
+              a.sticky(href=url_for_lang(item.path) lang-type='relative' language=lang).post-meta__tags #[=item.name]
               span.tag-separator.sticky #[='•']
             else
               a.not-sticky(href=url_for_lang(item.path) lang-type='relative' language=lang).post-meta__tags #[=item.name]

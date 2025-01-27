@@ -994,6 +994,12 @@ document.addEventListener('DOMContentLoaded', function () {
     clickFnOfTagHide()
     tabsFn()
   }
+  const forGalleryFn = () => {
+    addJustifiedGallery(document.querySelectorAll('.gallery-container'), true)
+  }
+  const forCarouselFn = () => {
+    btf.loadLightbox(document.querySelectorAll('.carousel img:not(.no-lightbox)'))
+  }    
 
   const refreshFn = () => {
     initAdjust()
@@ -1013,8 +1019,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     GLOBAL_CONFIG_SITE.pageType === 'home' && scrollDownInIndex()
     scrollFn()
-
-    forPostFn()
+    GLOBAL_CONFIG_SITE.pageType === 'post' && forPostFn()
+    GLOBAL_CONFIG_SITE.pageSubType === 'gallery' && forGalleryFn()
+    GLOBAL_CONFIG_SITE.pageSubType === 'carousel' && forCarouselFn()
     GLOBAL_CONFIG_SITE.pageType !== 'shuoshuo' && btf.switchComments(document)
     openMobileMenu()
   }

@@ -23,7 +23,7 @@ if theme.aside.card_post_series.enable
                   if item.cover === false
                     img(src=url_for(cover) onerror=`this.onerror=null;this.src='${url_for(theme.error_img.post_page)}'` alt=title)
                   else
-                    img.cover(src=url_for(cover) onerror=`this.onerror=null;this.src='${url_for(theme.error_img.post_page)}'` alt=title)
+                    img.thumbnail-cover(src=url_for(cover) onerror=`this.onerror=null;this.src='${url_for(theme.error_img.post_page)}'` alt=title)
                 else
                   div(style=`background: ${cover}`)
             .content

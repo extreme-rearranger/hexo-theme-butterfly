@@ -21,5 +21,6 @@ script#config-diff.
     title: '!{titleVal}',
     isHighlightShrink: !{isHighlightShrink},
     isToc: !{showToc},
-    pageType: '!{page.type == 'shuoshuo' ? 'shuoshuo' : globalPageType}'
+    pageType: '!{page.type == 'shuoshuo' ? 'shuoshuo' : globalPageType}',
+    pageSubType: '!{page.subtype || ''}',
   }

@@ -19,7 +19,7 @@ mixin articleSort(posts)
                 if article.cover === false
                   img(src=url_for(post_cover) alt=title onerror=`this.onerror=null;this.src='${url_for(theme.error_img.post_page)}'`)
                 else
-                  img.cover(src=url_for(post_cover) alt=title onerror=`this.onerror=null;this.src='${url_for(theme.error_img.post_page)}'`)
+                  img.thumbnail-cover(src=url_for(post_cover) alt=title onerror=`this.onerror=null;this.src='${url_for(theme.error_img.post_page)}'`)
               else
                 div(style=`background: ${post_cover}`)
           .article-sort-item-info
