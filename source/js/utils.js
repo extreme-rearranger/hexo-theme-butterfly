@@ -191,6 +191,18 @@
       return actualTop
     },
 
+    getEleLeft: ele => {
+      let actualLeft = ele.offsetLeft
+      let current = ele.offsetParent
+
+      while (current !== null) {
+        actualLeft += current.offsetLeft
+        current = current.offsetParent
+      }
+      
+      return actualLeft
+    },
+
     loadLightbox: ele => {
       const service = GLOBAL_CONFIG.lightbox
 
