@@ -70,8 +70,16 @@ hexo.extend.helper.register('injectHtml', function (data) {
 
 hexo.extend.helper.register('findArchivesTitle', function (page, menu, date) {
   if (page.year) {
-    const dateStr = page.month ? `${page.year}-${page.month}` : `${page.year}`
-    const dateFormat = page.month ? hexo.theme.config.aside.card_archives.format : 'YYYY'
+    let dateStr = `${page.year}`
+    let dateFormat = 'YYYY'
+    if (page.month) {
+      dateStr += `-${page.month}`
+      dateFormat = 'YYYY-MM'
+      if (page.day) {
+        dateStr += `-${page.day}`
+        dateFormat = 'YYYY-MM-DD'
+      }
+    }
     return date(dateStr, dateFormat)
   }
 

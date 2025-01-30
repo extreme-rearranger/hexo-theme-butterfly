@@ -1,18 +1,28 @@
 - var pageTitle
 - var langPrefixDefault = is_default_language(page.lang) ? `${display_languages()[0]}.` : `${page.lang}.`
-- globalPageType === 'archive' ? page.title = findArchivesTitle(page, theme.menu, date) : ''
+- globalPageType === 'archive' ? page.title = `${findArchivesTitle(page, theme.menu, date)}` : ''
 case globalPageType
   when 'tag'
-    - pageTitle = _p(langPrefixDefault+'page.tag') + ': ' + page.tag
+    - pageTitle = `${_p(langPrefixDefault+'page.tag')}: ${page.tag}`
   when 'category'
-    - pageTitle = _p(langPrefixDefault+'page.category') + ': ' + page.category
+    - pageTitle = `${_p(langPrefixDefault+'page.category')}: ${page.category}`
   when '404'
     - pageTitle = _p(langPrefixDefault+'error404')
   default
     - pageTitle = page.title || config.title || ''
 
 - var isSubtitle = config.subtitle ? ' - ' + config.subtitle : ''
-- var tabTitle = is_home() || !pageTitle ? config.title + isSubtitle : pageTitle + ' | ' + config.title
+- var tabTitle
+if is_home() || !pageTitle
+  if !is_default_language(page_language())
+    - tabTitle = `${config.title} ${isSubtitle} (${page_language()})`
+  else
+  - tabTitle = `${config.title} ${isSubtitle}`
+else
+  if !is_default_language(page_language())
+    - tabTitle = `${pageTitle} (${page_language()}) | ${config.title}`
+  else
+    - tabTitle = `${pageTitle} | ${config.title}`
 - var pageAuthor = config.email ? config.author + ',' + config.email : config.author
 - var pageCopyright = config.copyright || config.author
 - var themeColorLight = theme.theme_color && theme.theme_color.enable && theme.theme_color.meta_theme_color_light || '#ffffff'
