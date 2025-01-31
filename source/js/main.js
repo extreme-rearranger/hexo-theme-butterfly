@@ -998,6 +998,7 @@ document.addEventListener('DOMContentLoaded', function () {
     addJustifiedGallery(document.querySelectorAll('.gallery-container'), true)
   }
   const forCarouselFn = () => {
+    GLOBAL_CONFIG.lightbox = 'medium_zoom'
     btf.loadLightbox(document.querySelectorAll('.carousel img:not(.no-lightbox)'))
   }    
 
