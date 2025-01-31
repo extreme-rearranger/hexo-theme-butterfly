@@ -41,8 +41,16 @@ mixin indexPostUI()
               = title
             .article-meta-wrap
               if theme.post_meta.page.date_type
+                span.post-meta-lang
+                  if is_default_language(article.lang)
+                    - post_langs = display_languages()
+                  else
+                    - post_langs = [article.lang]
+                  each lang in post_langs
+                    i.fontagon-icons(class=`ft-icon-${lang}-box`)
                 each langPrefix, lang in langPrefices
                   span.post-meta-date(lang-type='relative' language=lang)
+                    span.article-meta-separator |
                     if theme.post_meta.page.date_type === 'both'
                       i.fas.fa-calendar-plus
                       span.article-meta-label=_p(langPrefix+'post.created')
@@ -61,11 +69,11 @@ mixin indexPostUI()
                       span.article-meta-label= date_title
                       time(class=date_class datetime=date_xml(article[date_type]) title=date_title + ' ' + full_date(article[date_type], format=config.full_date_format) language=lang)= date(article[date_type], config.date_format)
               if (theme.post_meta.page.categories && article.categories.data.length > 0 && article.sticky_categories)
-                span.article-meta
+                span.article-meta.categories
                   span.article-meta-separator |
+                  i.fas.fa-folder-open
                   each item, index in article.sticky_categories
                     - let item_path = article.categories.data.find((category) => category.name === item).path
-                    i.fas.fa-folder-open
                     if is_default_language(article.lang)
                       a(href=url_for_lang(item_path) lang-type='relative').article-meta__categories #[=item]
                     else
@@ -75,9 +83,9 @@ mixin indexPostUI()
               if (theme.post_meta.page.tags && article.tags.data.length > 0 && article.sticky_tags)
                 span.article-meta.tags
                   span.article-meta-separator |
+                  i.fas.fa-tags
                   each item, index in article.sticky_tags 
                     - let item_path = article.tags.data.find((tag) => tag.name === item).path
-                    i.fas.fa-tag
                     if is_default_language(article.lang)
                       a(href=url_for_lang(item_path) lang-type='relative').article-meta__tags #[=item]
                     else

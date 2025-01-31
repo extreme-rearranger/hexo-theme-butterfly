@@ -96,17 +96,13 @@ include ./head/config_site.pug
 
 
 - let injectList = theme.inject.head || []
-if globalPageType === 'home'
-  //- inject home css if given
-  if theme.inject.head_home
-    - injectList = injectList.concat(theme.inject.head_home)
-else
-  //- inject page or post css from markdown frontmatter if given
-  if page.inject_head
-    - injectList = injectList.concat(page.inject_head)
-  if globalPageType === 'post' && theme.inject.head_post
-    - injectList = injectList.concat(theme.inject.head_post)
-  if globalPageType === '404' && theme.inject.head_404
-    - injectList = injectList.concat(theme.inject.head_404)
+if page.inject_head
+  - injectList = injectList.concat(page.inject_head)
+if globalPageType === 'post' && theme.inject.head_post
+  - injectList = injectList.concat(theme.inject.head_post)
+if ['home','tag', 'category', 'archive'].includes(globalPageType) && theme.inject.head_indexPost
+  - injectList = injectList.concat(theme.inject.head_indexPost)
+if globalPageType === '404' && theme.inject.head_404
+  - injectList = injectList.concat(theme.inject.head_404)
 
 !=injectHtml(injectList)
