@@ -228,7 +228,6 @@ beautify()
   #post-outdate-notice
     position: relative
     margin: 0 0 20px
-    padding: .5em 1.2em
     background-color: $noticeOutdate-bg
     color: $noticeOutdate-color
     addBorderRadius(3)
@@ -248,6 +247,9 @@ beautify()
         color: $noticeOutdate-border
         content: '\f071'
         transform: translateY(-50%)
+    
+    else 
+      padding: .5em 1.2em
 
   .ads-wrap
     margin: 40px 0

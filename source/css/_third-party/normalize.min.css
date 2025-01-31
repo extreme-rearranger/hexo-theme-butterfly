@@ -34,8 +34,7 @@ a {
 
 abbr[title] {
   border-bottom: none;
-  text-decoration: underline;
-  text-decoration: underline dotted
+  text-decoration: underline dotted;
 }
 
 b,
@@ -99,7 +98,7 @@ select {
 [type=reset],
 [type=submit],
 button {
-  -webkit-appearance: button
+  appearance: button
 }
 
 [type=button]::-moz-focus-inner,
@@ -108,13 +107,6 @@ button {
 button::-moz-focus-inner {
   border-style: none;
   padding: 0
-}
-
-[type=button]:-moz-focusring,
-[type=reset]:-moz-focusring,
-[type=submit]:-moz-focusring,
-button:-moz-focusring {
-  outline: 1px dotted ButtonText
 }
 
 fieldset {
