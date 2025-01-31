@@ -46,7 +46,7 @@
         overflow: hidden
         text-overflow: ellipsis
         white-space: nowrap
-        -webkit-line-clamp: 1
+        line-clamp: 1
 
     .card-info-data
       margin: 14px 0 4px
@@ -140,7 +140,6 @@
         &:first-child
           border-right: 1px solid rgba(136, 136, 136, 0.2)
           line-clamp: 1
-          -webkit-line-clamp: 1
 
   .aside-list
     & > span
@@ -177,7 +176,7 @@
 
         & > .name
           @extend .limit-more-line
-          -webkit-line-clamp: 1
+          line-clamp: 1
 
         & > time,
         & > .name
@@ -191,7 +190,7 @@
           color: var(--font-color)
           font-size: 95%
           line-height: 1.5
-          -webkit-line-clamp: 1  // original: 2
+          line-clamp: 1  // original: 2
 
           &:hover
             color: var(--text-hover)
