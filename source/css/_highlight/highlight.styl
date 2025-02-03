@@ -229,6 +229,7 @@ if hexo-config('code_blocks.height_limit')
           overflow: hidden
           height: unit(hexo-config('code_blocks.height_limit'), px)
   
+  vendors = 'official'
   @keyframes code-expand-key
     0%
       opacity: .6
@@ -264,6 +265,7 @@ if hexo-config('code_blocks.fullpage')
           height: calc(100vh - 2.15em)
           margin-bottom: 0
 
+  vendors = 'official'
   @keyframes code-fullpage
     0%,
     100%
