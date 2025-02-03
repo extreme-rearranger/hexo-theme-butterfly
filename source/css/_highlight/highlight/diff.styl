@@ -1,7 +1,10 @@
 figure.highlight
   table
     // scrollbar - firefox
-    scrollbar-color: var(--hlscrollbar-bg) transparent
+    @-moz-document url-prefix()
+      *
+        scrollbar-width: thin
+        scrollbar-color: var(--hlscrollbar-bg) transparent
     
     &::-webkit-scrollbar-thumb
       background: var(--hlscrollbar-bg)

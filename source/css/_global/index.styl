@@ -45,7 +45,6 @@ body
   font-size: var(--global-font-size)
   font-family: $font-family
   line-height: $text-line-height
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
   scroll-behavior: smooth
   min-width: 320px
   // additionals
@@ -53,6 +52,12 @@ body
 
   if !hexo-config('copy.enable')
     user-select: none
+
+// scrollbar - firefox
+@-moz-document url-prefix()
+  *
+    scrollbar-width: thin
+    scrollbar-color: var(--scrollbar-color) transparent
 
 // scrollbar - chrome/safari
 *::-webkit-scrollbar
@@ -64,11 +69,6 @@ body
 
 *::-webkit-scrollbar-track
   background-color: transparent
-
-// scrollbar - firefox
-*
-  scrollbar-width: thin
-  scrollbar-color: var(--scrollbar-color) transparent
 
 input::placeholder
   color: var(--font-color)
